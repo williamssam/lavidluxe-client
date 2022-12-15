@@ -7,6 +7,7 @@ import logo from '../../assets/images/logo-three.png'
 import { Filter } from '../../components/Filter'
 import { Layout } from '../../components/Layout'
 import { StoreLayout } from '../../components/StoreLayout'
+import laviduxe from '../../public/lavidluxe-two.jpg'
 import { openCartDrawer } from '../../store/drawerAtom'
 
 const Store = () => {
@@ -68,12 +69,12 @@ const Store = () => {
                 key={product.id}
                 className='group transition-colors'>
                 <div className='relative'>
-                  <img
-                    src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
-                    alt=''
-                    className='rounded'
+                  <Image
+                    alt='product'
+                    src={laviduxe}
+                    className='h-80 lg:h-[35rem] rounded object-cover object-top'
+                    // src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
                   />
-
                   <Image
                     alt='lavidluxe logo'
                     src={logo}
