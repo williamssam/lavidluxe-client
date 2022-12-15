@@ -10,7 +10,7 @@ const Home = () => {
         <title>Home - Lavidluxe</title>
       </Head>
 
-      <main className='flex min-h-screen items-center'>
+      <main className='flex min-h-screen items-center bg-hero-bg bg-cover bg-left'>
         <h2 className='text-gray-400'>Welcome to our homepage.</h2>
         <Link
           href='/shop/all'

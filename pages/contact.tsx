@@ -123,7 +123,7 @@ const Contact = () => {
                 <textarea
                   name='message'
                   id='message'
-                  className='px-3 py-3 ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 rounded text-gray-700 h-52 w-full resize-none'></textarea>
+                  className='px-3 py-3 ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 h-52 w-full resize-none'></textarea>
               </div>
 
               <button

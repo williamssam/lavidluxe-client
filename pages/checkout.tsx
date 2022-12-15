@@ -1,6 +1,8 @@
 import { ChevronLeftIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
+import { TextInput } from '../components/TextInput'
 import hero from '../public/hero.jpg'
 
 const Checkout = () => {
@@ -10,9 +12,11 @@ const Checkout = () => {
         <title>Checkout - Lavidluxe</title>
       </Head>
 
-      <main className='min-h-screen transition-all grid grid-cols-5 w-screen overflow-x-hidden'>
-        <section className='pl-40 pr-20 py-20 col-span-3'>
-          <h1 className='font-vollkorn font-bold text-xl'>Lavidluxe</h1>
+      <main className='min-h-screen transition-all grid grid-cols-1 md:grid-cols-5 w-screen overflow-x-hidden'>
+        <section className='px-4 lg:px-10 xl:pl-40 xl:pr-20 py-10 lg:py-20 col-span-3'>
+          <h1 className='font-vollkorn font-bold text-xl'>
+            <Link href='/'>Lavidluxe</Link>
+          </h1>
 
           {/* form steps */}
           <p className='text-xs pt-2 flex gap-2'>
@@ -22,9 +26,9 @@ const Checkout = () => {
           </p>
 
           {/* information */}
-          {/* <form>
+          <form>
             <div className='mt-10'>
-              <div className='flex items-center justify-between text-xs'>
+              <div className='flex flex-col md:flex-row items-start md:items-center justify-between text-xs'>
                 <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
                   Contact information
                 </h3>
@@ -68,7 +72,7 @@ const Checkout = () => {
                 placeholder='Enter your address'
               />
 
-              <div className='flex items-center justify-between w-full'>
+              <div className='flex flex-col lg:flex-row items-start lg:items-center justify-between w-full'>
                 <TextInput
                   label='City'
                   type='text'
@@ -96,45 +100,45 @@ const Checkout = () => {
               </div>
             </div>
 
-            <footer className='flex items-center justify-between mt-10'>
+            <footer className='flex flex-col md:flex-row items-center lg:items-start justify-between mt-10'>
               <p className='text-sm flex items-center text-main'>
                 <ChevronLeftIcon className='w-6 h-6' />
                 <span>Return to cart</span>
               </p>
               <button
                 type='submit'
-                className='flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95'>
+                className='flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
                 Continue to shipping
               </button>
             </footer>
-          </form> */}
+          </form>
 
-          <div className='text-xs border border-gray-300 rounded py-4 px-6 mt-10 flex flex-col gap-4'>
+          {/* <div className='text-xs border border-gray-300 rounded py-4 px-4 md:px-6 mt-10 flex flex-col gap-4'>
             <div className='flex items-center justify-between border-b pb-3'>
-              <div className='flex items-center gap-10'>
+              <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
                 <p>Contact</p>
                 <p className='font-bold'>williamsdamisamuel@outlook.com</p>
               </div>
               <button className='text-main font-bold'>change</button>
             </div>
             <div className='flex items-center justify-between border-b pb-3'>
-              <div className='flex items-center gap-10'>
+              <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
                 <p>Ship to</p>
                 <p className='font-bold'>Lawal Bus Stop, Ikotun LA, Nigeria</p>
               </div>
               <button className='text-main font-bold'>change</button>
             </div>
             <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-10'>
+              <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
                 <p>Method</p>
                 <p className='font-bold'>Shipping outside Lagos. $50.00</p>
               </div>
-              {/* <button>change</button> */}
+              <button></button>
             </div>
           </div>
 
           <div className='mt-14'>
-            <div className='flex items-center justify-between text-xs'>
+            <div className='flex flex-col md:flex-row items-start md:items-center justify-between text-xs'>
               <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
                 Payment
               </h3>
@@ -146,21 +150,21 @@ const Checkout = () => {
               <p>Paystack</p>
             </div>
 
-            <footer className='flex items-center justify-between mt-10'>
+            <footer className='flex flex-col md:flex-row items-center lg:items-start justify-between mt-10'>
               <p className='text-sm flex items-center text-main'>
                 <ChevronLeftIcon className='w-6 h-6' />
                 <span>Return to information</span>
               </p>
               <button
                 type='submit'
-                className='flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95'>
+                className='flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
                 Continue to shipping
               </button>
             </footer>
-          </div>
+          </div> */}
         </section>
 
-        <section className='bg-gray-100 h-full col-span-2 p-20'>
+        <section className='bg-gray-100 h-full col-span-2 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
           <div className='border-b border-b-gray-300 pb-3'>
             <div className='flex items-center gap-5 border-b border-dashed pb-5'>
               <Image

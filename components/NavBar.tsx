@@ -27,15 +27,15 @@ export const NavBar = () => {
   ]
   return (
     <nav className='hidden lg:block'>
-      <ul className='flex items-center gap-10 text-xs uppercase'>
+      <ul className='flex items-center gap-5 text-xs uppercase font-bold'>
         {navs?.map(nav => (
           <li key={nav.id}>
             <Link
               href={nav.route}
-              className={`hover:text-main ${
+              className={`py-2 px-3 rounded ${
                 router.asPath === nav.route
-                  ? 'text-main font-black'
-                  : 'text-gray-600'
+                  ? 'text-white font-black bg-main'
+                  : 'text-gray-600 hover:text-main'
               }`}>
               {nav.name}
             </Link>

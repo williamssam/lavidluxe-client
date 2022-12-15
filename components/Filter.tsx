@@ -27,7 +27,7 @@ export const Filter = ({ setColumn, column }: FilterProps) => {
         <div className='hidden items-center justify-center gap-4 text-xs tracking-[3px] sm:flex'>
           <button
             title='Two column'
-            className={`px-2 py-[0.15rem] transition-all ${
+            className={`px-2 py-[0.15rem] rounded transition-all ${
               column === 3
                 ? 'bg-gray-300 text-gray-400 hover:bg-main/80 hover:text-gray-200'
                 : 'bg-main text-white'
@@ -37,7 +37,7 @@ export const Filter = ({ setColumn, column }: FilterProps) => {
           </button>
           <button
             title='Three column'
-            className={`px-2 py-[0.15rem]  transition-all ${
+            className={`px-2 py-[0.15rem] rounded transition-all ${
               column === 2
                 ? 'bg-gray-300 text-gray-500 hover:bg-main/80 hover:text-gray-200'
                 : 'bg-main text-white'
@@ -51,7 +51,7 @@ export const Filter = ({ setColumn, column }: FilterProps) => {
           <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
             Sort by:
           </h3>
-          <Select data={sort} className='border' />
+          <Select data={sort} className='border rounded' />
         </div>
       </div>
     </section>

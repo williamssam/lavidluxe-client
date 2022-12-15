@@ -15,10 +15,10 @@ const AboutUs = () => {
         <title>About Us - Lavidluxe</title>
       </Head>
       <main
-        className={`min-h-screen flex flex-col lg:flex-row items-center px-4 lg:px-20 justify-center pt-24 md:pt-[40rem] lg:pt-10 transition-all ${
+        className={`min-h-screen flex flex-col lg:flex-row items-center px-4 lg:px-20 justify-center pt-20 lg:pt-10 transition-all ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
-        <article className='max-w-[70ch] mx-auto'>
+        <article className='max-w-[70ch] lg:w-[55ch] mx-auto md:text-center lg:text-left py-6 lg:py-0 order-2 lg:order-1'>
           <h2 className='text-3xl lg:text-5xl uppercase tracking-[5px] md:tracking-[10px] font-vollkorn font-bold text-main'>
             About us 😎
           </h2>
@@ -45,7 +45,7 @@ const AboutUs = () => {
           </div>
         </article>
 
-        <section className='py-6 md:my-0'>
+        <section className='md:my-0 lg:pl-10 order-1 lg:order-2'>
           <Image
             src={hero}
             alt='product image'

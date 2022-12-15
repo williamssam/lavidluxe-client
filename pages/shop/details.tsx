@@ -76,7 +76,7 @@ const Details = () => {
 
             <button
               type='button'
-              className='w-full border border-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main hover:text-white active:scale-95'>
+              className='w-full border rounded border-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main hover:text-white active:scale-95'>
               Add to cart
             </button>
           </div>
@@ -85,7 +85,7 @@ const Details = () => {
             <p className='text-center text-[0.7rem] font-bold uppercase tracking-[3px] text-main'>
               Free shipping on orders above N100,000
             </p>
-            <div className='mt-3 flex flex-col items-center justify-center bg-gray-100 py-4 text-center text-xs text-gray-500'>
+            <div className='mt-3 flex flex-col items-center justify-center bg-gray-100 py-4 text-center text-xs text-gray-500 rounded'>
               <TruckIcon className='h-8 w-8 text-gray-600' aria-hidden='true' />
               <p className='px-4 pt-2'>
                 We deliver everywhere in{' '}

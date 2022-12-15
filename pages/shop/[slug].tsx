@@ -75,6 +75,7 @@ const Store = () => {
                 <img
                   src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
                   alt=''
+                  className='rounded'
                 />
                 <div className='text-center'>
                   <p className='pt-6 text-[0.63rem] font-semibold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 md:text-xs md:tracking-[4px]'>

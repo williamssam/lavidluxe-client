@@ -30,12 +30,12 @@ export const Select = ({ data, className }: SelectProps) => {
             leave='transition ease-in duration-100'
             leaveFrom='opacity-100'
             leaveTo='opacity-0'>
-            <Listbox.Options className='absolute max-h-60 w-full overflow-auto bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+            <Listbox.Options className='absolute rounded max-h-60 w-full overflow-auto bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
               {data?.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-6 ${
+                    `relative cursor-default select-none mx-1 rounded py-2 pl-5 ${
                       active ? 'bg-main text-white' : 'text-gray-700'
                     }`
                   }

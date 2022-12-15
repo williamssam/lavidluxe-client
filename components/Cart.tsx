@@ -57,7 +57,7 @@ export const Cart = ({}: CartProps) => {
                   <button
                     type='button'
                     title='Delete item'
-                    className='w-6 h-6 flex items-center justify-center text-red-400 bg-red-100 hover:bg-red-200 hover:text-red-600 transition-all active:scale-95'>
+                    className='w-6 h-6 rounded-sm flex items-center justify-center text-red-400 bg-red-100 hover:bg-red-200 hover:text-red-600 transition-all active:scale-95'>
                     <TrashIcon className='h-3 w-3' aria-hidden='true' />
                   </button>
                 </div>
@@ -93,7 +93,7 @@ export const Cart = ({}: CartProps) => {
       {cartitems.length > 0 ? (
         <Link
           href='/checkout'
-          className='w-full flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>
+          className='w-full rounded flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>
           Checkout
         </Link>
       ) : null}
