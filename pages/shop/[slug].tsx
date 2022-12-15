@@ -1,7 +1,9 @@
 import { useAtom } from 'jotai'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement, useState } from 'react'
+import logo from '../../assets/images/logo-three.png'
 import { Filter } from '../../components/Filter'
 import { Layout } from '../../components/Layout'
 import { StoreLayout } from '../../components/StoreLayout'
@@ -48,7 +50,7 @@ const Store = () => {
       </Head>
 
       <main
-        className={`min-h-screen px-4 py-10 md:p-20 md:px-10 transition-all ${
+        className={`min-h-screen px-4 py-10 md:pt-20 md:pb-10 md:px-10 transition-all ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         {/* <p>Store</p> */}
@@ -65,18 +67,19 @@ const Store = () => {
                 href='/shop/details'
                 key={product.id}
                 className='group transition-colors'>
-                {/* <Image
-								alt='product image'
-								src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-7.jpg'
-								className='object-cover'
-								width={500}
-								height={500}
-							/> */}
-                <img
-                  src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
-                  alt=''
-                  className='rounded'
-                />
+                <div className='relative'>
+                  <img
+                    src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
+                    alt=''
+                    className='rounded'
+                  />
+
+                  <Image
+                    alt='lavidluxe logo'
+                    src={logo}
+                    className='w-14 object-cover absolute right-6 bottom-5 opacity-70'
+                  />
+                </div>
                 <div className='text-center'>
                   <p className='pt-6 text-[0.63rem] font-semibold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 md:text-xs md:tracking-[4px]'>
                     The skinny in stone pony

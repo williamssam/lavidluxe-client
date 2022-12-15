@@ -1,6 +1,8 @@
 import { ShoppingBagIcon } from '@heroicons/react/20/solid'
 import { useAtom } from 'jotai'
+import Image from 'next/image'
 import Link from 'next/link'
+import logo from '../assets/images/logo.png'
 import { openCartDrawer } from '../store/drawerAtom'
 import { Cart } from './Cart'
 import { NavBar } from './NavBar'
@@ -15,13 +17,19 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <header
-        className={`absolute max-w-[115rem] left-1/2 -translate-x-1/2 top-0 right-0 z-50 flex w-full items-center justify-between bg-transparent px-6 py-3 text-gray-900 md:px-6 ${
+        className={`absolute max-w-[115rem] left-1/2 -translate-x-1/2 top-0 right-0 z-50 flex w-full items-center justify-between bg-transparent px-6 py-3 text-gray-900 md:px-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <NavBar />
 
-        <h1 className='font-oswald text-2xl font-bold uppercase text-gray-600'>
-          <Link href='/'>Lavidluxe</Link>
+        <h1 className='font-oswald text-3xl uppercase text-gray-600'>
+          <Link href='/' className='text-gray-800 font-vollkorn font-black'>
+            <Image
+              alt='lavidluxe logo'
+              src={logo}
+              className='w-full h-6 md:h-10 object-cover opacity-90'
+            />
+          </Link>
         </h1>
 
         <button

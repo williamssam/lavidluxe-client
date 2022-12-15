@@ -27,7 +27,7 @@ export const NavBar = () => {
   ]
   return (
     <nav className='hidden lg:block'>
-      <ul className='flex items-center gap-5 text-xs uppercase font-bold'>
+      <ul className='flex items-center gap-3 text-xs uppercase font-bold'>
         {navs?.map(nav => (
           <li key={nav.id}>
             <Link

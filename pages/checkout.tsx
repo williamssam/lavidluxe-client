@@ -2,6 +2,7 @@ import { ChevronLeftIcon } from '@heroicons/react/20/solid'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BackBtn } from '../components/BackBtn'
 import { TextInput } from '../components/TextInput'
 import hero from '../public/hero.jpg'
 
@@ -12,8 +13,9 @@ const Checkout = () => {
         <title>Checkout - Lavidluxe</title>
       </Head>
 
-      <main className='min-h-screen transition-all grid grid-cols-1 md:grid-cols-5 w-screen overflow-x-hidden'>
+      <main className='min-h-screen transition-all grid grid-cols-1 md:grid-cols-5 overflow-x-hidden'>
         <section className='px-4 lg:px-10 xl:pl-40 xl:pr-20 py-10 lg:py-20 col-span-3'>
+          <BackBtn />
           <h1 className='font-vollkorn font-bold text-xl'>
             <Link href='/'>Lavidluxe</Link>
           </h1>

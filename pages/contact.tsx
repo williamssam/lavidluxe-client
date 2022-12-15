@@ -30,13 +30,13 @@ const Contact = () => {
           <div className='mt-1 md:mt-5'>
             <ul className='grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-7 md:gap-y-10 pt-8'>
               <li>
-                <h4 className='uppercase tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Address <MapPinIcon className='w-4 h-4' />
                 </h4>
                 <p className='pt-1'>No 11, Isashi Road, Ojo Lagos</p>
               </li>
               <li>
-                <h4 className='uppercase tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Email <AtSymbolIcon className='w-4 h-4' />
                 </h4>
                 <a
@@ -46,7 +46,7 @@ const Contact = () => {
                 </a>
               </li>
               <li>
-                <h4 className='uppercase tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Phone <PhoneIcon className='w-4 h-4' />
                 </h4>
                 <a
@@ -56,7 +56,7 @@ const Contact = () => {
                 </a>
               </li>
               <li>
-                <h4 className='uppercase tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Whatsapp <Whatsapp />
                 </h4>
                 <a
@@ -66,7 +66,7 @@ const Contact = () => {
                 </a>
               </li>
               <li>
-                <h4 className='uppercase tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Facebook <Facebook />
                 </h4>
                 <a
@@ -76,7 +76,7 @@ const Contact = () => {
                 </a>
               </li>
               <li>
-                <h4 className='uppercase tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Instagram <Instagram />
                 </h4>
                 <a
@@ -105,6 +105,9 @@ const Contact = () => {
 
           <div className='px-0 pb-6 lg:pb-0 xl:px-24'>
             <form>
+              <h3 className='uppercase text=xs tracking-[4px] font-black text-gray-700 text-2xl'>
+                Get in touch
+              </h3>
               <TextInput label='Name' type='text' placeholder='' id='name' />
 
               <div className='mt-3'>

@@ -13,7 +13,7 @@ export const Breadcrumbs = () => {
   }, [router.pathname])
 
   return (
-    <p className='flex items-center gap-2 text-xs tracking-wider text-gray-400 lowercase'>
+    <p className='flex items-center gap-1 capitalize text-xs tracking-wider text-gray-400'>
       <Link className='hover:text-main transition-colors' href='/'>
         Home
       </Link>
