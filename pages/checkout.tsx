@@ -6,6 +6,8 @@ import { BackBtn } from '../components/BackBtn'
 import { TextInput } from '../components/TextInput'
 import hero from '../public/hero.jpg'
 
+const price = 17500
+
 const Checkout = () => {
   return (
     <>
@@ -110,7 +112,7 @@ const Checkout = () => {
               <button
                 type='submit'
                 className='flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
-                Continue to shipping
+                Continue shipping
               </button>
             </footer>
           </form>
@@ -184,7 +186,13 @@ const Checkout = () => {
                   <p className='text-gray-500 pt-3'>Quantity: 10</p>
                 </div>
 
-                <p className='text-base font-bold text-[#333333]'>$ 175.00</p>
+                <p className='text-base font-bold text-[#333333]'>
+                  {price.toLocaleString('default', {
+                    style: 'currency',
+                    currency: 'NGN',
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
               </div>
             </div>
           </div>

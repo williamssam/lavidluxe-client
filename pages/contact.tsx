@@ -33,7 +33,9 @@ const Contact = () => {
                 <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
                   Address <MapPinIcon className='w-4 h-4' />
                 </h4>
-                <p className='pt-1'>No 11, Isashi Road, Ojo Lagos</p>
+                <p className='pt-[0.15rem] flex px-2'>
+                  No 11, Isashi Road, Ojo Lagos
+                </p>
               </li>
               <li>
                 <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
@@ -41,7 +43,7 @@ const Contact = () => {
                 </h4>
                 <a
                   href='mailto:lavidluxe@gmail.com'
-                  className='hover:text-main transition-colors pt-1'>
+                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
                   lavidluxe@gmail.com
                 </a>
               </li>
@@ -51,7 +53,7 @@ const Contact = () => {
                 </h4>
                 <a
                   href='tel:+2348162234838'
-                  className='hover:text-main transition-colors pt-1'>
+                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
                   +234 816 223 4838
                 </a>
               </li>
@@ -61,7 +63,7 @@ const Contact = () => {
                 </h4>
                 <a
                   href='https://api.whatsapp.com/send?phone=2347010126912&text=Welcome%20to%20Lavidluxe!!!'
-                  className='hover:text-main transition-colors pt-1'>
+                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
                   +234 701 012 6912
                 </a>
               </li>
@@ -71,7 +73,7 @@ const Contact = () => {
                 </h4>
                 <a
                   href='https://www.facebook.com/lavidluxe'
-                  className='hover:text-main transition-colors pt-1'>
+                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
                   @lavidluxe
                 </a>
               </li>
@@ -81,7 +83,7 @@ const Contact = () => {
                 </h4>
                 <a
                   href='https://www.instagram.com/lavidluxe/'
-                  className='hover:text-main transition-colors pt-1'>
+                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
                   @lavidluxe
                 </a>
               </li>
@@ -126,7 +128,7 @@ const Contact = () => {
                 <textarea
                   name='message'
                   id='message'
-                  className='px-3 py-3 ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 h-52 w-full resize-none'></textarea>
+                  className='px-3 py-3 rounded ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 h-52 w-full resize-none'></textarea>
               </div>
 
               <button

@@ -17,7 +17,7 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <header
-        className={`absolute max-w-[115rem] left-1/2 -translate-x-1/2 top-0 right-0 z-50 flex w-full items-center justify-between bg-transparent px-6 py-3 text-gray-900 md:px-10 ${
+        className={`absolute max-w-[115rem] left-1/2 -translate-x-1/2 top-0 right-0 z-50 flex w-full items-center justify-between bg-transparent px-2 py-3 text-gray-900 md:px-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <NavBar />
@@ -34,7 +34,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
         <button
           onClick={() => setOpenCart(!openCart)}
-          className='group flex items-center gap-2 py-1 px-2 text-main transition-all hover:bg-main rounded hover:text-white'>
+          className='group flex items-center gap-2 lg:py-1 lg:px-2 text-main transition-all hover:bg-main rounded hover:text-white'>
           <ShoppingBagIcon
             className='h-5 w-5 text-main group-hover:text-white'
             aria-hidden='true'

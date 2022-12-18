@@ -13,8 +13,9 @@ import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
 import { Layout } from '../../components/Layout'
 import { openCartDrawer } from '../../store/drawerAtom'
 
-const people = [1, 2, 3, 4, 5, 6]
+const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 const colors = ['Black', 'Yellow', 'Green', 'Brown', 'Purple']
+const price = 4000
 
 const Details = () => {
   const [openCart] = useAtom(openCartDrawer)
@@ -42,10 +43,16 @@ const Details = () => {
           {/* <Breadcrumbs /> */}
           {/* <BackBtn /> */}
           <header className='text-center md:text-left'>
-            <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-600 md:text-2xl md:tracking-[5px]'>
+            <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
               The skinny in stone ponya
             </h2>
-            <p className='pt-1 text-base font-bold text-gray-500'>$ 175.00</p>
+            <p className='pt-1 text-base font-bold text-gray-500'>
+              {price.toLocaleString('default', {
+                style: 'currency',
+                currency: 'NGN',
+                maximumFractionDigits: 0,
+              })}
+            </p>
           </header>
 
           <div className='max-w-[55ch] py-10 text-center font-vollkorn text-base leading-7 md:text-left'>
@@ -62,7 +69,7 @@ const Details = () => {
               <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                 Size
               </h3>
-              <Select data={people} />
+              <Select data={size} />
             </div>
             <div className='flex items-center gap-3'>
               <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>

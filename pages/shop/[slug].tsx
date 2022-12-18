@@ -4,11 +4,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement, useState } from 'react'
 import logo from '../../assets/images/logo-three.png'
+import laviduxe from '../../assets/images/slide-img-two.png'
 import { Filter } from '../../components/Filter'
 import { Layout } from '../../components/Layout'
 import { StoreLayout } from '../../components/StoreLayout'
-import laviduxe from '../../public/lavidluxe-two.jpg'
 import { openCartDrawer } from '../../store/drawerAtom'
+
+const price = 14000
 
 const Store = () => {
   const products = [
@@ -51,7 +53,7 @@ const Store = () => {
       </Head>
 
       <main
-        className={`min-h-screen px-4 py-10 md:pt-20 md:pb-10 md:px-10 transition-all ${
+        className={`min-h-screen px-4 py-10 md:pt-20 md:pb-10 md:px-16 transition-all ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         {/* <p>Store</p> */}
@@ -60,7 +62,7 @@ const Store = () => {
           <Filter setColumn={setColumn} column={column} />
           {/* products */}
           <div
-            className={`grid grid-cols-1 gap-x-5 gap-y-10 pt-3 transition-all sm:grid-cols-2 ${
+            className={`grid grid-cols-1 gap-x-8 gap-y-12 pt-3 transition-all sm:grid-cols-2 ${
               column === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
             }`}>
             {products?.map(product => (
@@ -72,7 +74,7 @@ const Store = () => {
                   <Image
                     alt='product'
                     src={laviduxe}
-                    className='h-80 lg:h-[35rem] rounded object-cover object-top'
+                    className='h-80 w-full lg:h-[30rem] rounded object-contain object-top bg-gray-100'
                     // src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
                   />
                   <Image
@@ -85,7 +87,13 @@ const Store = () => {
                   <p className='pt-6 text-[0.63rem] font-semibold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 md:text-xs md:tracking-[4px]'>
                     The skinny in stone pony
                   </p>
-                  <p className='pt-2 text-xs text-[#8c8c8c]'>$ 175.00</p>
+                  <p className='pt-2 text-xs text-[#8c8c8c]'>
+                    {price.toLocaleString('default', {
+                      style: 'currency',
+                      currency: 'NGN',
+                      maximumFractionDigits: 0,
+                    })}
+                  </p>
                 </div>
               </Link>
             ))}

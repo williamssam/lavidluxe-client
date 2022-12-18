@@ -14,13 +14,15 @@ type CartProps = {
   // openCartDrawer: boolean
 }
 
+const price = 5000
+
 export const Cart = ({}: CartProps) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
   const cartitems = [1, 2, 3]
 
   return (
     <section
-      className={`w-96 border-l bg-white absolute right-0 translate-x-0 top-0 h-screen p-10 transition-all overflow-auto ${
+      className={`w-96 border-l bg-gray-50 absolute right-0 translate-x-0 top-0 h-screen p-10 transition-all overflow-auto ${
         openCart ? 'translate-x-0' : '-translate-x-0'
       }`}>
       <header className='flex items-center'>
@@ -31,7 +33,7 @@ export const Cart = ({}: CartProps) => {
         <button
           type='button'
           onClick={() => setOpenCart(!openCart)}
-          className='flex items-center justify-center text-gray-500 hover:text-gray-800 transition-colors absolute right-3'>
+          className='flex items-center justify-center text-gray-500 p-1 hover:bg-main rounded active:scale-95 hover:text-gray-100 transition-all absolute right-3'>
           <XMarkIcon className='w-6 h-6' />
         </button>
       </header>
@@ -68,7 +70,13 @@ export const Cart = ({}: CartProps) => {
                 <div className='pt-2 flex items-center justify-between'>
                   <QuantityPicker />
 
-                  <p className='text-base font-bold text-[#333333]'>$ 175.00</p>
+                  <p className='text-base font-bold text-[#333333]'>
+                    {price.toLocaleString('default', {
+                      style: 'currency',
+                      currency: 'NGN',
+                      maximumFractionDigits: 0,
+                    })}
+                  </p>
                 </div>
               </div>
             </div>
