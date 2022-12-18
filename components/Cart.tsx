@@ -19,7 +19,10 @@ export const Cart = ({}: CartProps) => {
   const cartitems = [1, 2, 3]
 
   return (
-    <section className='w-96 border-l bg-white absolute right-0 top-0 h-screen p-10 overflow-auto'>
+    <section
+      className={`w-96 border-l bg-white absolute right-0 translate-x-0 top-0 h-screen p-10 transition-all overflow-auto ${
+        openCart ? 'translate-x-0' : '-translate-x-0'
+      }`}>
       <header className='flex items-center'>
         <h3 className='text-lg uppercase tracking-[4px] lg:tracking-[6px] font-bold text-[#333333]'>
           Shopping Cart

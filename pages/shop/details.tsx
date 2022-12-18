@@ -10,7 +10,6 @@ import { useAtom } from 'jotai'
 import { ReactElement } from 'react'
 import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
-import { BackBtn } from '../../components/BackBtn'
 import { Layout } from '../../components/Layout'
 import { openCartDrawer } from '../../store/drawerAtom'
 
@@ -41,7 +40,7 @@ const Details = () => {
 
         <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 md:pb-0'>
           {/* <Breadcrumbs /> */}
-          <BackBtn />
+          {/* <BackBtn /> */}
           <header className='text-center md:text-left'>
             <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-600 md:text-2xl md:tracking-[5px]'>
               The skinny in stone ponya

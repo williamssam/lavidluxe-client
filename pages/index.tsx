@@ -12,6 +12,7 @@ import { openCartDrawer } from '../store/drawerAtom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
+import Link from 'next/link'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -27,7 +28,7 @@ const Home = () => {
       </Head>
       {/*  */}
       <main
-        className={`flex min-h-screen items-center transition-all ${
+        className={`flex min-h-screen items-center transition-all bg-[#333333]/15 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <Swiper
@@ -35,6 +36,8 @@ const Home = () => {
             delay: 2000,
             disableOnInteraction: false,
           }}
+          slidesPerView={'auto'}
+          spaceBetween={30}
           pagination={{
             dynamicBullets: true,
             clickable: true,
@@ -45,7 +48,7 @@ const Home = () => {
           <SwiperSlide>
             <HomeScreenSwiper
               className='bg-[url("../public/lavidluxe-two.jpg")]'
-              subtitle='Welcome to our homepage'
+              subtitle='Handmade premium bespoke'
               title='Modern & edgy'
               about='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
             />
@@ -53,8 +56,8 @@ const Home = () => {
           <SwiperSlide>
             <HomeScreenSwiper
               className='bg-[url("../public/lavidluxe.jpg")]'
-              subtitle='Welcome to our homepage'
-              title='Modern & edgy'
+              subtitle='Handmade luxuries wears'
+              title='Ready to wear'
               about='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
             />
           </SwiperSlide>
@@ -81,7 +84,8 @@ const Home = () => {
             className='w-10 object-cover invert'
           />
           <p className='text-xs pt-1'>
-            copyright &copy; {new Date().getFullYear()} lavidluxe.com
+            copyright &copy; {new Date().getFullYear()}{' '}
+            <Link href='/'>lavidluxe.com</Link>
           </p>
           {/* <h3 className='text-3xl font-black'>Lavidluxe</h3> */}
         </div>

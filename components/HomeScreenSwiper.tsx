@@ -1,3 +1,4 @@
+import { ArrowLongRightIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 
 type HomeScreenSwiperProps = {
@@ -28,8 +29,8 @@ export const HomeScreenSwiper = ({
         </p>
         <Link
           href='/shop/all'
-          className='bg-white lg:bg-[#333333] text-center py-4 mt-1 lg:mt-5 rounded hover:bg-main transition-all px-8 md:px-10 text-xs font-bold uppercase tracking-[3px] md:tracking-[5px] text-[#333333] lg:text-white'>
-          Start shopping now
+          className='bg-white lg:bg-[#333333] py-4 mt-1 lg:mt-5 rounded hover:bg-main transition-all px-8 md:px-10 text-xs font-bold uppercase tracking-[3px] md:tracking-[5px] text-[#333333] lg:text-white flex items-center justify-center gap-5'>
+          Start shopping now <ArrowLongRightIcon className='w-5' />
         </Link>
       </div>
     </div>
