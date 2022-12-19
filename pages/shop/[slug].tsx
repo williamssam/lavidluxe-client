@@ -84,7 +84,7 @@ const Store = () => {
                   />
                 </div>
                 <div className='text-center'>
-                  <p className='pt-6 text-[0.63rem] font-semibold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 md:text-xs md:tracking-[4px]'>
+                  <p className='pt-6 font-semibold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 text-xs md:tracking-[4px]'>
                     The skinny in stone pony
                   </p>
                   <p className='pt-2 text-xs text-[#8c8c8c]'>

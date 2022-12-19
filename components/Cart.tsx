@@ -22,8 +22,8 @@ export const Cart = ({}: CartProps) => {
 
   return (
     <section
-      className={`w-96 border-l bg-gray-50 absolute right-0 translate-x-0 top-0 h-screen p-10 transition-all overflow-auto ${
-        openCart ? 'translate-x-0' : '-translate-x-0'
+      className={`w-80 md:w-96 border-l bg-gray-50 absolute right-0 top-0 h-screen py-10 px-5 md:p-10 transition-all overflow-auto ${
+        openCart ? 'translate-x-0' : '-translate-x-full'
       }`}>
       <header className='flex items-center'>
         <h3 className='text-lg uppercase tracking-[4px] lg:tracking-[6px] font-bold text-[#333333]'>
@@ -48,7 +48,7 @@ export const Cart = ({}: CartProps) => {
               <Image
                 src={hero}
                 alt='product image'
-                className='w-16 object-cover'
+                className='w-16 object-cover rounded'
               />
               <div className='text-xs font-bold w-full'>
                 <div className='flex items-start justify-between'>

@@ -1,3 +1,10 @@
+import {
+  BuildingStorefrontIcon,
+  DevicePhoneMobileIcon,
+  HomeIcon,
+  UserGroupIcon,
+  XMarkIcon,
+} from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -13,21 +20,25 @@ export const NavBar = () => {
       id: 1,
       name: 'Home',
       route: '/',
+      icon: <HomeIcon className='w-4 h-4' />,
     },
     {
       id: 2,
       name: 'Shop',
       route: '/shop/all',
+      icon: <BuildingStorefrontIcon className='w-4 h-4' />,
     },
     {
       id: 3,
       name: 'About us',
       route: '/about-us',
+      icon: <UserGroupIcon className='w-4 h-4' />,
     },
     {
       id: 4,
       name: 'Contact',
       route: '/contact',
+      icon: <DevicePhoneMobileIcon className='w-4 h-4' />,
     },
   ]
   return (
@@ -56,8 +67,8 @@ export const NavBar = () => {
         }`}>
         <button
           onClick={() => setOpenMenu(!openMenu)}
-          className='text-[0.6rem] uppercase tracking-widest font-bold self-end py-2 px-4 bg-[#8c8c8c] text-white rounded'>
-          Close
+          className='text-[0.6rem] uppercase tracking-widest font-bold self-end py-2 px-4 bg-gray-400 text-white rounded flex items-center gap-1'>
+          Close <XMarkIcon className='w-4 h-4' />
         </button>
 
         <div className='flex flex-col gap-3 mt-2'>
@@ -66,12 +77,20 @@ export const NavBar = () => {
               key={nav.id}
               href={nav.route}
               onClick={() => setOpenMenu(false)}
-              className={`w-full p-4 rounded-md tracking-[3px] transition-all ${
+              className={`w-full py-3 px-4 rounded-md tracking-[3px] flex items-center gap-4 transition-all ${
                 router.asPath === nav.route
                   ? 'text-white font-black bg-main'
                   : 'text-gray-500'
               }`}>
-              {nav.name}
+              <span
+                className={`bg-white py-1 px-4 rounded ${
+                  router.asPath === nav.route
+                    ? 'text-main bg-white py-1 px-4'
+                    : 'text-current bg-transparent py-0 px-0'
+                }`}>
+                {nav.icon}
+              </span>
+              <span>{nav.name}</span>
             </Link>
           ))}
         </div>
@@ -105,13 +124,22 @@ export const NavBar = () => {
             </a>
           </li>
         </ul>
+
+        <a
+          href='https://williamssam.netlify.app/'
+          target='_blank'
+          rel='noreferrer'
+          className='bg-gray-300 text-gray-600 text-[0.55rem] text-center capitalize p-1 rounded mt-auto flex flex-col items-center'>
+          <p>&copy; {new Date().getFullYear()}, Lavidluxe</p>
+          <p>Designed and built by Williams Samuel</p>
+        </a>
       </div>
 
       <button
         onClick={() => setOpenMenu(!openMenu)}
         className='block lg:hidden text-xs uppercase tracking-widest font-bold py-2 px-3 bg-gray-100 rounded'>
         {/* <Bars3Icon className='w-5 h-5 text-gray-700' /> */}
-        menu
+        Menu
       </button>
     </nav>
   )

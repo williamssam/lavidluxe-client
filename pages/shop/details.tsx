@@ -33,7 +33,7 @@ const Details = () => {
         <InnerImageZoom
           src='/lavidluxe.jpg'
           zoomSrc='/lavidluxe.jpg'
-          className='mt-16 h-96 bg-main/20 object-cover object-top md:col-span-3 md:mt-0 md:h-screen'
+          className='mt-16 h-full bg-main/20 object-cover object-top md:col-span-3 md:mt-0 md:h-screen'
           zoomType='hover'
           zoomPreload={true}
           fullscreenOnMobile={true}

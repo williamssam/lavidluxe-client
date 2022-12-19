@@ -5,6 +5,7 @@ import { ReactElement } from 'react'
 import { Facebook } from '../assets/icon/Facebook'
 import { Instagram } from '../assets/icon/Instagram'
 import { Whatsapp } from '../assets/icon/Whatsapp'
+import { Footer } from '../components/Footer'
 import { Layout } from '../components/Layout'
 import { TextInput } from '../components/TextInput'
 import { openCartDrawer } from '../store/drawerAtom'
@@ -140,6 +141,8 @@ const Contact = () => {
           </div>
         </section>
       </main>
+
+      <Footer />
     </>
   )
 }

@@ -27,12 +27,14 @@ export const Footer = () => {
         </p>
         {/* <h3 className='text-3xl font-black'>Lavidluxe</h3> */}
       </div>
-      <p className='text-[0.6rem] text-gray-300'>
+      <a
+        href='https://williamssam.netlify.app/'
+        target='_blank'
+        rel='noreferrer'
+        className='text-[0.6rem] text-gray-300'>
         Designed and developed by{' '}
-        <a href='https://williamssam.nelify.app/' className='font-bold'>
-          Williams Samuel
-        </a>
-      </p>
+        <span className='font-bold'>Williams Samuel</span>
+      </a>
       <ul className='flex items-center gap-4 text-white'>
         <li>
           <a

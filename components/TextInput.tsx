@@ -14,7 +14,7 @@ export const TextInput = ({ label, type, id, placeholder }: TextInputProps) => {
         type={type}
         name={id ?? label}
         id={id ?? label}
-        className='px-3 py-3 ring-1 rounded text-sm ring-gray-300 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 w-full flex-1'
+        className='px-3 py-3 ring-1 rounded text-sm ring-gray-300 focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1'
         placeholder={placeholder}
       />
     </div>

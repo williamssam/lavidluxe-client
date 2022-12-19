@@ -2,6 +2,7 @@ import { useAtom } from 'jotai'
 import Head from 'next/head'
 import Image from 'next/image'
 import { ReactElement } from 'react'
+import { Footer } from '../components/Footer'
 import { Layout } from '../components/Layout'
 import hero from '../public/lavidluxe-two.jpg'
 import { openCartDrawer } from '../store/drawerAtom'
@@ -26,7 +27,7 @@ const AboutUs = () => {
           <div className='text-base lg:text-lg flex flex-col gap-5 mdlg:gap-6 leading-7 lg:leading-9 md:leading-10'>
             <p className='pt-3 lg:pt-6'>
               We are a premium bespoke and ready-to-wear brand that provides
-              high-quality yet affordable female and male dresses, hoodies and
+              high-quality yet affordable female and male wears, hoodies and
               joggers co-ord sets, luxury handmade unisex footwear and bags.
             </p>
             <p>
@@ -36,10 +37,10 @@ const AboutUs = () => {
             </p>
             <p>
               To blend with current fashion trends, we are constantly improving
-              our creativity and style. To ensure quality delivery and customer
-              satisfaction, I am diligent and meticulous.
+              our creativity and style. We work hard and meticulously to ensure
+              quality delivery and customer happiness.
             </p>
-            <p className='uppercase tracking-widest text-sm text-center md:text-left font-bold text-main'>
+            <p className='uppercase tracking-widest text-sm text-center md:text-left font-black text-main'>
               Be elegant, be beautiful, and join the ageless adventure, geng!
               🚀😍
             </p>
@@ -50,10 +51,12 @@ const AboutUs = () => {
           <Image
             src={hero}
             alt='product image'
-            className='w-[30rem] h-full object-cover rounded drop-shadow-xl'
+            className='w-[30rem] h-full object-cover rounded-md shadow-xl'
           />
         </section>
       </main>
+
+      <Footer />
     </>
   )
 }
