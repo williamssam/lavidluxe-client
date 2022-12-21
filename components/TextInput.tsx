@@ -6,7 +6,7 @@ type TextInputProps = {
 }
 export const TextInput = ({ label, type, id, placeholder }: TextInputProps) => {
   return (
-    <div className='pt-3 flex flex-col'>
+    <div className='pt-4 flex flex-col w-full'>
       <label htmlFor={id ?? label} className='capitalize text-sm'>
         {label}
       </label>

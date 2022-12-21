@@ -10,7 +10,7 @@ import { useAtom } from 'jotai'
 import { ReactElement } from 'react'
 import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
-import { Layout } from '../../components/Layout'
+import { Layout } from '../../layouts/Layout'
 import { openCartDrawer } from '../../store/drawerAtom'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]

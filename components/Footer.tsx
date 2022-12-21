@@ -22,7 +22,7 @@ export const Footer = () => {
           className='w-10 object-cover invert'
         />
         <p className='text-xs pt-1'>
-          copyright &copy; {new Date().getFullYear()}{' '}
+          All rights reserved. &copy; {new Date().getFullYear()}{' '}
           <Link href='/'>lavidluxe.com</Link>
         </p>
         {/* <h3 className='text-3xl font-black'>Lavidluxe</h3> */}

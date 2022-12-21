@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import Head from 'next/head'
 import { ReactElement } from 'react'
-import { Layout } from '../components/Layout'
+import { Layout } from '../layouts/Layout'
 import { openCartDrawer } from '../store/drawerAtom'
 
 import { Swiper, SwiperSlide } from 'swiper/react'

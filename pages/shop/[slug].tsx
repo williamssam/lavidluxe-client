@@ -6,8 +6,8 @@ import { ReactElement, useState } from 'react'
 import logo from '../../assets/images/logo-three.png'
 import laviduxe from '../../assets/images/slide-img-two.png'
 import { Filter } from '../../components/Filter'
-import { Layout } from '../../components/Layout'
-import { StoreLayout } from '../../components/StoreLayout'
+import { Layout } from '../../layouts/Layout'
+import { StoreLayout } from '../../layouts/StoreLayout'
 import { openCartDrawer } from '../../store/drawerAtom'
 
 const price = 14000
@@ -71,12 +71,14 @@ const Store = () => {
                 key={product.id}
                 className='group transition-colors'>
                 <div className='relative'>
-                  <Image
-                    alt='product'
-                    src={laviduxe}
-                    className='h-80 w-full lg:h-[30rem] rounded object-contain object-top bg-gray-100'
-                    // src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
-                  />
+                  <div className='h-80 w-full grid place-items-center lg:h-[30rem] rounded bg-gray-100 overflow-hidden'>
+                    <Image
+                      alt='product'
+                      src={laviduxe}
+                      className='object-contain group-hover:scale-110 transition-all'
+                      // src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
+                    />
+                  </div>
                   <Image
                     alt='lavidluxe logo'
                     src={logo}

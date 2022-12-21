@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { ReactElement } from 'react'
 import { Footer } from '../components/Footer'
-import { Layout } from '../components/Layout'
+import { Layout } from '../layouts/Layout'
 import hero from '../public/lavidluxe-two.jpg'
 import { openCartDrawer } from '../store/drawerAtom'
 

@@ -3,9 +3,9 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '../assets/images/logo.png'
+import { Cart } from '../components/Cart'
+import { NavBar } from '../components/NavBar'
 import { openCartDrawer } from '../store/drawerAtom'
-import { Cart } from './Cart'
-import { NavBar } from './NavBar'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -34,13 +34,10 @@ export const Layout = ({ children }: LayoutProps) => {
 
         <button
           onClick={() => setOpenCart(!openCart)}
-          className='group flex items-center gap-2 lg:py-1 lg:px-2 text-main transition-all hover:bg-main rounded hover:text-white'>
-          <ShoppingBagIcon
-            className='h-5 w-5 text-main group-hover:text-white'
-            aria-hidden='true'
-          />
-          <p className='hidden text-xs font-bold uppercase tracking-[4px] md:block'>
-            cart
+          className='group flex items-center gap-2 py-1 px-2 text-main transition-all hover:bg-main rounded hover:text-white'>
+          <ShoppingBagIcon className='h-5 w-5' aria-hidden='true' />
+          <p className='hidden lg:block text-xs font-bold uppercase tracking-[4px]'>
+            Cart
           </p>
           <p className='flex h-6 w-6 items-center justify-center rounded-full border-2 border-main text-xs font-bold group-hover:border-white'>
             2

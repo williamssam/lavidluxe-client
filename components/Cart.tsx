@@ -103,7 +103,7 @@ export const Cart = ({}: CartProps) => {
 
       {cartitems.length > 0 ? (
         <Link
-          href='/checkout'
+          href='/checkout/information'
           className='w-full rounded flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>
           Checkout
         </Link>

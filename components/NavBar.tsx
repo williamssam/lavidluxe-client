@@ -67,8 +67,9 @@ export const NavBar = () => {
         }`}>
         <button
           onClick={() => setOpenMenu(!openMenu)}
-          className='text-[0.6rem] uppercase tracking-widest font-bold self-end py-2 px-4 bg-gray-400 text-white rounded flex items-center gap-1'>
-          Close <XMarkIcon className='w-4 h-4' />
+          className='text-[0.6rem] uppercase tracking-widest font-bold self-end py-2 px-3 bg-gray-400 text-white rounded flex items-center gap-2'>
+          <XMarkIcon className='w-4 h-4' />
+          <span>Close</span>
         </button>
 
         <div className='flex flex-col gap-3 mt-2'>

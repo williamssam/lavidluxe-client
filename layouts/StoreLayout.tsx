@@ -1,8 +1,8 @@
-import { Tabs } from "./Tabs";
+import { Tabs } from '../components/Tabs'
 
 type StoreLayoutProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export const StoreLayout = ({ children }: StoreLayoutProps) => {
   return (
@@ -11,5 +11,5 @@ export const StoreLayout = ({ children }: StoreLayoutProps) => {
 
       {children}
     </>
-  );
-};
+  )
+}
