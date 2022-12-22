@@ -16,7 +16,7 @@ export const Select = ({ data, className }: SelectProps) => {
       <Listbox value={selected} onChange={setSelected}>
         <div className='relative'>
           <Listbox.Button
-            className={`relative w-full cursor-pointer bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-main focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-main sm:text-sm ${className}`}>
+            className={`relative w-24 cursor-pointer bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-main focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-main sm:text-sm ${className}`}>
             <span className='block truncate'>{selected}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <ChevronUpDownIcon

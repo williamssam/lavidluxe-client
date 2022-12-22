@@ -33,7 +33,7 @@ export const Cart = ({}: CartProps) => {
         <button
           type='button'
           onClick={() => setOpenCart(!openCart)}
-          className='flex items-center justify-center text-gray-500 p-1 hover:bg-main rounded active:scale-95 hover:text-gray-100 transition-all absolute right-3'>
+          className='flex items-center justify-center text-gray-500 p-[0.2rem] hover:bg-main rounded active:scale-95 hover:text-gray-100 transition-all absolute right-3'>
           <XMarkIcon className='w-6 h-6' />
         </button>
       </header>
