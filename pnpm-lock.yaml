@@ -17,6 +17,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: ^7.41.2
   react-inner-image-zoom: ^3.0.2
   react-toastify: ^9.1.1
   swiper: ^8.4.5
@@ -36,6 +37,7 @@ dependencies:
   next: 13.0.6_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.41.2_react@18.2.0
   react-inner-image-zoom: 3.0.2_sh5qlbywuemxd2y3xkrw2y2kr4
   react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
   swiper: 8.4.5
@@ -2004,6 +2006,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hook-form/7.41.2_react@18.2.0:
+    resolution: {integrity: sha512-Uz5kNlfkEZve0sr5y2LsxPDGN3eNDjjKb1XJgand1E5Ay0S3zWo8YcJQNGu88/Zs6JaFnrJqTXbSr6B2q7wllA==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-inner-image-zoom/3.0.2_sh5qlbywuemxd2y3xkrw2y2kr4:

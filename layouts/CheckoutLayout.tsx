@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -30,33 +30,6 @@ export const CheckoutLayout = ({ children }: CheckoutLayoutProps) => {
           />
           <Link href='/'>Lavidluxe</Link>
         </h1>
-
-        {/* form steps */}
-        <p className='text-[0.6rem] pt-1 flex items-center gap-2'>
-          <Link
-            href='/checkout/information'
-            className={`${
-              router.asPath === '/checkout/information'
-                ? 'text-white font-black uppercase tracking-widest bg-main py-1 px-3 rounded'
-                : 'text-gray-700 font-bold uppercase tracking-widest pl-1'
-            }`}>
-            Information
-          </Link>
-          <ChevronRightIcon className='w-4 h-4' />
-          <Link
-            href='/checkout/shipping'
-            className={`${
-              router.asPath === '/checkout/shipping'
-                ? 'text-white font-black uppercase tracking-widest bg-main py-1 px-3 rounded'
-                : 'text-gray-700 font-bold uppercase tracking-widest pl-1'
-            }`}>
-            Shipping
-          </Link>
-          <ChevronRightIcon className='w-4 h-4' />
-          <span className='text-gray-700 font-bold uppercase tracking-widest pl-1'>
-            Payment
-          </span>
-        </p>
 
         {children}
 

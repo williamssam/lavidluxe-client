@@ -12,6 +12,7 @@ import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
 import { Layout } from '../../layouts/Layout'
 import { openCartDrawer } from '../../store/drawerAtom'
+import { formatCurrency } from '../../utils/formatCurrency'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 const colors = ['Black', 'Yellow', 'Green', 'Brown', 'Purple']
@@ -47,11 +48,7 @@ const Details = () => {
               The skinny in stone ponya
             </h2>
             <p className='pt-1 text-base font-bold text-gray-500'>
-              {price.toLocaleString('default', {
-                style: 'currency',
-                currency: 'NGN',
-                maximumFractionDigits: 0,
-              })}
+              {formatCurrency(price)}
             </p>
           </header>
 
@@ -69,7 +66,7 @@ const Details = () => {
               <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                 Size
               </h3>
-              <Select data={size} />
+              <Select data={size} className='w-14' />
             </div>
             <div className='flex items-center gap-3'>
               <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>

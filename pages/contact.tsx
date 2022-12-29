@@ -1,17 +1,37 @@
-import { AtSymbolIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/20/solid'
+import {
+  AtSymbolIcon,
+  InformationCircleIcon,
+  MapPinIcon,
+  PhoneIcon,
+} from '@heroicons/react/20/solid'
 import { useAtom } from 'jotai'
 import Head from 'next/head'
 import { ReactElement } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Facebook } from '../assets/icon/Facebook'
 import { Instagram } from '../assets/icon/Instagram'
 import { Whatsapp } from '../assets/icon/Whatsapp'
 import { Footer } from '../components/Footer'
-import { TextInput } from '../components/TextInput'
 import { Layout } from '../layouts/Layout'
 import { openCartDrawer } from '../store/drawerAtom'
 
+type FormValues = {
+  emailAddress: string
+  name: string
+  message: string
+}
+
 const Contact = () => {
   const [openCart] = useAtom(openCartDrawer)
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm<FormValues>({})
+
+  const submitForm: SubmitHandler<FormValues> = data => {
+    console.log(data)
+  }
 
   return (
     <>
@@ -107,19 +127,55 @@ const Contact = () => {
           </div>
 
           <div className='px-0 pb-6 lg:pb-0 xl:px-24'>
-            <form>
+            <form onSubmit={handleSubmit(submitForm)}>
               <h3 className='uppercase text=xs tracking-[4px] font-black text-gray-700 text-2xl'>
                 Get in touch
               </h3>
-              <TextInput label='Name' type='text' placeholder='' id='name' />
-
-              <div className='mt-3'>
-                <TextInput
-                  label='Email'
-                  type='email'
-                  placeholder=''
-                  id='email'
+              <div className='pt-4 flex flex-col w-full'>
+                <label htmlFor='full-name' className='capitalize text-sm'>
+                  Your name
+                </label>
+                <input
+                  type='text'
+                  {...register('name', {
+                    required: true,
+                  })}
+                  id='full-name'
+                  className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
+                    errors.name ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                  }`}
+                  placeholder='Enter email address'
                 />
+                {errors.name ? (
+                  <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
+                    <InformationCircleIcon className='w-4 h-4' />
+                    Your name is required
+                  </span>
+                ) : null}
+              </div>
+              <div className='pt-4 flex flex-col w-full'>
+                <label htmlFor='email-address' className='capitalize text-sm'>
+                  Your email address
+                </label>
+                <input
+                  type='email'
+                  {...register('emailAddress', {
+                    required: true,
+                  })}
+                  id='email-address'
+                  className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
+                    errors.emailAddress
+                      ? 'ring-red-600 ring-2'
+                      : 'ring-gray-300'
+                  }`}
+                  placeholder='Enter email address'
+                />
+                {errors.emailAddress ? (
+                  <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
+                    <InformationCircleIcon className='w-4 h-4' />
+                    Your email address is required
+                  </span>
+                ) : null}
               </div>
 
               <div className='mt-7'>
@@ -127,9 +183,19 @@ const Contact = () => {
                   Your message
                 </label>
                 <textarea
-                  name='message'
                   id='message'
-                  className='px-3 py-3 rounded ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 h-52 w-full resize-none'></textarea>
+                  {...register('message', {
+                    required: true,
+                  })}
+                  className={`px-3 py-3 rounded ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 h-52 w-full resize-none ${
+                    errors.message ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                  }`}></textarea>
+                {errors.message ? (
+                  <span className='text-xs p-1 text-red-600 flex items-center gap-2'>
+                    <InformationCircleIcon className='w-4 h-4' />
+                    Your message is required
+                  </span>
+                ) : null}
               </div>
 
               <button

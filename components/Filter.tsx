@@ -51,7 +51,7 @@ export const Filter = ({ setColumn, column }: FilterProps) => {
           <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
             Sort by:
           </h3>
-          <Select data={sort} className='border rounded' />
+          <Select data={sort} className='border rounded w-40' />
         </div>
       </div>
     </section>

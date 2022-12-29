@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import hero from '../public/hero.jpg'
+import { formatCurrency } from '../utils/formatCurrency'
 
 const price = 17500
 
@@ -24,11 +25,7 @@ export const OrderInformation = () => {
             </div>
 
             <p className='text-base font-bold text-[#333333]'>
-              {price.toLocaleString('default', {
-                style: 'currency',
-                currency: 'NGN',
-                maximumFractionDigits: 0,
-              })}
+              {formatCurrency(price)}
             </p>
           </div>
         </div>

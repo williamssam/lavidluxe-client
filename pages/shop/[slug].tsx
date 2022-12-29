@@ -9,6 +9,7 @@ import { Filter } from '../../components/Filter'
 import { Layout } from '../../layouts/Layout'
 import { StoreLayout } from '../../layouts/StoreLayout'
 import { openCartDrawer } from '../../store/drawerAtom'
+import { formatCurrency } from '../../utils/formatCurrency'
 
 const price = 14000
 
@@ -90,11 +91,7 @@ const Store = () => {
                     The skinny in stone pony
                   </p>
                   <p className='pt-2 text-xs text-[#8c8c8c]'>
-                    {price.toLocaleString('default', {
-                      style: 'currency',
-                      currency: 'NGN',
-                      maximumFractionDigits: 0,
-                    })}
+                    {formatCurrency(price)}
                   </p>
                 </div>
               </Link>

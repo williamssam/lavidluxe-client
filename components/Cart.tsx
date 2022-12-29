@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import hero from '../public/hero.jpg'
 import { openCartDrawer } from '../store/drawerAtom'
+import { formatCurrency } from '../utils/formatCurrency'
 import { QuantityPicker } from './QuantityPicker'
 
 type CartProps = {
@@ -18,7 +19,7 @@ const price = 5000
 
 export const Cart = ({}: CartProps) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
-  const cartitems = [1, 2, 3]
+  const cartItems: number[] = [1]
 
   return (
     <section
@@ -40,8 +41,8 @@ export const Cart = ({}: CartProps) => {
 
       {/* cart items */}
       <div className='pt-16 flex flex-col gap-10'>
-        {cartitems.length > 0 ? (
-          cartitems?.map(item => (
+        {cartItems.length > 0 ? (
+          cartItems?.map(item => (
             <div
               key={item}
               className='flex items-center gap-5 border-b border-dashed pb-5'>
@@ -71,11 +72,7 @@ export const Cart = ({}: CartProps) => {
                   <QuantityPicker />
 
                   <p className='text-base font-bold text-[#333333]'>
-                    {price.toLocaleString('default', {
-                      style: 'currency',
-                      currency: 'NGN',
-                      maximumFractionDigits: 0,
-                    })}
+                    {formatCurrency(price)}
                   </p>
                 </div>
               </div>
@@ -92,7 +89,7 @@ export const Cart = ({}: CartProps) => {
         )}
       </div>
 
-      {cartitems.length > 0 ? (
+      {cartItems.length > 0 ? (
         <div className='flex items-center justify-between pt-14'>
           <h4 className='uppercase text-[0.85rem] tracking-[5px] font-bold text-gray-700'>
             Subtotal
@@ -101,7 +98,7 @@ export const Cart = ({}: CartProps) => {
         </div>
       ) : null}
 
-      {cartitems.length > 0 ? (
+      {cartItems.length > 0 ? (
         <Link
           href='/checkout/information'
           className='w-full rounded flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>

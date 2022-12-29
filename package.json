@@ -21,6 +21,7 @@
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.41.2",
     "react-inner-image-zoom": "^3.0.2",
     "react-toastify": "^9.1.1",
     "swiper": "^8.4.5",
