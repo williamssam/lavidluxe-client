@@ -1,17 +1,17 @@
 import { useAtom } from 'jotai'
+import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement } from 'react'
-import { Layout } from '../layouts/Layout'
-import { openCartDrawer } from '../store/drawerAtom'
+import { openCartDrawer } from 'store/drawerAtom'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
+import { Footer } from 'components/Footer'
+import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { Footer } from '../components/Footer'
-import { HomeScreenSwiper } from '../components/HomeScreenSwiper'
 
 const Home = () => {
   const [openCart] = useAtom(openCartDrawer)

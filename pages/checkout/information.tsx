@@ -1,10 +1,10 @@
 import { InformationCircleIcon } from '@heroicons/react/20/solid'
+import { CheckoutNav } from 'components/CheckoutNav'
+import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { CheckoutNav } from '../../components/CheckoutNav'
-import { CheckoutLayout } from '../../layouts/CheckoutLayout'
 
 type FormValues = {
   emailAddress: string

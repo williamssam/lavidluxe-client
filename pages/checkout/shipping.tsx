@@ -1,10 +1,10 @@
 import { ChevronLeftIcon } from '@heroicons/react/20/solid'
+import { CheckoutNav } from 'components/CheckoutNav'
+import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
-import { CheckoutNav } from '../../components/CheckoutNav'
-import { CheckoutLayout } from '../../layouts/CheckoutLayout'
 
 const Shipping = () => {
   const router = useRouter()

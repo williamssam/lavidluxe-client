@@ -1,18 +1,18 @@
 import { TruckIcon } from '@heroicons/react/20/solid'
+import { Facebook } from 'assets/icon/Facebook'
+import { Instagram } from 'assets/icon/Instagram'
+import { Twitter } from 'assets/icon/Twitter'
+import { QuantityPicker } from 'components/QuantityPicker'
+import { Select } from 'components/Select'
 import Head from 'next/head'
-import { Facebook } from '../../assets/icon/Facebook'
-import { Instagram } from '../../assets/icon/Instagram'
-import { Twitter } from '../../assets/icon/Twitter'
-import { QuantityPicker } from '../../components/QuantityPicker'
-import { Select } from '../../components/Select'
 
 import { useAtom } from 'jotai'
+import { Layout } from 'layouts/Layout'
 import { ReactElement } from 'react'
 import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
-import { Layout } from '../../layouts/Layout'
-import { openCartDrawer } from '../../store/drawerAtom'
-import { formatCurrency } from '../../utils/formatCurrency'
+import { openCartDrawer } from 'store/drawerAtom'
+import { formatCurrency } from 'utils/formatCurrency'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 const colors = ['Black', 'Yellow', 'Green', 'Brown', 'Purple']
@@ -20,6 +20,8 @@ const price = 4000
 
 const Details = () => {
   const [openCart] = useAtom(openCartDrawer)
+
+  // let pageUrl = window !== undefined ? window.location.href : null
 
   return (
     <>
@@ -106,17 +108,31 @@ const Details = () => {
 
               <ul className='flex items-center gap-2'>
                 <li>
-                  <a href='#' className='transition-colors hover:text-gray-800'>
+                  <a
+                    // href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`}
+                    href='#'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='transition-colors hover:text-gray-800'>
                     <Facebook />
                   </a>
                 </li>
                 <li>
-                  <a href='#' className='transition-colors hover:text-gray-800'>
+                  <a
+                    href='#'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='transition-colors hover:text-gray-800'>
                     <Instagram />
                   </a>
                 </li>
                 <li>
-                  <a href='#' className='transition-colors hover:text-gray-800'>
+                  <a
+                    // href={`https://twitter.com/intent/tweet?text=${pageUrl}`}
+                    href='#'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='transition-colors hover:text-gray-800'>
                     <Twitter />
                   </a>
                 </li>

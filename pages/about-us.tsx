@@ -1,11 +1,11 @@
+import { Footer } from 'components/Footer'
 import { useAtom } from 'jotai'
+import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import Image from 'next/image'
+import hero from 'public/lavidluxe-two.jpg'
 import { ReactElement } from 'react'
-import { Footer } from '../components/Footer'
-import { Layout } from '../layouts/Layout'
-import hero from '../public/lavidluxe-two.jpg'
-import { openCartDrawer } from '../store/drawerAtom'
+import { openCartDrawer } from 'store/drawerAtom'
 
 const AboutUs = () => {
   const [openCart] = useAtom(openCartDrawer)

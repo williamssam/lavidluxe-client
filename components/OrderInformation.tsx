@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import hero from '../public/hero.jpg'
-import { formatCurrency } from '../utils/formatCurrency'
+import hero from 'public/hero.jpg'
+import { formatCurrency } from 'utils/formatCurrency'
 
 const price = 17500
 

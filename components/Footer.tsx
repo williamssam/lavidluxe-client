@@ -1,11 +1,11 @@
+import { Facebook } from 'assets/icon/Facebook'
+import { Instagram } from 'assets/icon/Instagram'
+import { Twitter } from 'assets/icon/Twitter'
+import logo from 'assets/images/logo-two.png'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Facebook } from '../assets/icon/Facebook'
-import { Instagram } from '../assets/icon/Instagram'
-import { Twitter } from '../assets/icon/Twitter'
-import logo from '../assets/images/logo-two.png'
-import { openCartDrawer } from '../store/drawerAtom'
+import { openCartDrawer } from 'store/drawerAtom'
 
 export const Footer = () => {
   const [openCart] = useAtom(openCartDrawer)
@@ -30,7 +30,7 @@ export const Footer = () => {
       <a
         href='https://williamssam.netlify.app/'
         target='_blank'
-        rel='noreferrer'
+        rel='noopener noreferrer'
         className='text-[0.6rem] text-gray-300'>
         Designed and developed by{' '}
         <span className='font-bold'>Williams Samuel</span>
@@ -39,7 +39,7 @@ export const Footer = () => {
         <li>
           <a
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
             href='#'
             className='hover:text-main transition-all'>
             <Facebook />
@@ -48,7 +48,7 @@ export const Footer = () => {
         <li>
           <a
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
             href='#'
             className='hover:text-main transition-all'>
             <Twitter />
@@ -57,7 +57,7 @@ export const Footer = () => {
         <li>
           <a
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
             href='#'
             className='hover:text-main transition-all'>
             <Instagram />

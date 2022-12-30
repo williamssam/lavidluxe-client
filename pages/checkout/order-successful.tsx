@@ -1,7 +1,7 @@
+import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import Head from 'next/head'
 import Link from 'next/link'
 import { ReactElement } from 'react'
-import { CheckoutLayout } from '../../layouts/CheckoutLayout'
 
 const OrderSuccessful = () => {
   return (

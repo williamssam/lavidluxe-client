@@ -5,12 +5,12 @@ import {
   UserGroupIcon,
   XMarkIcon,
 } from '@heroicons/react/20/solid'
+import { Facebook } from 'assets/icon/Facebook'
+import { Instagram } from 'assets/icon/Instagram'
+import { Twitter } from 'assets/icon/Twitter'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { Facebook } from '../assets/icon/Facebook'
-import { Instagram } from '../assets/icon/Instagram'
-import { Twitter } from '../assets/icon/Twitter'
 
 export const NavBar = () => {
   const [openMenu, setOpenMenu] = useState(false)
@@ -100,7 +100,7 @@ export const NavBar = () => {
           <li>
             <a
               target='_blank'
-              rel='noreferrer'
+              rel='noopener noreferrer'
               href='#'
               className='hover:text-main transition-all p-1'>
               <Facebook />
@@ -109,7 +109,7 @@ export const NavBar = () => {
           <li>
             <a
               target='_blank'
-              rel='noreferrer'
+              rel='noopener noreferrer'
               href='#'
               className='hover:text-main transition-all p-1'>
               <Twitter />
@@ -118,7 +118,7 @@ export const NavBar = () => {
           <li>
             <a
               target='_blank'
-              rel='noreferrer'
+              rel='noopener noreferrer'
               href='#'
               className='hover:text-main transition-all p-1'>
               <Instagram />
@@ -129,7 +129,7 @@ export const NavBar = () => {
         <a
           href='https://williamssam.netlify.app/'
           target='_blank'
-          rel='noreferrer'
+          rel='noopener noreferrer'
           className='bg-gray-300 text-gray-600 text-[0.55rem] text-center capitalize p-1 rounded mt-auto flex flex-col items-center'>
           <p>&copy; {new Date().getFullYear()}, Lavidluxe</p>
           <p>Designed and built by Williams Samuel</p>

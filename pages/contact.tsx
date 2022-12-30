@@ -4,16 +4,16 @@ import {
   MapPinIcon,
   PhoneIcon,
 } from '@heroicons/react/20/solid'
+import { Facebook } from 'assets/icon/Facebook'
+import { Instagram } from 'assets/icon/Instagram'
+import { Whatsapp } from 'assets/icon/Whatsapp'
+import { Footer } from 'components/Footer'
 import { useAtom } from 'jotai'
+import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Facebook } from '../assets/icon/Facebook'
-import { Instagram } from '../assets/icon/Instagram'
-import { Whatsapp } from '../assets/icon/Whatsapp'
-import { Footer } from '../components/Footer'
-import { Layout } from '../layouts/Layout'
-import { openCartDrawer } from '../store/drawerAtom'
+import { openCartDrawer } from 'store/drawerAtom'
 
 type FormValues = {
   emailAddress: string

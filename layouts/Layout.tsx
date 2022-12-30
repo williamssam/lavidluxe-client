@@ -1,11 +1,12 @@
 import { ShoppingCartIcon } from '@heroicons/react/20/solid'
+import logo from 'assets/images/logo.png'
+import { Cart } from 'components/Cart'
+import { NavBar } from 'components/NavBar'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
-import logo from '../assets/images/logo.png'
-import { Cart } from '../components/Cart'
-import { NavBar } from '../components/NavBar'
-import { openCartDrawer } from '../store/drawerAtom'
+import { useCartStore } from 'store/cartStore'
+import { openCartDrawer } from 'store/drawerAtom'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -13,6 +14,7 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
+  const cart = useCartStore(state => state.cart)
 
   return (
     <>
@@ -39,9 +41,11 @@ export const Layout = ({ children }: LayoutProps) => {
           <p className='hidden lg:block text-xs font-bold uppercase tracking-[4px]'>
             Cart
           </p>
-          <p className='flex h-6 w-6 items-center justify-center rounded-full border-2 border-main text-xs font-bold group-hover:border-white'>
-            2
-          </p>
+          {cart.length >= 1 ? (
+            <p className='flex h-6 w-6 items-center justify-center rounded-full border-2 border-main text-xs font-bold group-hover:border-white'>
+              {cart?.length}
+            </p>
+          ) : null}
         </button>
       </header>
 

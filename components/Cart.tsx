@@ -6,9 +6,10 @@ import {
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
-import hero from '../public/hero.jpg'
-import { openCartDrawer } from '../store/drawerAtom'
-import { formatCurrency } from '../utils/formatCurrency'
+import hero from 'public/hero.jpg'
+import { useCartStore } from 'store/cartStore'
+import { openCartDrawer } from 'store/drawerAtom'
+import { formatCurrency } from 'utils/formatCurrency'
 import { QuantityPicker } from './QuantityPicker'
 
 type CartProps = {
@@ -19,7 +20,8 @@ const price = 5000
 
 export const Cart = ({}: CartProps) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
-  const cartItems: number[] = [1]
+  // const cart: number[] = [1]
+  const cart = useCartStore(state => state.cart)
 
   return (
     <section
@@ -41,10 +43,10 @@ export const Cart = ({}: CartProps) => {
 
       {/* cart items */}
       <div className='pt-16 flex flex-col gap-10'>
-        {cartItems.length > 0 ? (
-          cartItems?.map(item => (
+        {cart.length > 0 ? (
+          cart?.map(product => (
             <div
-              key={item}
+              key={product?.name}
               className='flex items-center gap-5 border-b border-dashed pb-5'>
               <Image
                 src={hero}
@@ -89,7 +91,7 @@ export const Cart = ({}: CartProps) => {
         )}
       </div>
 
-      {cartItems.length > 0 ? (
+      {cart.length > 0 ? (
         <div className='flex items-center justify-between pt-14'>
           <h4 className='uppercase text-[0.85rem] tracking-[5px] font-bold text-gray-700'>
             Subtotal
@@ -98,7 +100,7 @@ export const Cart = ({}: CartProps) => {
         </div>
       ) : null}
 
-      {cartItems.length > 0 ? (
+      {cart.length > 0 ? (
         <Link
           href='/checkout/information'
           className='w-full rounded flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>

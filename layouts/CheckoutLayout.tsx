@@ -1,9 +1,9 @@
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import lavidluxeLogo from 'assets/images/logo-two.png'
+import { OrderInformation } from 'components/OrderInformation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import lavidluxeLogo from '../assets/images/logo-two.png'
-import { OrderInformation } from '../components/OrderInformation'
 
 type CheckoutLayoutProps = {
   children: React.ReactNode

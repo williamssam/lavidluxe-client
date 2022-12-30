@@ -1,4 +1,4 @@
-import { Tabs } from '../components/Tabs'
+import { Tabs } from 'components/Tabs'
 
 type StoreLayoutProps = {
   children: React.ReactNode

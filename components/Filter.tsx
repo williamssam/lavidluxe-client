@@ -1,6 +1,6 @@
+import { GridColumnThree } from 'assets/icon/GridColumnThree'
+import { GridColumnTwo } from 'assets/icon/GridColumnTwo'
 import { Dispatch, SetStateAction } from 'react'
-import { GridColumnThree } from '../assets/icon/GridColumnThree'
-import { GridColumnTwo } from '../assets/icon/GridColumnTwo'
 import { Select } from './Select'
 
 type FilterProps = {
@@ -51,7 +51,7 @@ export const Filter = ({ setColumn, column }: FilterProps) => {
           <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
             Sort by:
           </h3>
-          <Select data={sort} className='border rounded w-40' />
+          <Select data={sort} className='border rounded w-44' />
         </div>
       </div>
     </section>
