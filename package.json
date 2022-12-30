@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.3",
+    "@graphql-codegen/cli": "^2.16.2",
+    "@graphql-codegen/client-preset": "^1.2.4",
     "@headlessui/react": "^1.7.5",
     "@heroicons/react": "^2.0.13",
     "@types/node": "18.11.13",
@@ -17,11 +20,13 @@
     "@types/react-inner-image-zoom": "^3.0.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "graphql": "^16.6.0",
     "immer": "^9.0.16",
     "jotai": "^1.11.2",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.41.2",
     "react-inner-image-zoom": "^3.0.2",
     "react-toastify": "^9.1.1",

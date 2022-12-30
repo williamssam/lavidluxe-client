@@ -13,8 +13,42 @@ import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const { data } = await client.query({
+//     query: gql`
+//       query GETPRODUCTS {
+//         products(first: 5) {
+//           nodes {
+//             id
+//             databaseId
+//             name
+//             onSale
+//             slug
+//           }
+//         }
+//       }
+//     `,
+//   })
+
+//   return {
+//     props: {
+//       products: data,
+//     },
+//   }
+// }
+
 const Home = () => {
   const [openCart] = useAtom(openCartDrawer)
+  // console.log(props)
+
+  // useEffect(() => {
+  //   api
+  //     .get('products', {
+  //       per_page: 5, // 20 products per page
+  //     })
+  //     .then(resp => console.log('response', resp))
+  //     .catch(err => console.error(err))
+  // }, [])
 
   return (
     <>

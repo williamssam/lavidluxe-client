@@ -1,9 +1,11 @@
-import ErrorBoundary from 'components/ErrorBoundary'
+import { ErrorFallback } from 'components/ErrorFallback'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import type { ReactElement, ReactNode } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import 'styles/globals.css'
 import 'swiper/css/bundle'
+import ApolloWrapper from 'utils/apollo-client/ApolloWrapper'
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -17,8 +19,12 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   // Use the layout defined at the page level, if available - https://nextjs.org/docs/basic-features/layouts
   const getLayout = Component.getLayout ?? (page => page)
   return getLayout(
-    <ErrorBoundary>
-      <Component {...pageProps} />
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={() => typeof window !== undefined && window.location.reload()}>
+      <ApolloWrapper>
+        <Component {...pageProps} />
+      </ApolloWrapper>
     </ErrorBoundary>
   )
 }

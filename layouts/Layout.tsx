@@ -5,6 +5,7 @@ import { NavBar } from 'components/NavBar'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
+import { PropsWithChildren } from 'react'
 import { useCartStore } from 'store/cartStore'
 import { openCartDrawer } from 'store/drawerAtom'
 
@@ -12,7 +13,7 @@ type LayoutProps = {
   children: React.ReactNode
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: PropsWithChildren) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
   const cart = useCartStore(state => state.cart)
 

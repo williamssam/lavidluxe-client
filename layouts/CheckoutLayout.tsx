@@ -4,12 +4,9 @@ import { OrderInformation } from 'components/OrderInformation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { PropsWithChildren } from 'react'
 
-type CheckoutLayoutProps = {
-  children: React.ReactNode
-}
-
-export const CheckoutLayout = ({ children }: CheckoutLayoutProps) => {
+export const CheckoutLayout = ({ children }: PropsWithChildren) => {
   const router = useRouter()
 
   return (
