@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
-    "@graphql-codegen/cli": "^2.16.2",
-    "@graphql-codegen/client-preset": "^1.2.4",
     "@headlessui/react": "^1.7.5",
     "@heroicons/react": "^2.0.13",
     "@types/node": "18.11.13",

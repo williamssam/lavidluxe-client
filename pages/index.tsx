@@ -9,46 +9,36 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import { Footer } from 'components/Footer'
 import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
+import { GetServerSideProps } from 'next'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { client } from 'utils/apollo-client/ApolloWrapper'
+import { GET_ALL_PRODUCTS } from 'utils/gql/querries'
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const { data } = await client.query({
-//     query: gql`
-//       query GETPRODUCTS {
-//         products(first: 5) {
-//           nodes {
-//             id
-//             databaseId
-//             name
-//             onSale
-//             slug
-//           }
-//         }
-//       }
-//     `,
-//   })
+type ALLPRODUCTS = {
+  products: {
+    databaseId: number
+    id: string
+    name: string
+  }[]
+}
 
-//   return {
-//     props: {
-//       products: data,
-//     },
-//   }
-// }
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await client.query({
+    query: GET_ALL_PRODUCTS,
+  })
 
-const Home = () => {
+  return {
+    props: {
+      products: data.products.nodes,
+    },
+  }
+}
+
+const Home = ({ products }: ALLPRODUCTS) => {
   const [openCart] = useAtom(openCartDrawer)
-  // console.log(props)
-
-  // useEffect(() => {
-  //   api
-  //     .get('products', {
-  //       per_page: 5, // 20 products per page
-  //     })
-  //     .then(resp => console.log('response', resp))
-  //     .catch(err => console.error(err))
-  // }, [])
+  console.log(products)
 
   return (
     <>
