@@ -9,36 +9,12 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import { Footer } from 'components/Footer'
 import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
-import { GetServerSideProps } from 'next'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { client } from 'utils/apollo-client/ApolloWrapper'
-import { GET_ALL_PRODUCTS } from 'utils/gql/querries'
 
-type ALLPRODUCTS = {
-  products: {
-    databaseId: number
-    id: string
-    name: string
-  }[]
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await client.query({
-    query: GET_ALL_PRODUCTS,
-  })
-
-  return {
-    props: {
-      products: data.products.nodes,
-    },
-  }
-}
-
-const Home = ({ products }: ALLPRODUCTS) => {
+const Home = () => {
   const [openCart] = useAtom(openCartDrawer)
-  console.log(products)
 
   return (
     <>

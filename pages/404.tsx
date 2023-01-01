@@ -6,6 +6,9 @@ import { openCartDrawer } from 'store/drawerAtom'
 
 const NotFound = () => {
   const [openCart] = useAtom(openCartDrawer)
+  // const router = useRouter()
+  // console.log('router', router)
+  // TODO: check if there is a previous page, and if there is instead of taking the user to the homepage return them to the previous page
 
   return (
     <Layout>

@@ -3,10 +3,10 @@ import {
   TrashIcon,
   XMarkIcon,
 } from '@heroicons/react/20/solid'
+import { useCartSubtotal } from 'hooks/useCartSubtotal'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
-import hero from 'public/hero.jpg'
 import { useCartStore } from 'store/cartStore'
 import { openCartDrawer } from 'store/drawerAtom'
 import { formatCurrency } from 'utils/formatCurrency'
@@ -16,12 +16,14 @@ type CartProps = {
   // openCartDrawer: boolean
 }
 
-const price = 5000
-
 export const Cart = ({}: CartProps) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
-  // const cart: number[] = [1]
+
   const cart = useCartStore(state => state.cart)
+  const removeFromCart = useCartStore(state => state.removeFromCart)
+  const increaseQuantity = useCartStore(state => state.increaseQuantity)
+  const decreaseQuantity = useCartStore(state => state.decreaseQuantity)
+  const { subtotal } = useCartSubtotal(cart)
 
   return (
     <section
@@ -49,20 +51,28 @@ export const Cart = ({}: CartProps) => {
               key={product?.name}
               className='flex items-center gap-5 border-b border-dashed pb-5'>
               <Image
-                src={hero}
-                alt='product image'
-                className='w-16 object-cover rounded'
+                src={product.image}
+                alt={`${product.name}`}
+                width={64}
+                height={80}
+                className='w-16 h-20 object-cover rounded'
               />
               <div className='text-xs font-bold w-full'>
                 <div className='flex items-start justify-between'>
                   <div>
                     <h4 className='uppercase tracking-[4px] text-[#333333]'>
-                      The skinny
+                      {product?.name}
                     </h4>
-                    <p className='text-[#999999] capitalize pt-1'>Small/blue</p>
+                    <p className='text-[#999999] capitalize pt-1'>
+                      {product?.size ? `Size ${product.size}` : null}{' '}
+                      {product?.color !== 'Select'
+                        ? `/ ${product.color}`
+                        : null}
+                    </p>
                   </div>
 
                   <button
+                    onClick={() => removeFromCart(product.id)}
                     type='button'
                     title='Delete item'
                     className='w-6 h-6 rounded-sm flex items-center justify-center text-red-400 bg-red-100 hover:bg-red-200 hover:text-red-600 transition-all active:scale-95'>
@@ -71,10 +81,14 @@ export const Cart = ({}: CartProps) => {
                 </div>
 
                 <div className='pt-2 flex items-center justify-between'>
-                  <QuantityPicker />
+                  <QuantityPicker
+                    quantity={product.quantity}
+                    onIncrease={() => increaseQuantity(product.id)}
+                    onDecrease={() => decreaseQuantity(product.id)}
+                  />
 
-                  <p className='text-base font-bold text-[#333333]'>
-                    {formatCurrency(price)}
+                  <p className='text-sm font-bold text-[#333333]'>
+                    {formatCurrency(+product.price * product.quantity)}
                   </p>
                 </div>
               </div>
@@ -96,7 +110,9 @@ export const Cart = ({}: CartProps) => {
           <h4 className='uppercase text-[0.85rem] tracking-[5px] font-bold text-gray-700'>
             Subtotal
           </h4>
-          <p className='text-base font-bold text-gray-800'>$325.00</p>
+          <p className='text-base font-bold text-gray-800'>
+            {formatCurrency(subtotal)}
+          </p>
         </div>
       ) : null}
 

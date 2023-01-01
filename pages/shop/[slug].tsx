@@ -1,54 +1,74 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
-import logo from 'assets/images/logo-three.png'
-import laviduxe from 'assets/images/slide-img-two.png'
 import { Filter } from 'components/Filter'
+import { ProductDetail } from 'components/ProductDetail'
+import { Tabs } from 'components/Tabs'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import { StoreLayout } from 'layouts/StoreLayout'
+import { ProductCategories } from 'models/productsModel'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactElement, useState } from 'react'
 import { openCartDrawer } from 'store/drawerAtom'
-import { formatCurrency } from 'utils/formatCurrency'
+import { client } from 'utils/apollo/ApolloWrapper'
+import { GET_ALL_CATEGORY_PRODUCTS } from 'utils/gql/querries'
 
-const price = 14000
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await client.query({
+    query: GET_ALL_CATEGORY_PRODUCTS,
+  })
 
-const Store = () => {
-  const products = [
-    {
-      id: 1,
-      name: 'The skinny in stone pony',
-      price: 175,
-      image:
-        'http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-2.jpg',
+  return {
+    props: {
+      data: data.productCategories,
     },
-    {
-      id: 2,
-      name: 'The skinny in stone pony',
-      price: 175,
-      image:
-        'http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-2.jpg',
-    },
-    {
-      id: 3,
-      name: 'The skinny in stone pony',
-      price: 325,
-      image:
-        'http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-7.jpg',
-    },
-    {
-      id: 4,
-      name: 'The skinny in stone pony',
-      price: 125,
-      image:
-        'http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg',
-    },
-  ]
-  const [column, setColumn] = useState(2)
+  }
+}
+
+type StoreProps = {
+  data: ProductCategories
+}
+
+const Store = ({ data }: StoreProps) => {
+  const { nodes: categories } = data
+  // const [currentSort, setCurrentSort] = useState('default')
+  const sort = ['Latest', 'Oldest', 'Price: low to high', 'Price: high to low']
+
+  console.log('data', data)
+
+  const [column, setColumn] = useState(3)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
+  const { slug } = router.query
+
+  // const sortTypes = {
+  //   up: {
+  //     type: 'price: high to low',
+  //     fn: (a: { price: number }, b: { price: number }) => a.price - b.price,
+  //   },
+  //   down: {
+  //     type: 'price: low to high',
+  //     fn: (a: { price: number }, b: { price: number }) => b.price - a.price,
+  //   },
+  //   default: {
+  //     type: 'default',
+  //     fn: (a: any, b: any) => a,
+  //   },
+  // }
+
+  // const onSortChange = () => {
+  //   let nextSort: string
+
+  //   if (currentSort === 'down') {
+  //     nextSort = 'up'
+  //   } else if (currentSort === 'up') {
+  //     nextSort = 'default'
+  //   } else if (currentSort === 'default') {
+  //     nextSort = 'down'
+  //   }
+
+  //   setCurrentSort(nextSort!)
+  // }
 
   return (
     <>
@@ -60,55 +80,33 @@ const Store = () => {
         className={`min-h-screen px-4 py-10 md:pt-20 md:pb-10 md:px-16 transition-all ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
-        <StoreLayout>
-          <Filter setColumn={setColumn} column={column} />
-          {/* products */}
-          <div
-            className={`grid grid-cols-1 gap-x-8 gap-y-12 pt-3 transition-all sm:grid-cols-2 ${
-              column === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
-            }`}>
-            {products.length > 0 ? (
-              products?.map(product => (
-                <Link
-                  href='/shop/details'
-                  key={product.id}
-                  className='group transition-colors'>
-                  <div className='relative'>
-                    <div className='h-80 w-full grid place-items-center lg:h-[30rem] rounded bg-gray-100 overflow-hidden'>
-                      <Image
-                        alt='product'
-                        src={laviduxe}
-                        className='object-contain group-hover:scale-110 transition-all'
-                        // src='http://cubecreationthemes.com/html/lola/images/Shop/shop-img-hover-4.jpg'
-                      />
-                    </div>
-                    <Image
-                      alt='lavidluxe logo'
-                      src={logo}
-                      className='w-14 object-cover absolute right-6 bottom-5 opacity-70'
-                    />
-                  </div>
-                  <div className='text-center'>
-                    <p className='pt-6 font-semibold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 text-xs md:tracking-[4px]'>
-                      The skinny in stone pony
-                    </p>
-                    <p className='pt-2 text-xs text-[#8c8c8c]'>
-                      {formatCurrency(price)}
-                    </p>
-                  </div>
-                </Link>
+        <Tabs categories={categories} />
+        <Filter setColumn={setColumn} column={column} sort={sort} />
+
+        <div
+          className={`grid grid-cols-1 gap-x-8 gap-y-12 pt-3 transition-all sm:grid-cols-2 ${
+            column === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
+          }`}>
+          {categories?.map(
+            category =>
+              category.slug === slug &&
+              (category.products.nodes.length > 0 ? (
+                category.products.nodes?.map(product => (
+                  <ProductDetail product={product} key={product.id} />
+                ))
+              ) : (
+                <div className='bg-gray-100 py-6 px-3 lg:px-16 rounded font-vollkorn w-max flex flex-col items-center col-span-full place-self-center mt-10'>
+                  <XCircleIcon className='w-12 h-12' />
+                  <p className='mt-3'>
+                    No product(s) available under this category
+                  </p>
+                  <strong className='uppercase tracking-[3px] text-sm'>
+                    {router.asPath.slice(6).replace(/-/g, ' ')}
+                  </strong>
+                </div>
               ))
-            ) : (
-              <div className='bg-gray-100 py-6 px-3 lg:px-16 rounded font-vollkorn w-max flex flex-col items-center col-span-full place-self-center mt-10'>
-                <XCircleIcon className='w-12 h-12' />
-                <p className='mt-3'>No product available under this category</p>
-                <strong className='uppercase tracking-[3px] text-sm'>
-                  {router.asPath.slice(6).replace(/-/g, ' ')}
-                </strong>
-              </div>
-            )}
-          </div>
-        </StoreLayout>
+          )}
+        </div>
       </main>
     </>
   )
