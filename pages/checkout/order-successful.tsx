@@ -1,9 +1,21 @@
+import { useAtom } from 'jotai'
 import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import Head from 'next/head'
 import Link from 'next/link'
-import { ReactElement } from 'react'
+import { useRouter } from 'next/router'
+import { ReactElement, useEffect } from 'react'
+import { userInfo } from 'store/gloablAtom'
 
 const OrderSuccessful = () => {
+  const router = useRouter()
+  const [info] = useAtom(userInfo)
+
+  useEffect(() => {
+    if (!info.email && !info.phone_number && !info.name) {
+      router.push('/checkout/information')
+    }
+  }, [info.email, info.name, info.phone_number, router])
+
   return (
     <>
       <Head>

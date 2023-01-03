@@ -23,6 +23,7 @@ export type Product = {
   onSale: boolean
   slug: string
   date: Date
+  dateOnSaleTo: string
   description: null | string
   image: Image
   productTags: ProductTags

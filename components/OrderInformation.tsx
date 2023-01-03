@@ -1,16 +1,16 @@
 import { ShoppingCartIcon } from '@heroicons/react/20/solid'
-import { useCartSubtotal } from 'hooks/useCartSubtotal'
+import { useCart } from 'hooks/useCart'
+import { useAtom } from 'jotai'
 import Image from 'next/image'
 import { useCartStore } from 'store/cartStore'
+import { userInfo } from 'store/gloablAtom'
 import { formatCurrency } from 'utils/formatCurrency'
-
-const price = 17500
+import { Spinner } from './Spinner'
 
 export const OrderInformation = () => {
   const cart = useCartStore(state => state.cart)
-  const { subtotal } = useCartSubtotal(cart)
-
-  const shippingCost = 1500.45
+  const [info] = useAtom(userInfo)
+  const { shippingCost, subtotal, total, vat } = useCart(cart)
 
   return (
     <section className='bg-gray-100 border-r h-full col-span-2 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
@@ -42,40 +42,51 @@ export const OrderInformation = () => {
                   </p>
                 </div>
 
-                <p className='text-base font-bold text-[#333333]'>
+                <p className='text-sm font-bold text-gray-700'>
                   {formatCurrency(+product.price * product.quantity)}
                 </p>
               </div>
             </li>
           ))
         ) : (
-          <div className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
+          <li className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
             <ShoppingCartIcon className='w-10 h-10 text-main' />
             <p className='uppercase font-vollkorn font-bold tracking-wider pt-4'>
               Your cart is empty 😔
             </p>
             <p className='text-xs text-gray-400'>Add items to your cart</p>
-          </div>
+          </li>
         )}
       </ul>
 
-      <div className='border-b border-b-gray-300 py-5'>
-        <div className='flex items-center justify-between'>
-          <p className='text-sm'>Subtotal</p>
+      <div className='border-b border-b-gray-300 py-5 flex flex-col gap-3'>
+        <div className='flex items-center justify-between text-sm'>
+          <p>Subtotal</p>
           <p className='text-gray-700 font-bold'>{formatCurrency(subtotal)}</p>
         </div>
-        <div className='flex items-center justify-between mt-2'>
-          <p className='text-sm'>Shipping</p>
-          <p className='text-gray-700 font-bold'>
-            {formatCurrency(shippingCost)}
-          </p>
+        <div className='flex items-center justify-between text-sm'>
+          <p>Shipping</p>
+          {info.state ? (
+            <p className='text-gray-700 font-bold'>
+              {formatCurrency(shippingCost)}
+            </p>
+          ) : (
+            <p className='text-xs flex items-center'>
+              <span>Calculating...</span>
+              <Spinner />
+            </p>
+          )}
+        </div>
+        <div className='flex items-center justify-between text-sm'>
+          <p>VAT (Value Added Tax - 5%)</p>
+          <p className='text-gray-700 font-bold'>{formatCurrency(vat)}</p>
         </div>
       </div>
 
       <div className='flex items-center justify-between pt-6'>
         <p>Total</p>
-        <p className='text-lg text-gray-700 font-bold'>
-          {formatCurrency(shippingCost + subtotal)}
+        <p className='text-lg font-bold text-[#333333]'>
+          {formatCurrency(total)}
         </p>
       </div>
     </section>

@@ -6,3 +6,16 @@
   max-width: 1800px;
   margin-inline: auto;
 }
+
+/* reset for react-inner-image-zoom */
+/* .iiz__img {
+  object-fit: cover;
+  height: 450px !important;
+}
+} */
+@media (max-width: 769px) {
+  .iiz__img {
+    object-fit: cover;
+    height: 100vh !important;
+  }
+}

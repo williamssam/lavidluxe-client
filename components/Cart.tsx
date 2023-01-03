@@ -3,7 +3,7 @@ import {
   TrashIcon,
   XMarkIcon,
 } from '@heroicons/react/20/solid'
-import { useCartSubtotal } from 'hooks/useCartSubtotal'
+import { useCart } from 'hooks/useCart'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ export const Cart = ({}: CartProps) => {
   const removeFromCart = useCartStore(state => state.removeFromCart)
   const increaseQuantity = useCartStore(state => state.increaseQuantity)
   const decreaseQuantity = useCartStore(state => state.decreaseQuantity)
-  const { subtotal } = useCartSubtotal(cart)
+  const { subtotal } = useCart(cart)
 
   return (
     <section

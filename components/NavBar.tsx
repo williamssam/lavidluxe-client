@@ -139,7 +139,6 @@ export const NavBar = () => {
       <button
         onClick={() => setOpenMenu(!openMenu)}
         className='block lg:hidden text-xs uppercase tracking-widest font-bold py-2 px-3 bg-gray-100 rounded'>
-        {/* <Bars3Icon className='w-5 h-5 text-gray-700' /> */}
         Menu
       </button>
     </nav>

@@ -13,17 +13,24 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
     <Link
       href={`/shop/product/${product.slug}`}
       className='group transition-colors'>
-      <div className='relative'>
+      <div className='relative h-80 lg:h-[35rem] overflow-hidden rounded'>
         <Image
-          alt='product'
+          alt={product.name}
           src={product.image.sourceUrl}
-          width={1080}
-          height={320}
-          className='h-80 lg:h-[35rem] rounded object-cover object-top'
+          fill={true}
+          sizes='1080, 560'
+          className={`rounded object-cover object-top hover:scale-110 transition-all ${
+            product.stockStatus === 'OUT_OF_STOCK' ? 'grayscale' : 'grayscale-0'
+          }`}
         />
         {product.onSale ? (
           <p className='absolute top-3 right-3 bg-[#333333] text-white py-2 px-4 text-xs font-bold rounded tracking-wider'>
             {getPercentageDecrease(+product.salePrice, +product.regularPrice)}%
+          </p>
+        ) : null}
+        {product.stockStatus === 'OUT_OF_STOCK' ? (
+          <p className='absolute top-3 left-3 bg-[#333333] text-white uppercase py-2 px-4 text-xs font-bold rounded tracking-wider'>
+            Out of stock
           </p>
         ) : null}
       </div>

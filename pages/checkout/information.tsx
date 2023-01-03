@@ -1,10 +1,12 @@
 import { InformationCircleIcon } from '@heroicons/react/20/solid'
 import { CheckoutNav } from 'components/CheckoutNav'
+import { useAtom } from 'jotai'
 import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { userInfo } from 'store/gloablAtom'
 
 type FormValues = {
   emailAddress: string
@@ -14,22 +16,46 @@ type FormValues = {
   address: string
   state: string
   city: string
-  postalCode: number
+  // postalCode: number
   saveInfo?: boolean
 }
 
 const Information = () => {
   const router = useRouter()
+  const [_, setInfo] = useAtom(userInfo)
   const {
     handleSubmit,
     formState: { errors },
     register,
+    setValue,
   } = useForm<FormValues>({})
 
   const submitForm: SubmitHandler<FormValues> = data => {
     console.log(data)
-    router.push('/checkout/shipping')
+    setInfo({
+      email: data.emailAddress,
+      name: `${data.firstName} ${data.lastName}`,
+      phone_number: data.phoneNumber,
+      address: `${data.address}, ${data.city} ${data.state}.`,
+      state: data.state,
+    })
+    if (data.saveInfo) {
+      localStorage.setItem('userInfo', JSON.stringify(data))
+    }
+    router.push('/checkout/payment')
   }
+
+  useEffect(() => {
+    const userDetails = JSON.parse(localStorage.getItem('userInfo')!)
+    if (!userDetails) return
+    setValue('address', userDetails.address)
+    setValue('state', userDetails.state)
+    setValue('city', userDetails.city)
+    setValue('firstName', userDetails.firstName)
+    setValue('lastName', userDetails.lastName)
+    setValue('phoneNumber', userDetails.phoneNumber)
+    setValue('emailAddress', userDetails.emailAddress)
+  }, [setValue])
   return (
     <>
       <Head>
@@ -225,7 +251,7 @@ const Information = () => {
                 </span>
               ) : null}
             </div>
-            <div className='pt-4 flex flex-col w-full'>
+            {/* <div className='pt-4 flex flex-col w-full'>
               <label htmlFor='postal-code' className='capitalize text-sm'>
                 Postal Code
               </label>
@@ -247,7 +273,7 @@ const Information = () => {
                   Postal code is required
                 </span>
               ) : null}
-            </div>
+            </div> */}
           </div>
           <label className='text-sm pt-5 flex items-center gap-2'>
             <input
@@ -260,16 +286,10 @@ const Information = () => {
         </div>
 
         <footer className='flex flex-col md:flex-row items-center justify-between mt-10'>
-          {/* <Link
-            href='/'
-            className='text-sm flex items-center text-main transition-all py-1 px-2 rounded hover:bg-gray-50'>
-            <ChevronLeftIcon className='w-7 h-7' />
-            <span>Return home</span>
-          </Link> */}
           <button
             type='submit'
             className='ml-auto flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
-            Continue to shipping
+            Continue to payment
           </button>
         </footer>
       </form>

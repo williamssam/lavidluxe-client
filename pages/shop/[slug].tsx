@@ -1,22 +1,27 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import { Filter } from 'components/Filter'
+import { Pagination } from 'components/Pagination'
 import { ProductDetail } from 'components/ProductDetail'
 import { Tabs } from 'components/Tabs'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { ProductCategories } from 'models/productsModel'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useState } from 'react'
 import { openCartDrawer } from 'store/drawerAtom'
 import { client } from 'utils/apollo/ApolloWrapper'
-import { GET_ALL_CATEGORY_PRODUCTS } from 'utils/gql/querries'
+import { GET_ALL_CATEGORY_PRODUCTS } from 'utils/gql/queries'
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await client.query({
-    query: GET_ALL_CATEGORY_PRODUCTS,
-  })
+export const getServerSideProps: GetServerSideProps<{
+  data: ProductCategories
+}> = async () => {
+  const { data } = await client.query<{ productCategories: ProductCategories }>(
+    {
+      query: GET_ALL_CATEGORY_PRODUCTS,
+    }
+  )
 
   return {
     props: {
@@ -25,16 +30,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-type StoreProps = {
-  data: ProductCategories
-}
-
-const Store = ({ data }: StoreProps) => {
+const Shop = ({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { nodes: categories } = data
+  console.log('data', data)
   // const [currentSort, setCurrentSort] = useState('default')
   const sort = ['Latest', 'Oldest', 'Price: low to high', 'Price: high to low']
-
-  console.log('data', data)
 
   const [column, setColumn] = useState(3)
   const [openCart] = useAtom(openCartDrawer)
@@ -84,7 +86,7 @@ const Store = ({ data }: StoreProps) => {
         <Filter setColumn={setColumn} column={column} sort={sort} />
 
         <div
-          className={`grid grid-cols-1 gap-x-8 gap-y-12 pt-3 transition-all sm:grid-cols-2 ${
+          className={`grid grid-cols-1 gap-x-7 gap-y-12 pt-3 transition-all sm:grid-cols-2 ${
             column === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
           }`}>
           {categories?.map(
@@ -95,7 +97,9 @@ const Store = ({ data }: StoreProps) => {
                   <ProductDetail product={product} key={product.id} />
                 ))
               ) : (
-                <div className='bg-gray-100 py-6 px-3 lg:px-16 rounded font-vollkorn w-max flex flex-col items-center col-span-full place-self-center mt-10'>
+                <div
+                  key={category.id}
+                  className='bg-gray-100 py-6 px-3 lg:px-16 rounded font-vollkorn w-max flex flex-col items-center col-span-full place-self-center mt-10'>
                   <XCircleIcon className='w-12 h-12' />
                   <p className='mt-3'>
                     No product(s) available under this category
@@ -107,13 +111,22 @@ const Store = ({ data }: StoreProps) => {
               ))
           )}
         </div>
+
+        {categories.map(category =>
+          category.slug == slug && category.products.pageInfo.hasNextPage ? (
+            <Pagination
+              key={category.id}
+              pageInfo={category.products.pageInfo}
+            />
+          ) : null
+        )}
       </main>
     </>
   )
 }
 
-Store.getLayout = function getLayout(page: ReactElement) {
+Shop.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>
 }
 
-export default Store
+export default Shop

@@ -6,6 +6,7 @@ import Head from 'next/head'
 
 import { QuantityPicker } from 'components/QuantityPicker'
 import { Select } from 'components/Select'
+import { Timer } from 'components/Timer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Product } from 'models/productsModel'
@@ -21,7 +22,7 @@ import { useCartStore } from 'store/cartStore'
 import { openCartDrawer } from 'store/drawerAtom'
 import { client } from 'utils/apollo/ApolloWrapper'
 import { formatCurrency } from 'utils/formatCurrency'
-import { GET_FIRST_TEN_PRODUCTS_ID, GET_PRODUCT } from 'utils/gql/querries'
+import { GET_FIRST_TEN_PRODUCTS_ID, GET_PRODUCT } from 'utils/gql/queries'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 export const getStaticPaths = async () => {
@@ -83,9 +84,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   }
 
   // let pageUrl = window !== undefined ? window.location.href : null
-  if (router.isFallback) {
-    return <p>Loading...</p>
-  }
 
   return (
     <>
@@ -94,26 +92,27 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       </Head>
 
       <main
-        className={`min-h-screen items-center transition-all grid grid-cols-1 md:grid-cols-5 overflow-hidden ${
+        className={`min-h-screen items-center transition-all grid grid-cols-1 lg:grid-cols-5 overflow-hidden ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <InnerImageZoom
           src={product.image.sourceUrl}
           zoomSrc={product.image.sourceUrl}
-          className='mt-16 h-full bg-main/20 object-cover object-top md:col-span-3 md:mt-0 md:h-screen'
+          className='mt-16 h-[28rem] bg-main/10 object-cover object-top md:col-span-3 md:mt-0 md:h-[35rem] lg:h-screen'
           zoomType='hover'
           zoomPreload={true}
           fullscreenOnMobile={true}
+          imgAttributes={{ alt: product.name }}
         />
 
-        <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 md:pb-0'>
+        <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 lg:px-10 xl:px-16 md:pb-0'>
           <button
             className='text-xs mb-5 flex items-center gap-2'
             onClick={() => router.back()}>
             <ArrowLeftIcon className='w-4 h-4' />
             Back to shop
           </button>
-          <header className='text-center md:text-left flex items-center justify-between'>
+          <header className='text-center md:text-left flex items-center justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center'>
             <div>
               {product.productTags?.nodes.map(tag => (
                 <p
@@ -125,6 +124,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
                 {product.name}
               </h2>
+
               <div className='flex items-center gap-2 pt-1'>
                 {product.onSale ? (
                   <p className='text-sm text-[#8c8c8c] line-through'>
@@ -155,8 +155,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             ) : null}
           </header>
 
+          {product.onSale ? <Timer deadline={product.dateOnSaleTo} /> : null}
+
           {product.description ? (
-            <div className='max-w-[55ch] py-10 font-vollkorn text-base leading-7 md:text-left'>
+            <div className='max-w-[55ch] py-10 lg:py-5 xl:py-10 font-vollkorn text-base leading-7 md:text-left'>
               <p>{product.description}</p>
             </div>
           ) : null}
@@ -197,7 +199,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           ) : null}
 
           {product.stockStatus === 'IN_STOCK' ? (
-            <div className='mt-8 flex flex-col items-center justify-center gap-8 md:flex-row md:justify-start'>
+            <div className='mt-8 flex flex-col items-center justify-center gap-8 md:flex-row md:justify-start lg:flex-col xl:flex-row'>
               <QuantityPicker
                 onDecrease={decreaseProductQuantity}
                 onIncrease={increaseProductQuantity}

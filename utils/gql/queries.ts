@@ -18,6 +18,7 @@ export const GET_ALL_CATEGORY_PRODUCTS = gql`
               sourceUrl
             }
             ... on SimpleProduct {
+              stockStatus
               regularPrice(format: RAW)
               salePrice(format: RAW)
             }
@@ -49,6 +50,7 @@ export const GET_PRODUCT = gql`
       name
       slug
       date
+      dateOnSaleTo
       description(format: RAW)
       onSale
       image {

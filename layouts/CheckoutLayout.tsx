@@ -13,10 +13,10 @@ export const CheckoutLayout = ({ children }: PropsWithChildren) => {
     <main className='min-h-screen transition-all grid grid-cols-1 md:grid-cols-5 overflow-x-hidden'>
       <section className='px-4 lg:px-10 xl:pl-40 xl:pr-20 py-10 lg:py-20 col-span-3'>
         <button
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/shop/all')}
           className='flex items-center gap-1 bg-gray-100 text-[#333333] px-2 py-1 text-xs rounded transition-all active:scale-95 hover:opacity-80'>
           <ArrowLeftIcon className='w-4 h-4' />
-          <span>Return home</span>
+          <span>Back to shop</span>
         </button>
 
         <h1 className='font-vollkorn font-bold text-2xl flex items-center gap-2 uppercase tracking-wide text-[#333333] mt-2'>

@@ -9,10 +9,6 @@ import { PropsWithChildren } from 'react'
 import { useCartStore } from 'store/cartStore'
 import { openCartDrawer } from 'store/drawerAtom'
 
-type LayoutProps = {
-  children: React.ReactNode
-}
-
 export const Layout = ({ children }: PropsWithChildren) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
   const cart = useCartStore(state => state.cart)
@@ -42,7 +38,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
           <p className='hidden lg:block text-xs font-bold uppercase tracking-[4px]'>
             Cart
           </p>
-          {cart.length >= 1 ? (
+          {cart.length > 0 ? (
             <p className='flex h-6 w-6 items-center justify-center rounded-full border-2 border-main text-xs font-bold group-hover:border-white'>
               {cart?.length}
             </p>

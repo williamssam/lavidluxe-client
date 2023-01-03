@@ -29,7 +29,7 @@ const Home = () => {
         <Swiper
           autoplay={{
             delay: 2000,
-            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           slidesPerView={'auto'}
           spaceBetween={30}

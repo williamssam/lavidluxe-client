@@ -17,7 +17,7 @@ export const QuantityPicker = ({
         title='decrease quantity'
         onClick={onDecrease}
         aria-label='decrease quantity'
-        className='bg-gray-200 px-2 py-2 rounded'>
+        className='bg-gray-200 p-1 rounded'>
         <MinusIcon className='h-5 w-5 text-gray-500' aria-hidden='true' />
       </button>
       <p className='font-black'>{quantity}</p>
@@ -25,7 +25,7 @@ export const QuantityPicker = ({
         title='increase quantity'
         onClick={onIncrease}
         aria-label='increase quantity'
-        className='bg-gray-200 px-2 py-2 rounded'>
+        className='bg-gray-200 p-1 rounded'>
         <PlusIcon className='h-5 w-5 text-gray-500' aria-hidden='true' />
       </button>
     </div>
