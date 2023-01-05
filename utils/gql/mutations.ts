@@ -1,27 +1,56 @@
 import { gql } from '@apollo/client'
 
 export const CREATE_ORDER = gql`
-  mutation CREATEORDER {
-    createOrder(input: { isPaid: true }) {
-      order {
-        paymentMethod
-        status
-        needsPayment
-        datePaid
-        shipping {
-          address1
-          city
-          email
-          firstName
-          lastName
-          phone
-          state
-          company
+  mutation createOrder(
+    $paymentMethod: String!
+    $paymentMethodTitle: String!
+    $address1: String!
+    $city: String!
+    $email: String!
+    $state: String!
+    $phone: String!
+    $firstName: String!
+    $lastName: String!
+    $transactionId: String!
+    $lineItems: [LineItemInput]
+  ) {
+    createOrder(
+      input: {
+        isPaid: true
+        lineItems: $lineItems
+        paymentMethod: $paymentMethod
+        paymentMethodTitle: $paymentMethodTitle
+        transactionId: $transactionId
+        shipping: {
+          address1: $address1
+          city: $city
+          firstName: $firstName
+          lastName: $lastName
+          state: "Lagos"
+          country: NG
         }
+        billing: {
+          firstName: $firstName
+          lastName: $lastName
+          address1: $address1
+          city: $city
+          state: $state
+          country: NG
+          email: $email
+          phone: $phone
+        }
+        shippingLines: {
+          methodId: "shipping_within_lagos"
+          methodTitle: "Shipping within Lagos, Nigeria"
+          total: "1500"
+        }
+      }
+    ) {
+      order {
         lineItems {
           nodes {
-            productId
             quantity
+            productId
           }
         }
       }

@@ -31,7 +31,6 @@ const Information = () => {
   } = useForm<FormValues>({})
 
   const submitForm: SubmitHandler<FormValues> = data => {
-    console.log(data)
     setInfo({
       email: data.emailAddress,
       name: `${data.firstName} ${data.lastName}`,
@@ -90,7 +89,6 @@ const Information = () => {
               className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
                 errors.emailAddress ? 'ring-red-600 ring-2' : 'ring-gray-300'
               }`}
-              placeholder='Enter email address'
             />
             {errors.emailAddress?.type === 'required' ? (
               <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
@@ -119,7 +117,6 @@ const Information = () => {
               className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
                 errors.phoneNumber ? 'ring-red-600 ring-2' : 'ring-gray-300'
               }`}
-              placeholder='Enter email address'
             />
             {errors.phoneNumber ? (
               <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
@@ -151,7 +148,6 @@ const Information = () => {
                 className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
                   errors.firstName ? 'ring-red-600 ring-2' : 'ring-gray-300'
                 }`}
-                placeholder='Enter email address'
               />
               {errors.firstName ? (
                 <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
@@ -173,7 +169,6 @@ const Information = () => {
                 className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
                   errors.lastName ? 'ring-red-600 ring-2' : 'ring-gray-300'
                 }`}
-                placeholder='Enter email address'
               />
               {errors.lastName ? (
                 <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
@@ -196,7 +191,6 @@ const Information = () => {
               className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
                 errors.address ? 'ring-red-600 ring-2' : 'ring-gray-300'
               }`}
-              placeholder='Enter email address'
             />
             {errors.address ? (
               <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
@@ -207,28 +201,6 @@ const Information = () => {
           </div>
 
           <div className='flex flex-col md:gap-4 lg:flex-row items-start lg:items-center justify-between w-full'>
-            <div className='pt-4 flex flex-col w-full'>
-              <label htmlFor='state' className='capitalize text-sm'>
-                State
-              </label>
-              <input
-                type='text'
-                {...register('state', {
-                  required: true,
-                })}
-                id='state'
-                className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                  errors.state ? 'ring-red-600 ring-2' : 'ring-gray-300'
-                }`}
-                placeholder='Enter email address'
-              />
-              {errors.state ? (
-                <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                  <InformationCircleIcon className='w-4 h-4' />
-                  State is required
-                </span>
-              ) : null}
-            </div>
             <div className='pt-4 flex flex-col w-full'>
               <label htmlFor='city' className='capitalize text-sm'>
                 City
@@ -242,7 +214,6 @@ const Information = () => {
                 className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
                   errors.city ? 'ring-red-600 ring-2' : 'ring-gray-300'
                 }`}
-                placeholder='Enter email address'
               />
               {errors.city ? (
                 <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
@@ -251,29 +222,27 @@ const Information = () => {
                 </span>
               ) : null}
             </div>
-            {/* <div className='pt-4 flex flex-col w-full'>
-              <label htmlFor='postal-code' className='capitalize text-sm'>
-                Postal Code
+            <div className='pt-4 flex flex-col w-full'>
+              <label htmlFor='state' className='capitalize text-sm'>
+                State
               </label>
               <input
-                type='tel'
-                {...register('postalCode', {
+                type='text'
+                {...register('state', {
                   required: true,
-                  valueAsNumber: true,
                 })}
-                id='postal-code'
+                id='state'
                 className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                  errors.postalCode ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                  errors.state ? 'ring-red-600 ring-2' : 'ring-gray-300'
                 }`}
-                placeholder='Enter email address'
               />
-              {errors.postalCode ? (
+              {errors.state ? (
                 <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
                   <InformationCircleIcon className='w-4 h-4' />
-                  Postal code is required
+                  State is required
                 </span>
               ) : null}
-            </div> */}
+            </div>
           </div>
           <label className='text-sm pt-5 flex items-center gap-2'>
             <input

@@ -1,6 +1,4 @@
 import { GetServerSideProps } from 'next'
-import Link from 'next/link'
-import { generateId } from 'utils/generateId'
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { query } = context
@@ -15,12 +13,20 @@ export const getServerSideProps: GetServerSideProps = async context => {
   )
   const data = await res.json()
 
-  console.log('data', data)
+  // console.log('data', data)
 
   if (data.status === 'success') {
     return {
       redirect: {
-        destination: 'http://localhost:3000/checkout/order-successful',
+        destination: 'http://localhost:3000/checkout/order/successful',
+        permanent: false,
+      },
+    }
+  }
+  if (data.status === 'error') {
+    return {
+      redirect: {
+        destination: 'http://localhost:3000/checkout/order/not-successful',
         permanent: false,
       },
     }
@@ -31,24 +37,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
+// This page will not be visible to the user, I'm using this page to verify payment and if payment is verified they are redirected to the success page
 const VerifyPayment = () => {
-  console.log('generateId-verify-payment', generateId)
-
   return (
     <main className='min-h-screen transition-all flex flex-col items-center justify-center px-4 lg:px-10 xl:pl-40 xl:pr-20 py-10 lg:py-20'>
-      {/* <div className='bg-gray-300 max-w-[50ch] text-center  py-4 px-10 rounded text-black'>
-        <p className='text-sm '>
-          Please wait while we verify your payment. You will be automatically
-          redirected to our site. <br />{' '}
-        </p>
-        <p className='bg-main text-white py-1 leading-3 mt-3'>
-          <strong className='uppercase text-xs tracking-[3px]'>
-            Pls, Do not reload this page
-          </strong>
-        </p>
-      </div> */}
+      <p className='text-sm '>
+        Please wait while we verify your payment. You will be automatically
+        redirected to our site. <br />{' '}
+      </p>
 
-      <div className='text-center text-sm bg-green-200 text-green-800 py-6 px-10 rounded max-w-[50ch]'>
+      {/* <div className='text-center text-sm bg-green-200 text-green-800 py-6 px-10 rounded max-w-[50ch]'>
         <p className='text-6xl'>🥳</p>
         <p className='uppercase tracking-[3px] font-vollkorn font-bold text-xl pt-3'>
           Payment successful
@@ -71,7 +69,7 @@ const VerifyPayment = () => {
         <a href='#' className='text-main underline'>
           retry
         </a>
-      </p>
+      </p> */}
     </main>
   )
 }

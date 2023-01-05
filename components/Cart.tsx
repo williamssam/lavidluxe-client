@@ -23,6 +23,7 @@ export const Cart = ({}: CartProps) => {
   const removeFromCart = useCartStore(state => state.removeFromCart)
   const increaseQuantity = useCartStore(state => state.increaseQuantity)
   const decreaseQuantity = useCartStore(state => state.decreaseQuantity)
+  const clearCart = useCartStore(state => state.clearCart)
   const { subtotal } = useCart(cart)
 
   return (
@@ -98,7 +99,7 @@ export const Cart = ({}: CartProps) => {
           <div className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
             <ShoppingCartIcon className='w-10 h-10 text-main' />
             <p className='uppercase font-vollkorn font-bold tracking-wider pt-4'>
-              Your cart is empty 😔
+              Your cart is empty
             </p>
             <p className='text-xs text-gray-400'>Add items to your cart</p>
           </div>
@@ -122,6 +123,14 @@ export const Cart = ({}: CartProps) => {
           className='w-full rounded flex justify-center bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>
           Checkout
         </Link>
+      ) : null}
+      {cart.length > 0 ? (
+        <button
+          type='button'
+          onClick={clearCart}
+          className='w-full rounded flex justify-center text-[#333333] text-xs font-bold uppercase tracking-[5px] transition-all hover:text-main active:scale-95 mt-5'>
+          Clear cart
+        </button>
       ) : null}
     </section>
   )

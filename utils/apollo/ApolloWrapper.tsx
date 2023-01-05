@@ -26,14 +26,16 @@ export const client = new ApolloClient({
     }),
     createHttpLink({
       uri: serverUrl,
-      credentials: 'same-origin',
-      headers: {
-        consumerKey: process.env.WC_CONSUMER_KEY,
-        consumerSecret: process.env.WC_CONSUMER_SECRET,
-      },
+      credentials: 'include',
+      // credentials: 'same-origin',
+      // headers: {
+      //   consumerKey: process.env.NEXT_PUBLIC_WC_CONSUMER_KEY,
+      //   consumerSecret: process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET,
+      // },
     }),
   ]),
   cache: new InMemoryCache(),
+  connectToDevTools: process.env.NODE_ENV === 'development',
 })
 
 const ApolloWrapper = ({ children }: PropsWithChildren) => {

@@ -14,23 +14,6 @@ import { useCartStore } from 'store/cartStore'
 import { userInfo } from 'store/gloablAtom'
 import { formatCurrency } from 'utils/formatCurrency'
 
-// export const getServerSideProps = () => {
-//   const content = null
-
-//   if (!content) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: '/welcome',
-//       },
-//     }
-//   }
-
-//   return {
-//     props: {},
-//   }
-// }
-
 const Payment = () => {
   const router = useRouter()
   const [info, setInfo] = useAtom(userInfo)
@@ -116,7 +99,7 @@ const Payment = () => {
         </div>
 
         <ul className='pt-5 text-sm'>
-          <li className='flex items-center gap-2'>
+          {/* <li className='flex items-center gap-2'>
             <input
               type='radio'
               name='payment-type'
@@ -137,7 +120,7 @@ const Payment = () => {
                 <p className='text-[0.6rem] leading-3 text-gray-200'>(POD)</p>
               </div>
             </label>
-          </li>
+          </li> */}
           <li className='flex items-center gap-2 mt-4'>
             <input
               type='radio'
@@ -197,11 +180,13 @@ const Payment = () => {
                     console.log('response', response)
                     closePaymentModal()
                   },
-                  onClose: () => {},
+                  onClose: () => {
+                    setLoading(false)
+                  },
                 })
               }}
               disabled={loading}
-              className='flex gap-4 items-center rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-none disabled:opacity-30'>
+              className='flex items-center rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-none disabled:opacity-30'>
               <span>Pay for order</span>
               {loading ? <Spinner /> : null}
             </button>

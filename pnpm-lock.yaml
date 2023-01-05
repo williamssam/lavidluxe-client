@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@apollo/client': ^3.7.3
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@headlessui/react': ^1.7.5
   '@heroicons/react': ^2.0.13
   '@types/node': 18.11.13
@@ -35,6 +36,7 @@ specifiers:
 
 dependencies:
   '@apollo/client': 3.7.3_gdcq4dv6opitr3wbfwyjmanyra
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@headlessui/react': 1.7.5_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 2.0.13_react@18.2.0
   '@types/node': 18.11.13
@@ -136,6 +138,10 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@formkit/auto-animate/1.0.0-beta.5:
+    resolution: {integrity: sha512-WoSwyhAZPOe6RB/IgicOtCHtrWwEpfKIZ/H/nxpKfnZL9CB6hhhBGU5bCdMRw7YpAUF2CDlQa+WWh+gCqz5lDg==}
     dev: false
 
   /@graphql-typed-document-node/core/3.1.1_graphql@16.6.0:

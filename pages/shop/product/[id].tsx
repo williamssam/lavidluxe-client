@@ -60,7 +60,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const addToCart = useCartStore(state => state.addToCart)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
-  console.log('product', product)
+  // console.log('product', product)
 
   // Convert this to usereducer
   const [productQuantity, setProductQuantity] = useState(1)
@@ -158,12 +158,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           {product.onSale ? <Timer deadline={product.dateOnSaleTo} /> : null}
 
           {product.description ? (
-            <div className='max-w-[55ch] py-10 lg:py-5 xl:py-10 font-vollkorn text-base leading-7 md:text-left'>
+            <div className='max-w-[55ch] pt-10 lg:pt-5 xl:pt-10 font-vollkorn text-base leading-7 md:text-left '>
               <p>{product.description}</p>
             </div>
           ) : null}
 
-          <div className='flex items-center justify-between border-y border-y-[#dddddd] py-1 text-xs'>
+          <div className='flex items-center justify-between border-y border-y-[#dddddd] py-1 text-xs mt-10'>
             <div className='flex items-center gap-3'>
               <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                 Size

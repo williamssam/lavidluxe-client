@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_ALL_CATEGORY_PRODUCTS = gql`
   query GETCATEGORYPRODUCTS {
-    productCategories {
+    productCategories(where: { order: ASC, orderby: TERM_GROUP }) {
       nodes {
         id
         name

@@ -34,7 +34,7 @@ const Shop = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { nodes: categories } = data
-  console.log('data', data)
+  // console.log('data', data)
   // const [currentSort, setCurrentSort] = useState('default')
   const sort = ['Latest', 'Oldest', 'Price: low to high', 'Price: high to low']
 

@@ -13,7 +13,7 @@ export const OrderInformation = () => {
   const { shippingCost, subtotal, total, vat } = useCart(cart)
 
   return (
-    <section className='bg-gray-100 border-r h-full col-span-2 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
+    <section className='bg-gray-100 border-l h-full col-span-2 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
       <ul className='border-b border-b-gray-300 pb-3'>
         {cart.length > 0 ? (
           cart?.map(product => (

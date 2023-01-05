@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
+    "@formkit/auto-animate": "1.0.0-beta.5",
     "@headlessui/react": "^1.7.5",
     "@heroicons/react": "^2.0.13",
     "@types/node": "18.11.13",
