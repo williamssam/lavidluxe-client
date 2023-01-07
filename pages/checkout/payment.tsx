@@ -10,8 +10,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FormEvent, ReactElement, useEffect, useState } from 'react'
+import { userInfo } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { userInfo } from 'store/gloablAtom'
 import { formatCurrency } from 'utils/formatCurrency'
 
 const Payment = () => {
@@ -32,11 +32,18 @@ const Payment = () => {
     amount: total,
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd,banktransfer',
-    redirect_url: 'http://localhost:3000/checkout/verify-payment',
+    redirect_url: '/checkout/order/successful',
     customer: {
       email: info.email,
       phone_number: info.phone_number,
-      name: info.name,
+      name: `${info.firstName} ${info.lastName}`,
+    },
+    meta: {
+      firstName: info.firstName,
+      lastName: info.lastName,
+      address: info.address,
+      city: info.city,
+      state: info.state,
     },
     customizations: {
       title: 'Lavidluxe Store',
@@ -48,10 +55,15 @@ const Payment = () => {
   const handleFlutterPayment = useFlutterwave(config)
 
   useEffect(() => {
-    if (!info.email && !info.phone_number && !info.name) {
+    if (
+      !info.email &&
+      !info.phone_number &&
+      !info.firstName &&
+      !info.lastName
+    ) {
       router.push('/checkout/information')
     }
-  }, [info.email, info.name, info.phone_number, router])
+  }, [info.email, info.firstName, info.lastName, info.phone_number, router])
 
   return (
     <>
@@ -177,7 +189,6 @@ const Payment = () => {
                 handleFlutterPayment({
                   callback: response => {
                     setLoading(false)
-                    console.log('response', response)
                     closePaymentModal()
                   },
                   onClose: () => {

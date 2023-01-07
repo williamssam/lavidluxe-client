@@ -26,7 +26,7 @@ export const client = new ApolloClient({
     }),
     createHttpLink({
       uri: serverUrl,
-      credentials: 'include',
+      credentials: 'same-origin',
       // credentials: 'same-origin',
       // headers: {
       //   consumerKey: process.env.NEXT_PUBLIC_WC_CONSUMER_KEY,

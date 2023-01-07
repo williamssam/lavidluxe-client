@@ -2,14 +2,14 @@ import { ShoppingCartIcon } from '@heroicons/react/20/solid'
 import { useCart } from 'hooks/useCart'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
+import { userInfo } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { userInfo } from 'store/gloablAtom'
 import { formatCurrency } from 'utils/formatCurrency'
-import { Spinner } from './Spinner'
 
 export const OrderInformation = () => {
   const cart = useCartStore(state => state.cart)
   const [info] = useAtom(userInfo)
+
   const { shippingCost, subtotal, total, vat } = useCart(cart)
 
   return (
@@ -66,16 +66,9 @@ export const OrderInformation = () => {
         </div>
         <div className='flex items-center justify-between text-sm'>
           <p>Shipping</p>
-          {info.state ? (
-            <p className='text-gray-700 font-bold'>
-              {formatCurrency(shippingCost)}
-            </p>
-          ) : (
-            <p className='text-xs flex items-center'>
-              <span>Calculating...</span>
-              <Spinner />
-            </p>
-          )}
+          <p className='text-gray-700 font-bold'>
+            {formatCurrency(shippingCost)}
+          </p>
         </div>
         <div className='flex items-center justify-between text-sm'>
           <p>VAT (Value Added Tax - 5%)</p>

@@ -2,13 +2,13 @@ import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement } from 'react'
-import { openCartDrawer } from 'store/drawerAtom'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
 import { Footer } from 'components/Footer'
 import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
+import { openCartDrawer } from 'store/atoms'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'

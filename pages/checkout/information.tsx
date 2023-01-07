@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { userInfo } from 'store/gloablAtom'
+import { userInfo } from 'store/atoms'
 
 type FormValues = {
   emailAddress: string
@@ -33,10 +33,12 @@ const Information = () => {
   const submitForm: SubmitHandler<FormValues> = data => {
     setInfo({
       email: data.emailAddress,
-      name: `${data.firstName} ${data.lastName}`,
+      firstName: data.firstName,
+      lastName: data.lastName,
       phone_number: data.phoneNumber,
-      address: `${data.address}, ${data.city} ${data.state}.`,
+      address: data.address,
       state: data.state,
+      city: data.city,
     })
     if (data.saveInfo) {
       localStorage.setItem('userInfo', JSON.stringify(data))

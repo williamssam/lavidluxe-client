@@ -1,17 +1,90 @@
-import { useCart } from 'hooks/useCart'
+import { FlutterWaveResponse } from 'flutterwave-react-v3/dist/types'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { useCartStore } from 'store/cartStore'
-import { formatCurrency } from 'utils/formatCurrency'
+import { client } from 'utils/apollo/ApolloWrapper'
+import { CREATE_ORDER } from 'utils/gql/mutations'
 
-const OrderSuccessful = () => {
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { query } = context
+  const trasactionid = query.transaction_id
+  const res = await fetch(
+    `https://api.flutterwave.com/v3/transactions/${trasactionid}/verify`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+      },
+    }
+  )
+  const data = await res.json()
+
+  if (data.status === 'error') {
+    return {
+      redirect: {
+        destination: '/checkout/order/not-successful',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      response: data,
+    },
+  }
+}
+
+type OrderSuccessfulProps = {
+  response: FlutterWaveResponse
+}
+
+const OrderSuccessful = ({ response }: any) => {
   const cart = useCartStore(state => state.cart)
   const clearCart = useCartStore(state => state.clearCart)
-  const { total } = useCart(cart)
 
-  useEffect(() => {
-    clearCart()
+  console.log('response', response)
+
+  // const [createOrder] = useMutation(CREATE_ORDER)
+
+  useLayoutEffect(() => {
+    const { payment_type, tx_ref, meta, customer } = response.data
+    async function createUserOrder() {
+      const orderVariables = {
+        paymentMethod: payment_type,
+        paymentMethodTitle: `flutterwave ${payment_type}`,
+        transactionId: tx_ref,
+        address1: meta.address,
+        state: meta.state,
+        city: meta.city,
+        email: customer.email,
+        firstName: meta.firstName,
+        lastName: meta.lastName,
+        phone: customer.phone_number,
+        lineItems: cart.map(cartItem => {
+          return {
+            productId: cartItem.databaseId,
+            quantity: cartItem.quantity,
+            name: cartItem.name,
+            metaData: [
+              {
+                key: 'color',
+                value: cartItem.color === 'Select' ? 'normal' : cartItem.color,
+              },
+            ],
+          }
+        }),
+      }
+
+      console.log('orderVariables', orderVariables)
+
+      await client.mutate({
+        mutation: CREATE_ORDER,
+        variables: orderVariables,
+      })
+    }
+    createUserOrder()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -50,7 +123,9 @@ const OrderSuccessful = () => {
             </h4>
             <p>
               Payment with card -{' '}
-              <span className='font-bold'>{formatCurrency(total)}</span>
+              <span className='font-bold'>
+                {/* {formatCurrency(response.amount)} */}
+              </span>
             </p>
           </div>
 

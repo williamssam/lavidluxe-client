@@ -10,6 +10,7 @@ export const GET_ALL_CATEGORY_PRODUCTS = gql`
         products(first: 10) {
           nodes {
             id
+            databaseId
             name
             slug
             onSale
@@ -49,6 +50,7 @@ export const GET_PRODUCT = gql`
       id
       name
       slug
+      databaseId
       date
       dateOnSaleTo
       description(format: RAW)

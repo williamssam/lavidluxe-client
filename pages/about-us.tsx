@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import hero from 'public/lavidluxe-two.jpg'
 import { ReactElement } from 'react'
-import { openCartDrawer } from 'store/drawerAtom'
+import { openCartDrawer } from 'store/atoms'
 
 const AboutUs = () => {
   const [openCart] = useAtom(openCartDrawer)

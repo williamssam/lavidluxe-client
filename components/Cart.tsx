@@ -3,12 +3,13 @@ import {
   TrashIcon,
   XMarkIcon,
 } from '@heroicons/react/20/solid'
+import { useAnimate } from 'hooks/useAnimate'
 import { useCart } from 'hooks/useCart'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
+import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { openCartDrawer } from 'store/drawerAtom'
 import { formatCurrency } from 'utils/formatCurrency'
 import { QuantityPicker } from './QuantityPicker'
 
@@ -26,9 +27,13 @@ export const Cart = ({}: CartProps) => {
   const clearCart = useCartStore(state => state.clearCart)
   const { subtotal } = useCart(cart)
 
+  // console.log('cart', cart)
+
+  const { parent } = useAnimate()
+
   return (
     <section
-      className={`w-80 md:w-96 border-l bg-gray-50 absolute right-0 top-0 h-screen py-10 px-5 md:p-10 transition-all overflow-auto ${
+      className={`w-80 md:w-96 border-l bg-gray-50 absolute right-0 top-0 h-screen py-10 px-5 md:p-10 transition-all will-change-transform overflow-auto ${
         openCart ? 'translate-x-0' : '-translate-x-full'
       }`}>
       <header className='flex items-center'>
@@ -45,10 +50,10 @@ export const Cart = ({}: CartProps) => {
       </header>
 
       {/* cart items */}
-      <div className='pt-16 flex flex-col gap-10'>
+      <ul className='pt-16 flex flex-col gap-10' ref={parent}>
         {cart.length > 0 ? (
           cart?.map(product => (
-            <div
+            <li
               key={product?.name}
               className='flex items-center gap-5 border-b border-dashed pb-5'>
               <Image
@@ -93,18 +98,18 @@ export const Cart = ({}: CartProps) => {
                   </p>
                 </div>
               </div>
-            </div>
+            </li>
           ))
         ) : (
-          <div className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
+          <li className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
             <ShoppingCartIcon className='w-10 h-10 text-main' />
             <p className='uppercase font-vollkorn font-bold tracking-wider pt-4'>
               Your cart is empty
             </p>
             <p className='text-xs text-gray-400'>Add items to your cart</p>
-          </div>
+          </li>
         )}
-      </div>
+      </ul>
 
       {cart.length > 0 ? (
         <div className='flex items-center justify-between pt-14'>

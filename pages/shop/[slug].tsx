@@ -3,14 +3,15 @@ import { Filter } from 'components/Filter'
 import { Pagination } from 'components/Pagination'
 import { ProductDetail } from 'components/ProductDetail'
 import { Tabs } from 'components/Tabs'
+import { useAnimate } from 'hooks/useAnimate'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { ProductCategories } from 'models/productsModel'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement, useState } from 'react'
-import { openCartDrawer } from 'store/drawerAtom'
+import { ReactElement } from 'react'
+import { openCartDrawer } from 'store/atoms'
 import { client } from 'utils/apollo/ApolloWrapper'
 import { GET_ALL_CATEGORY_PRODUCTS } from 'utils/gql/queries'
 
@@ -34,11 +35,15 @@ const Shop = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { nodes: categories } = data
+  const { parent } = useAnimate()
+
+  // console.log('nodes', categories)
+
   // console.log('data', data)
   // const [currentSort, setCurrentSort] = useState('default')
   const sort = ['Latest', 'Oldest', 'Price: low to high', 'Price: high to low']
 
-  const [column, setColumn] = useState(3)
+  // const [column, setColumn] = useState(3)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
   const { slug } = router.query
@@ -83,12 +88,11 @@ const Shop = ({
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <Tabs categories={categories} />
-        <Filter setColumn={setColumn} column={column} sort={sort} />
+        <Filter sort={sort} />
 
         <div
-          className={`grid grid-cols-1 gap-x-7 gap-y-12 pt-3 transition-all sm:grid-cols-2 ${
-            column === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
-          }`}>
+          ref={parent}
+          className='grid grid-cols-1 gap-x-7 gap-y-12 pt-3 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
           {categories?.map(
             category =>
               category.slug === slug &&

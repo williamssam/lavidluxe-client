@@ -13,7 +13,7 @@ import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { openCartDrawer } from 'store/drawerAtom'
+import { openCartDrawer } from 'store/atoms'
 
 type FormValues = {
   emailAddress: string

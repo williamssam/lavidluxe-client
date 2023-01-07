@@ -13,11 +13,13 @@ export const CREATE_ORDER = gql`
     $lastName: String!
     $transactionId: String!
     $lineItems: [LineItemInput]
+    $feeLines: [FeeLineInput]
   ) {
     createOrder(
       input: {
         isPaid: true
         lineItems: $lineItems
+        feeLines: $feeLines
         paymentMethod: $paymentMethod
         paymentMethodTitle: $paymentMethodTitle
         transactionId: $transactionId
@@ -46,14 +48,7 @@ export const CREATE_ORDER = gql`
         }
       }
     ) {
-      order {
-        lineItems {
-          nodes {
-            quantity
-            productId
-          }
-        }
-      }
+      orderId
     }
   }
 `

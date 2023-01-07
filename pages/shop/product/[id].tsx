@@ -18,8 +18,8 @@ import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
+import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { openCartDrawer } from 'store/drawerAtom'
 import { client } from 'utils/apollo/ApolloWrapper'
 import { formatCurrency } from 'utils/formatCurrency'
 import { GET_FIRST_TEN_PRODUCTS_ID, GET_PRODUCT } from 'utils/gql/queries'
@@ -81,9 +81,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     price: product.salePrice ? product.salePrice : product.regularPrice,
     size: selectedSize,
     color: selectedColor,
+    databaseId: product.databaseId,
   }
 
-  // let pageUrl = window !== undefined ? window.location.href : null
+  // let pageUrl = typeof window !== undefined ? window.location.href : null
 
   return (
     <>

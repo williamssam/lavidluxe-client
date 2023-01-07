@@ -5,7 +5,7 @@ import logo from 'assets/images/logo-two.png'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
-import { openCartDrawer } from 'store/drawerAtom'
+import { openCartDrawer } from 'store/atoms'
 
 export const Footer = () => {
   const [openCart] = useAtom(openCartDrawer)

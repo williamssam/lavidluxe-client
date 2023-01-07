@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement } from 'react'
-import { openCartDrawer } from 'store/drawerAtom'
+import { openCartDrawer } from 'store/atoms'
 
 const NotFound = () => {
   const [openCart] = useAtom(openCartDrawer)

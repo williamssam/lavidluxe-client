@@ -6,8 +6,8 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
+import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { openCartDrawer } from 'store/drawerAtom'
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)

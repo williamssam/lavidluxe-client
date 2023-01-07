@@ -1,12 +1,12 @@
 import { useAtom } from 'jotai'
 import { CartItem } from 'models/cartModel'
 import { useMemo } from 'react'
-import { userInfo } from 'store/gloablAtom'
+import { userInfo } from 'store/atoms'
 import { calculateVAT } from 'utils/calculateVAT'
 
 export const useCart = (cart: CartItem[]) => {
   const [info] = useAtom(userInfo)
-  const shippingCost = info.state.toLowerCase() === 'lagos' ? 1500 : 2500
+  const shippingCost = 1500
   const subtotal = useMemo(
     () => cart.reduce((acc, curr) => +curr.price * curr.quantity + acc, 0),
     [cart]

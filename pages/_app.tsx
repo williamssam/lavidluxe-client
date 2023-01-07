@@ -31,8 +31,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   return getLayout(
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      // onReset={() => typeof window !== undefined && window.location.reload()}
-    >
+      onReset={() => typeof window !== undefined && window.location.reload()}>
       <ApolloWrapper>
         <Component {...pageProps} />
       </ApolloWrapper>
