@@ -2,7 +2,7 @@ import { useAtom } from 'jotai'
 import { CartItem } from 'models/cartModel'
 import { useMemo } from 'react'
 import { userInfo } from 'store/atoms'
-import { calculateVAT } from 'utils/calculateVAT'
+import { calculateVAT } from 'utils/functions/calculateVAT'
 
 export const useCart = (cart: CartItem[]) => {
   const [info] = useAtom(userInfo)

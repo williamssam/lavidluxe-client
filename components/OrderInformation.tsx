@@ -4,7 +4,7 @@ import { useAtom } from 'jotai'
 import Image from 'next/image'
 import { userInfo } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { formatCurrency } from 'utils/formatCurrency'
+import { formatCurrency } from 'utils/functions/formatCurrency'
 
 export const OrderInformation = () => {
   const cart = useCartStore(state => state.cart)
@@ -77,7 +77,7 @@ export const OrderInformation = () => {
       </div>
 
       <div className='flex items-center justify-between pt-6'>
-        <p>Total</p>
+        <p className='font-bold text-[#333333]'>Total</p>
         <p className='text-lg font-bold text-[#333333]'>
           {formatCurrency(total)}
         </p>

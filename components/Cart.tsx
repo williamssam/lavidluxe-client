@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { formatCurrency } from 'utils/formatCurrency'
+import { formatCurrency } from 'utils/functions/formatCurrency'
 import { QuantityPicker } from './QuantityPicker'
 
 type CartProps = {

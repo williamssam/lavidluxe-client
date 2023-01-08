@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { FormEvent, ReactElement, useEffect, useState } from 'react'
 import { userInfo } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { formatCurrency } from 'utils/formatCurrency'
+import { formatCurrency } from 'utils/functions/formatCurrency'
 
 const Payment = () => {
   const router = useRouter()
@@ -44,6 +44,7 @@ const Payment = () => {
       address: info.address,
       city: info.city,
       state: info.state,
+      orderNote: info.order_note,
     },
     customizations: {
       title: 'Lavidluxe Store',
@@ -76,7 +77,7 @@ const Payment = () => {
       <div className='text-xs border border-gray-300 rounded-lg py-4 px-4 md:px-6 mt-10 flex flex-col gap-4'>
         <div className='flex items-center justify-between border-b pb-3'>
           <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
-            <p>Contact</p>
+            <p className='w-10'>Contact</p>
             <p className='font-bold'>{info.email}</p>
           </div>
           <button className='text-main font-bold' onClick={() => router.back()}>
@@ -85,18 +86,20 @@ const Payment = () => {
         </div>
         <div className='flex items-center justify-between border-b pb-3'>
           <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
-            <p>Ship to</p>
-            <p className='font-bold'>{info.address}</p>
+            <p className='w-10'>Ship to</p>
+            <p className='font-bold'>{`${info.address}, ${info.city}, ${info.state}`}</p>
           </div>
           <button className='text-main font-bold' onClick={() => router.back()}>
             Change
           </button>
         </div>
         <div className='flex items-center justify-between'>
-          <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
-            <p>Method</p>
+          <div className='flex flex-col md:flex-row items-start md:gap-10'>
+            <p className='w-12'>Note</p>
             <p className='font-bold'>
-              Shipping outside Lagos cost {formatCurrency(2500)}
+              We only deliver within Lagos, Nigeria. You must pay an extra
+              {formatCurrency(2500)} if you want us to ship to a location
+              outside of Lagos.
             </p>
           </div>
         </div>

@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         main: '#1b6bc6',
+        dark: '#155399',
       },
       backgroundImage: {
         'hero-bg':

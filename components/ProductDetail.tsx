@@ -1,8 +1,8 @@
 import { Product } from 'models/productsModel'
 import Image from 'next/image'
 import Link from 'next/link'
-import { formatCurrency } from 'utils/formatCurrency'
-import { getPercentageDecrease } from 'utils/getPercentage'
+import { formatCurrency } from 'utils/functions/formatCurrency'
+import { getPercentageDecrease } from 'utils/functions/getPercentage'
 
 type ProductDetailProps = {
   product: Product

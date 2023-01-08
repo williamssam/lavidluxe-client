@@ -21,7 +21,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
 import { client } from 'utils/apollo/ApolloWrapper'
-import { formatCurrency } from 'utils/formatCurrency'
+import { formatCurrency } from 'utils/functions/formatCurrency'
 import { GET_FIRST_TEN_PRODUCTS_ID, GET_PRODUCT } from 'utils/gql/queries'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]

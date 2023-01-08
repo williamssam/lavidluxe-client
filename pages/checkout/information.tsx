@@ -18,6 +18,7 @@ type FormValues = {
   city: string
   // postalCode: number
   saveInfo?: boolean
+  orderNote?: string
 }
 
 const Information = () => {
@@ -39,6 +40,7 @@ const Information = () => {
       address: data.address,
       state: data.state,
       city: data.city,
+      order_note: data.orderNote,
     })
     if (data.saveInfo) {
       localStorage.setItem('userInfo', JSON.stringify(data))
@@ -67,14 +69,9 @@ const Information = () => {
 
       <form onSubmit={handleSubmit(submitForm)}>
         <div className='mt-10'>
-          <div className='flex flex-col md:flex-row items-start md:items-center justify-between text-xs'>
-            <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
-              Contact information
-            </h3>
-            <p>
-              Already have an account? <span className='text-main'>Log in</span>
-            </p>
-          </div>
+          <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
+            Contact information
+          </h3>
 
           <div className='pt-4 flex flex-col w-full'>
             <label htmlFor='email-address' className='capitalize text-sm'>
@@ -246,15 +243,43 @@ const Information = () => {
               ) : null}
             </div>
           </div>
-          <label className='text-sm pt-5 flex items-center gap-2'>
-            <input
-              type='checkbox'
-              className='accent-main'
-              {...register('saveInfo')}
-            />
-            <span>Save this information for next time</span>
-          </label>
         </div>
+
+        <div className='mt-12'>
+          <h3 className='uppercase tracking-[4px] text-xs font-bold  text-gray-700'>
+            Instruction for seller
+          </h3>
+
+          <div className='pt-4 flex flex-col w-full'>
+            <label htmlFor='order-notes' className='capitalize text-sm'>
+              Order notes
+            </label>
+            <textarea
+              id='order-notes'
+              rows={3}
+              className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 resize-none text-gray-700 w-full flex-1 ${
+                errors.orderNote ? 'ring-red-600 ring-2' : 'ring-gray-300'
+              }`}
+              placeholder='Special instructions for seller'
+              {...register('orderNote')}></textarea>
+            {errors.firstName ? (
+              <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
+                <InformationCircleIcon className='w-4 h-4' />
+                First name is required
+              </span>
+            ) : null}
+          </div>
+        </div>
+
+        <label className='text-sm pt-5 flex items-center gap-2'>
+          <input
+            type='checkbox'
+            className='accent-main sr-only peer'
+            {...register('saveInfo')}
+          />
+          <div className='w-4 h-4 ring-1 relative ring-gray-400 rounded-sm after:opacity-0 peer-checked:after:opacity-100 after:transition-opacity after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:content-[""] after:w-[0.65rem] after:h-[0.65rem] after:bg-dark after:rounded-sm'></div>
+          <span>Save this information for next time</span>
+        </label>
 
         <footer className='flex flex-col md:flex-row items-center justify-between mt-10'>
           <button

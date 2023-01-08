@@ -7,7 +7,7 @@ import {
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { PropsWithChildren } from 'react'
-import { serverUrl } from 'utils/endpoints'
+import { serverUrl } from 'utils/constants/endpoints'
 
 export const client = new ApolloClient({
   ssrMode: true,
@@ -26,8 +26,6 @@ export const client = new ApolloClient({
     }),
     createHttpLink({
       uri: serverUrl,
-      credentials: 'same-origin',
-      // credentials: 'same-origin',
       // headers: {
       //   consumerKey: process.env.NEXT_PUBLIC_WC_CONSUMER_KEY,
       //   consumerSecret: process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET,

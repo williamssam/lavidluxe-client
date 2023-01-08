@@ -12,6 +12,7 @@ export const CREATE_ORDER = gql`
     $firstName: String!
     $lastName: String!
     $transactionId: String!
+    $customerNote: String
     $lineItems: [LineItemInput]
     $feeLines: [FeeLineInput]
   ) {
@@ -23,6 +24,7 @@ export const CREATE_ORDER = gql`
         paymentMethod: $paymentMethod
         paymentMethodTitle: $paymentMethodTitle
         transactionId: $transactionId
+        customerNote: $customerNote
         shipping: {
           address1: $address1
           city: $city

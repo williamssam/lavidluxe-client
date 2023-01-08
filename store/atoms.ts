@@ -10,6 +10,7 @@ type UserInfo = {
   state: string
   payment_method?: string
   city: string
+  order_note?: string
 }
 
 export const userInfo = atom<UserInfo>({
@@ -21,6 +22,7 @@ export const userInfo = atom<UserInfo>({
   payment_method: '',
   state: '',
   city: '',
+  order_note: '',
 })
 
 export const openCartDrawer = atom(false)

@@ -1,10 +1,14 @@
+import logo from 'assets/images/logo.png'
 import { FlutterWaveResponse } from 'flutterwave-react-v3/dist/types'
+import { useCart } from 'hooks/useCart'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useLayoutEffect } from 'react'
 import { useCartStore } from 'store/cartStore'
 import { client } from 'utils/apollo/ApolloWrapper'
+import { formatCurrency } from 'utils/functions/formatCurrency'
 import { CREATE_ORDER } from 'utils/gql/mutations'
 
 export const getServerSideProps: GetServerSideProps = async context => {
@@ -43,10 +47,9 @@ type OrderSuccessfulProps = {
 const OrderSuccessful = ({ response }: any) => {
   const cart = useCartStore(state => state.cart)
   const clearCart = useCartStore(state => state.clearCart)
+  const { vat } = useCart(cart)
 
   console.log('response', response)
-
-  // const [createOrder] = useMutation(CREATE_ORDER)
 
   useLayoutEffect(() => {
     const { payment_type, tx_ref, meta, customer } = response.data
@@ -62,6 +65,7 @@ const OrderSuccessful = ({ response }: any) => {
         firstName: meta.firstName,
         lastName: meta.lastName,
         phone: customer.phone_number,
+        customerNote: meta.customerNote,
         lineItems: cart.map(cartItem => {
           return {
             productId: cartItem.databaseId,
@@ -75,9 +79,15 @@ const OrderSuccessful = ({ response }: any) => {
             ],
           }
         }),
+        feeLines: [
+          {
+            name: 'VAT (Value added tax)',
+            total: String(vat),
+          },
+        ],
       }
 
-      console.log('orderVariables', orderVariables)
+      // console.log('orderVariables', orderVariables)
 
       await client.mutate({
         mutation: CREATE_ORDER,
@@ -95,21 +105,24 @@ const OrderSuccessful = ({ response }: any) => {
       </Head>
 
       <section className='max-w-[70ch] bg-gray-100 shadow-xl p-6 rounded'>
-        <header className='flex flex-col items-center gap-5'>
+        <header className='flex justify-center mb-5'>
+          <Image src={logo} alt='lavidluxe logo' className='w-20' />
+        </header>
+        <div className='flex flex-col items-center justify-center gap-3'>
           <p className='text-8xl'>🎉</p>
-          <div className='text-center mt-3'>
-            <p className='uppercase text-xs tracking-[5px]'>Order #1007</p>
+          <div className='text-center'>
+            {/* <p className='uppercase text-xs tracking-[5px]'>Order #1007</p> */}
             <h2 className='text-3xl font-vollkorn font-bold text-green-600 uppercase tracking-[4px]'>
               Thank you!
             </h2>
           </div>
-        </header>
+        </div>
         <div className='border border-gray-300 rounded-lg py-4 px-4 md:px-6 mt-10 flex flex-col gap-4 text-sm'>
           <h3 className='uppercase tracking-[3px] text-xs font-bold text-gray-700'>
             Your order is confirmed
           </h3>
           <p>
-            You’ll receive a confirmation email with your order number shortly.
+            You’ll receive a confirmation email with your order details shortly.
           </p>
         </div>
         <div className='text-xs border border-gray-300 rounded-lg py-4 px-4 md:px-6 mt-7 flex flex-col gap-4'>
@@ -122,7 +135,7 @@ const OrderSuccessful = ({ response }: any) => {
               Payment method
             </h4>
             <p>
-              Payment with card -{' '}
+              Payment successful - {formatCurrency(response.data.amount)}
               <span className='font-bold'>
                 {/* {formatCurrency(response.amount)} */}
               </span>
@@ -138,6 +151,7 @@ const OrderSuccessful = ({ response }: any) => {
         <footer className='flex flex-col items-center justify-between mt-10'>
           <Link
             href='/shop/all'
+            onClick={() => clearCart()}
             className='flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
             Continue shopping
           </Link>
