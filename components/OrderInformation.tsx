@@ -1,14 +1,11 @@
 import { ShoppingCartIcon } from '@heroicons/react/20/solid'
 import { useCart } from 'hooks/useCart'
-import { useAtom } from 'jotai'
 import Image from 'next/image'
-import { userInfo } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 
 export const OrderInformation = () => {
   const cart = useCartStore(state => state.cart)
-  const [info] = useAtom(userInfo)
 
   const { shippingCost, subtotal, total, vat } = useCart(cart)
 

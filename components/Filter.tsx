@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { Select } from './Select'
 
 type FilterProps = {
   sort: string[]
+  selected: string | number
+  setSelected: Dispatch<SetStateAction<string | number>>
 }
 
-export const Filter = ({ sort }: FilterProps) => {
-  const [selected, setSelected] = useState<string | number>(sort[0])
+export const Filter = ({ sort, selected, setSelected }: FilterProps) => {
+  // const [selected, setSelected] = useState<string | number>(sort[0])
 
   return (
     <section className='flex items-center justify-end pt-10 md:pt-20'>

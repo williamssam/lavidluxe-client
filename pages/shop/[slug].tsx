@@ -10,7 +10,7 @@ import { ProductCategories } from 'models/productsModel'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { openCartDrawer } from 'store/atoms'
 import { client } from 'utils/apollo/ApolloWrapper'
 import { GET_ALL_CATEGORY_PRODUCTS } from 'utils/gql/queries'
@@ -40,42 +40,13 @@ const Shop = ({
   // console.log('nodes', categories)
 
   // console.log('data', data)
-  // const [currentSort, setCurrentSort] = useState('default')
   const sort = ['Latest', 'Oldest', 'Price: low to high', 'Price: high to low']
+  const [selected, setSelected] = useState<string | number>(sort[0])
 
   // const [column, setColumn] = useState(3)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
   const { slug } = router.query
-
-  // const sortTypes = {
-  //   up: {
-  //     type: 'price: high to low',
-  //     fn: (a: { price: number }, b: { price: number }) => a.price - b.price,
-  //   },
-  //   down: {
-  //     type: 'price: low to high',
-  //     fn: (a: { price: number }, b: { price: number }) => b.price - a.price,
-  //   },
-  //   default: {
-  //     type: 'default',
-  //     fn: (a: any, b: any) => a,
-  //   },
-  // }
-
-  // const onSortChange = () => {
-  //   let nextSort: string
-
-  //   if (currentSort === 'down') {
-  //     nextSort = 'up'
-  //   } else if (currentSort === 'up') {
-  //     nextSort = 'default'
-  //   } else if (currentSort === 'default') {
-  //     nextSort = 'down'
-  //   }
-
-  //   setCurrentSort(nextSort!)
-  // }
 
   return (
     <>
@@ -88,7 +59,7 @@ const Shop = ({
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <Tabs categories={categories} />
-        <Filter sort={sort} />
+        <Filter sort={sort} selected={selected} setSelected={setSelected} />
 
         <div
           ref={parent}
