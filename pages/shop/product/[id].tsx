@@ -10,7 +10,7 @@ import { Timer } from 'components/Timer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Product } from 'models/productsModel'
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactElement, useState } from 'react'
@@ -25,12 +25,12 @@ import { formatCurrency } from 'utils/functions/formatCurrency'
 import { GET_FIRST_TEN_PRODUCTS_ID, GET_PRODUCT } from 'utils/gql/queries'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await client.query({
     query: GET_FIRST_TEN_PRODUCTS_ID,
   })
 
-  const paths = data.products.nodes?.map(product => ({
+  const paths = data.products.nodes?.map((product: Product) => ({
     params: { id: product.id },
   }))
 
