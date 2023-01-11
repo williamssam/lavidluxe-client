@@ -1,12 +1,12 @@
-import { ProductCategoriesNode } from 'models/productsModel'
+import { Categories } from 'models/productModel'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-type TabsProps = {
-  categories: ProductCategoriesNode[]
-}
+// type TabsProps = {
+//   categories: Category[]
+// }
 
-export const Tabs = ({ categories }: TabsProps) => {
+export const Tabs = ({ categories }: Categories) => {
   const router = useRouter()
   const { slug } = router.query
 

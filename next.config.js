@@ -5,13 +5,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: process.env.NODE_ENV === 'development' ? 'http' : 'https',
-        hostname:
-          process.env.NODE_ENV === 'development'
-            ? 'lavidluxe.local'
-            : 'lavidluxe.byethost8.com',
+        protocol: 'https',
+        hostname: 'media.graphassets.com',
         // port: '',
-        pathname: '/wp-content/uploads/**',
+        pathname: '/**',
       },
     ],
   },

@@ -94,7 +94,7 @@ export const Cart = ({}: CartProps) => {
                   />
 
                   <p className='text-sm font-bold text-[#333333]'>
-                    {formatCurrency(+product.price * product.quantity)}
+                    {formatCurrency(product.price * product.quantity)}
                   </p>
                 </div>
               </div>

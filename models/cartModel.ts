@@ -1,9 +1,9 @@
 export type Item = {
   id: string
-  price: string
+  price: number
   name: string
   image: string
-  databaseId: number
+  // databaseId: number
   color?: string | number
   size: number | string
 }

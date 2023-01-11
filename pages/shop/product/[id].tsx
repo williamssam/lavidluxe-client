@@ -1,15 +1,14 @@
+import Head from 'next/head'
+
 import { ArrowLeftIcon, TruckIcon } from '@heroicons/react/20/solid'
 import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
 import { Twitter } from 'assets/icon/Twitter'
-import Head from 'next/head'
-
 import { QuantityPicker } from 'components/QuantityPicker'
 import { Select } from 'components/Select'
-import { Timer } from 'components/Timer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import { Product } from 'models/productsModel'
+import { Product } from 'models/productModel'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -30,7 +29,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     query: GET_FIRST_TEN_PRODUCTS_ID,
   })
 
-  const paths = data.products.nodes?.map((product: Product) => ({
+  const paths = data.products?.map((product: Product) => ({
     params: { id: product.id },
   }))
 
@@ -60,7 +59,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const addToCart = useCartStore(state => state.addToCart)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
-  // console.log('product', product)
 
   // Convert this to usereducer
   const [productQuantity, setProductQuantity] = useState(1)
@@ -76,15 +74,17 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   const cartProduct = {
     id: product.id,
-    image: product.image.sourceUrl,
+    image: product.images[0].url,
     name: product.name,
-    price: product.salePrice ? product.salePrice : product.regularPrice,
+    price: product.price,
     size: selectedSize,
     color: selectedColor,
-    databaseId: product.databaseId,
+    // databaseId: product.databaseId,
   }
 
   // let pageUrl = typeof window !== undefined ? window.location.href : null
+
+  let variants = product.variants?.map(variant => variant.name)
 
   return (
     <>
@@ -97,8 +97,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <InnerImageZoom
-          src={product.image.sourceUrl}
-          zoomSrc={product.image.sourceUrl}
+          src={product.images[0].url}
+          zoomSrc={product.images[0].url}
           className='mt-16 h-[28rem] bg-main/10 object-cover object-top md:col-span-3 md:mt-0 md:h-[35rem] lg:h-screen'
           zoomType='hover'
           zoomPreload={true}
@@ -115,48 +115,30 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </button>
           <header className='text-center md:text-left flex items-center justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center'>
             <div>
-              {product.productTags?.nodes.map(tag => (
-                <p
-                  className='text-[0.65rem] text-left text-main font-bold'
-                  key={tag.slug}>
-                  #{tag.name}
-                </p>
-              ))}
               <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
                 {product.name}
               </h2>
 
               <div className='flex items-center gap-2 pt-1'>
-                {product.onSale ? (
-                  <p className='text-sm text-[#8c8c8c] line-through'>
-                    {formatCurrency(+product.regularPrice)}
-                  </p>
-                ) : (
-                  <p className='text-sm text-[#8c8c8c] font-bold'>
-                    {formatCurrency(+product.regularPrice)}
-                  </p>
-                )}
-                {product.onSale ? (
-                  <p className='text-sm text-[#8c8c8c] font-bold'>
-                    {formatCurrency(+product.salePrice)}
-                  </p>
-                ) : null}
+                <p className='text-sm text-[#8c8c8c] font-bold'>
+                  {formatCurrency(product.price)}
+                </p>
               </div>
             </div>
 
-            {product.stockStatus === 'IN_STOCK' ? (
+            {product.stockStatus.name === 'In Stock' ? (
               <p className='uppercase tracking-[3px] text-[0.6rem] py-1 px-2 bg-emerald-100 text-emerald-500 rounded font-black'>
                 In stock
               </p>
             ) : null}
-            {product.stockStatus === 'OUT_OF_STOCK' ? (
+            {product.stockStatus.name !== 'In Stock' ? (
               <p className='uppercase tracking-[3px] text-[0.6rem] py-1 px-2 bg-gray-200 text-gray-500 rounded font-black'>
                 Out of stock
               </p>
             ) : null}
           </header>
 
-          {product.onSale ? <Timer deadline={product.dateOnSaleTo} /> : null}
+          {/* {product.onSale ? <Timer deadline={product.dateOnSaleTo} /> : null} */}
 
           {product.description ? (
             <div className='max-w-[55ch] pt-10 lg:pt-5 xl:pt-10 font-vollkorn text-base leading-7 md:text-left '>
@@ -176,21 +158,20 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 className='w-[5.1rem]'
               />
             </div>
-            {product.attributes
-              ? product.attributes?.nodes.map(attribute => (
-                  <div className='flex items-center gap-3' key={attribute.id}>
-                    <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
-                      {attribute.name}
-                    </h3>
-                    <Select
-                      data={attribute.options}
-                      selected={selectedColor}
-                      setSelected={setSelectedColor}
-                      className='w-24'
-                    />
-                  </div>
-                ))
-              : null}
+            {product.variants.length ? (
+              <div className='flex items-center gap-3'>
+                <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
+                  Color
+                </h3>
+
+                <Select
+                  data={variants}
+                  selected={selectedColor}
+                  setSelected={setSelectedColor}
+                  className='w-24'
+                />
+              </div>
+            ) : null}
           </div>
 
           {selectError ? (
@@ -199,7 +180,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </p>
           ) : null}
 
-          {product.stockStatus === 'IN_STOCK' ? (
+          {product.stockStatus.name === 'In Stock' ? (
             <div className='mt-8 flex flex-col items-center justify-center gap-8 md:flex-row md:justify-start lg:flex-col xl:flex-row'>
               <QuantityPicker
                 onDecrease={decreaseProductQuantity}
@@ -209,7 +190,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
               <button
                 onClick={() => {
-                  if (product.attributes && selectedColor === 'Select') {
+                  if (product.variants.length && selectedColor === 'Select') {
                     setSelectError('Please select a color')
                     return
                   }
@@ -256,7 +237,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <ul className='flex items-center gap-2'>
                 <li>
                   <a
-                    // href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`}
                     href='#'
                     target='_blank'
                     rel='noopener noreferrer'
@@ -275,7 +255,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </li>
                 <li>
                   <a
-                    // href={`https://twitter.com/intent/tweet?text=${pageUrl}`}
                     href='#'
                     target='_blank'
                     rel='noopener noreferrer'

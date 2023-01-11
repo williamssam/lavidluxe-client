@@ -1,33 +1,21 @@
 import { gql } from '@apollo/client'
 
 export const GET_ALL_CATEGORY_PRODUCTS = gql`
-  query GETCATEGORYPRODUCTS {
-    productCategories(where: { order: ASC, orderby: TERM_GROUP }) {
-      nodes {
+  query productCategories {
+    categories {
+      id
+      slug
+      name
+      products(first: 12, orderBy: publishedAt_DESC) {
         id
+        images {
+          url
+        }
         name
+        price
         slug
-        products(first: 10) {
-          nodes {
-            id
-            databaseId
-            name
-            slug
-            onSale
-            date
-            image {
-              sourceUrl
-            }
-            ... on SimpleProduct {
-              stockStatus
-              regularPrice(format: RAW)
-              salePrice(format: RAW)
-            }
-          }
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
+        stockStatus {
+          name
         }
       }
     }
@@ -35,45 +23,32 @@ export const GET_ALL_CATEGORY_PRODUCTS = gql`
 `
 
 export const GET_FIRST_TEN_PRODUCTS_ID = gql`
-  query GETFIRSTTENPRODUCTS {
+  query getFirstTenProducts {
     products(first: 10) {
-      nodes {
-        id
-      }
+      id
     }
   }
 `
 
 export const GET_PRODUCT = gql`
-  query GETPRODUCT($id: ID!) {
-    product(id: $id, idType: SLUG) {
+  query getProduct($id: ID!) {
+    product(where: { id: $id }) {
+      description
+      createdAt
       id
       name
+      price
+      images {
+        url
+      }
+      stockStatus {
+        name
+      }
       slug
-      databaseId
-      date
-      dateOnSaleTo
-      description(format: RAW)
-      onSale
-      image {
-        sourceUrl
-      }
-      productTags {
-        nodes {
-          slug
-          name
-        }
-      }
-      ... on SimpleProduct {
-        stockStatus
-        regularPrice(format: RAW)
-        salePrice(format: RAW)
-      }
-      attributes {
-        nodes {
+      variants {
+        ... on ProductColorVariant {
           id
           name
-          options
         }
       }
     }

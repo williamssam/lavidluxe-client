@@ -7,7 +7,6 @@ import {
 } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { PropsWithChildren } from 'react'
-import { serverUrl } from 'utils/constants/endpoints'
 
 export const client = new ApolloClient({
   ssrMode: true,
@@ -25,7 +24,10 @@ export const client = new ApolloClient({
         )
     }),
     createHttpLink({
-      uri: serverUrl,
+      uri: process.env.SERVER_URL,
+      headers: {
+        Autorization: `Bearer ${process.env.HYGRAPH_QUERY_AUTORIZATION_TOKEN}`,
+      },
     }),
   ]),
   cache: new InMemoryCache(),
