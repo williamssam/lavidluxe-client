@@ -26,10 +26,6 @@ export const client = new ApolloClient({
     }),
     createHttpLink({
       uri: serverUrl,
-      // headers: {
-      //   consumerKey: process.env.NEXT_PUBLIC_WC_CONSUMER_KEY,
-      //   consumerSecret: process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET,
-      // },
     }),
   ]),
   cache: new InMemoryCache(),

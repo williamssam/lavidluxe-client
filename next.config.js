@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
+        protocol: process.env.NODE_ENV === 'development' ? 'http' : 'https',
         hostname:
           process.env.NODE_ENV === 'development'
             ? 'lavidluxe.local'
