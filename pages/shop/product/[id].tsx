@@ -1,9 +1,7 @@
 import Head from 'next/head'
 
-import { ArrowLeftIcon, TruckIcon } from '@heroicons/react/20/solid'
-import { Facebook } from 'assets/icon/Facebook'
-import { Instagram } from 'assets/icon/Instagram'
-import { Twitter } from 'assets/icon/Twitter'
+import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import { ProductFooter } from 'components/ProductFooter'
 import { QuantityPicker } from 'components/QuantityPicker'
 import { Select } from 'components/Select'
 import { useAtom } from 'jotai'
@@ -19,34 +17,48 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
-import { client } from 'utils/apollo/ApolloWrapper'
 import { formatCurrency } from 'utils/functions/formatCurrency'
-import { GET_FIRST_TEN_PRODUCTS_ID, GET_PRODUCT } from 'utils/gql/queries'
+import { client, urlFor } from 'utils/sanity/client'
+
+// ;`*[_type == "category" && !(_id in path('drafts.**'))] | order(_createdAt asc) {
+//       _id, title, slug,
+//       products[]->{name, price, image, slug, _id, stockStatus}
+//     }`
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await client.query({
-    query: GET_FIRST_TEN_PRODUCTS_ID,
-  })
+  // When this is true (in preview environments) don't
+  // prerender any static pages
+  // (faster builds, but slower initial page load)
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    }
+  }
 
-  const paths = data.products?.map((product: Product) => ({
-    params: { id: product.id },
-  }))
+  const paths = await client.fetch(
+    `*[_type == "product" && defined(slug.current)][].slug.current`
+  )
 
-  return { paths, fallback: 'blocking' }
+  return {
+    paths: paths.map((id: string) => ({ params: { id } })),
+    fallback: true,
+  }
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const { data } = await client.query({
-    query: GET_PRODUCT,
-    variables: {
-      id: context.params?.id,
-    },
-  })
+  // const {id = ""} = context.params
+  const product = await client.fetch(
+    `*[_type == "product" && slug.current == $slug && !(_id in path('drafts.**'))] {
+      name, price, image, slug, _id, stockStatus, description, tags, productColors
+    }`,
+    { slug: context.params?.id }
+  )
 
   return {
     props: {
-      product: data.product,
+      product: product[0],
     },
   }
 }
@@ -59,6 +71,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const addToCart = useCartStore(state => state.addToCart)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
+
+  console.log('product', product)
 
   // Convert this to usereducer
   const [productQuantity, setProductQuantity] = useState(1)
@@ -73,18 +87,15 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   }
 
   const cartProduct = {
-    id: product.id,
-    image: product.images[0].url,
+    id: product._id,
+    image: urlFor(product.image).auto('format').url(),
     name: product.name,
     price: product.price,
     size: selectedSize,
     color: selectedColor,
-    // databaseId: product.databaseId,
   }
 
   // let pageUrl = typeof window !== undefined ? window.location.href : null
-
-  let variants = product.variants?.map(variant => variant.name)
 
   return (
     <>
@@ -97,8 +108,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <InnerImageZoom
-          src={product.images[0].url}
-          zoomSrc={product.images[0].url}
+          src={urlFor(product.image).auto('format').url()}
+          zoomSrc={urlFor(product.image).auto('format').url()}
           className='mt-16 h-[28rem] bg-main/10 object-cover object-top md:col-span-3 md:mt-0 md:h-[35rem] lg:h-screen'
           zoomType='hover'
           zoomPreload={true}
@@ -106,18 +117,27 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           imgAttributes={{ alt: product.name }}
         />
 
-        <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 lg:px-10 xl:px-16 md:pb-0'>
+        <section className='justify-end self-center xl:self-start xl:mt-32 px-3 py-5 md:col-span-2 md:px-16 lg:px-10 xl:px-16 md:pb-0'>
           <button
             className='text-xs mb-5 flex items-center gap-2'
-            onClick={() => router.back()}>
+            onClick={() => router.push('/shop/all')}>
             <ArrowLeftIcon className='w-4 h-4' />
             Back to shop
           </button>
           <header className='text-center md:text-left flex items-center justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center'>
             <div>
-              <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
-                {product.name}
-              </h2>
+              <div>
+                {product.tags?.map(tag => (
+                  <p
+                    className='text-[0.65rem] text-left text-main font-bold'
+                    key={tag}>
+                    #{tag}
+                  </p>
+                ))}
+                <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
+                  {product.name}
+                </h2>
+              </div>
 
               <div className='flex items-center gap-2 pt-1'>
                 <p className='text-sm text-[#8c8c8c] font-bold'>
@@ -126,16 +146,15 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               </div>
             </div>
 
-            {product.stockStatus.name === 'In Stock' ? (
+            {product.stockStatus === 'in-stock' ? (
               <p className='uppercase tracking-[3px] text-[0.6rem] py-1 px-2 bg-emerald-100 text-emerald-500 rounded font-black'>
                 In stock
               </p>
-            ) : null}
-            {product.stockStatus.name !== 'In Stock' ? (
+            ) : (
               <p className='uppercase tracking-[3px] text-[0.6rem] py-1 px-2 bg-gray-200 text-gray-500 rounded font-black'>
                 Out of stock
               </p>
-            ) : null}
+            )}
           </header>
 
           {/* {product.onSale ? <Timer deadline={product.dateOnSaleTo} /> : null} */}
@@ -158,14 +177,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 className='w-[5.1rem]'
               />
             </div>
-            {product.variants.length ? (
+            {product.productColors.length ? (
               <div className='flex items-center gap-3'>
                 <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                   Color
                 </h3>
 
                 <Select
-                  data={variants}
+                  data={product.productColors}
                   selected={selectedColor}
                   setSelected={setSelectedColor}
                   className='w-24'
@@ -180,7 +199,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </p>
           ) : null}
 
-          {product.stockStatus.name === 'In Stock' ? (
+          {product.stockStatus === 'in-stock' ? (
             <div className='mt-8 flex flex-col items-center justify-center gap-8 md:flex-row md:justify-start lg:flex-col xl:flex-row'>
               <QuantityPicker
                 onDecrease={decreaseProductQuantity}
@@ -190,7 +209,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
               <button
                 onClick={() => {
-                  if (product.variants.length && selectedColor === 'Select') {
+                  if (
+                    product.productColors.length &&
+                    selectedColor === 'Select'
+                  ) {
                     setSelectError('Please select a color')
                     return
                   }
@@ -216,55 +238,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </div>
           )}
 
-          <footer className='mt-10'>
-            <p className='text-center text-[0.7rem] font-bold uppercase tracking-[3px] text-main'>
-              Free shipping on orders above N100,000
-            </p>
-            <div className='mt-3 flex flex-col items-center justify-center bg-gray-100 py-4 text-center text-xs text-gray-500 rounded'>
-              <TruckIcon className='h-8 w-8 text-gray-600' aria-hidden='true' />
-              <p className='px-4 pt-2'>
-                We deliver everywhere in{' '}
-                <strong className='text-main'>Lagos, Nigeria</strong> and some
-                part of Nigeria.
-              </p>
-              <p className='pt-1'>We deliver within three (3) working days</p>
-            </div>
-
-            {/* share product */}
-            <div className='mt-8 flex items-center justify-center gap-2 text-sm md:justify-end'>
-              <p>Share product on:</p>
-
-              <ul className='flex items-center gap-2'>
-                <li>
-                  <a
-                    href='#'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='transition-colors hover:text-gray-800'>
-                    <Facebook />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='transition-colors hover:text-gray-800'>
-                    <Instagram />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='#'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='transition-colors hover:text-gray-800'>
-                    <Twitter />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </footer>
+          <ProductFooter />
         </section>
       </main>
 

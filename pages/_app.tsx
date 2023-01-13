@@ -8,7 +8,6 @@ import { ErrorBoundary } from 'react-error-boundary'
 import 'styles/globals.css'
 import 'styles/page-loader.css'
 import 'swiper/css/bundle'
-import ApolloWrapper from 'utils/apollo/ApolloWrapper'
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -32,9 +31,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
       onReset={() => typeof window !== undefined && window.location.reload()}>
-      <ApolloWrapper>
-        <Component {...pageProps} />
-      </ApolloWrapper>
+      <Component {...pageProps} />
     </ErrorBoundary>
   )
 }

@@ -1,42 +1,31 @@
-export interface Categories {
-  categories: Category[]
-}
-
 export interface Category {
-  __typename: string
-  id: string
-  slug: string
-  name: string
-  products: Product[]
+  _id: string
+  products: Product[] | null
+  slug: Slug
+  title: string
 }
 
 export interface Product {
-  __typename: ProductTypename
+  _id: string
   description: string
-  createdAt: Date
-  id: string
+  image: Image
   name: string
   price: number
-  images: Image[]
-  stockStatus: StockStatus
-  slug: string
-  variants: Variant[]
+  productColors: string[]
+  slug: Slug
+  tags: string[]
+  promo: {
+    promoOn: true
+    promoPrice: number
+  }
+  stockStatus: 'in-stock' | 'out-of-stock'
 }
 
-export type ProductTypename = 'Product'
+export interface Slug {
+  _type: 'slug'
+  current: string
+}
 
 export interface Image {
-  __typename: ImageTypename
-  url: string
-}
-
-export type ImageTypename = 'Asset'
-
-export interface StockStatus {
-  name: string
-}
-
-export interface Variant {
-  id: string
-  name: string
+  _type: string
 }

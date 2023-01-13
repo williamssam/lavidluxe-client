@@ -5,35 +5,48 @@ import { Tabs } from 'components/Tabs'
 import { useAnimate } from 'hooks/useAnimate'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import { Categories } from 'models/productModel'
+import { Category } from 'models/productModel'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useState } from 'react'
 import { openCartDrawer } from 'store/atoms'
-import { client } from 'utils/apollo/ApolloWrapper'
-import { GET_ALL_CATEGORY_PRODUCTS } from 'utils/gql/queries'
+import { client } from 'utils/sanity/client'
 
-type ProductType = Categories
+// export const getServerSideProps: GetServerSideProps<{
+//   data: Categories
+// }> = async () => {
+//   const { data } = await client.query<Categories>({
+//     query: GET_ALL_CATEGORY_PRODUCTS,
+//   })
+
+//   return {
+//     props: {
+//       data: data,
+//     },
+//   }
+// }
 
 export const getServerSideProps: GetServerSideProps<{
-  data: Categories
+  categories: Category[]
 }> = async () => {
-  const { data } = await client.query<Categories>({
-    query: GET_ALL_CATEGORY_PRODUCTS,
-  })
+  const categories = await client.fetch(
+    `*[_type == "category" && !(_id in path('drafts.**'))] | order(_createdAt asc) {
+      _id, title, slug,
+      products[]->{name, price, image, slug, _id, stockStatus,promo}
+    }`
+  )
 
   return {
     props: {
-      data: data,
+      categories,
     },
   }
 }
 
 const Shop = ({
-  data,
+  categories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { categories } = data
   const { parent } = useAnimate()
 
   console.log('categories', categories)
@@ -62,17 +75,17 @@ const Shop = ({
 
         <div
           ref={parent}
-          className='grid grid-cols-1 gap-x-6 gap-y-12 pt-3 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
+          className='grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
           {categories?.map(
             category =>
-              category.slug === slug &&
-              (category.products.length > 0 ? (
+              category.slug.current === slug &&
+              (category.products?.length ? (
                 category.products?.map(product => (
-                  <ProductDetail product={product} key={product.id} />
+                  <ProductDetail product={product} key={product._id} />
                 ))
               ) : (
                 <div
-                  key={category.id}
+                  key={category._id}
                   className='bg-gray-100 py-6 px-3 lg:px-16 rounded font-vollkorn w-max flex flex-col items-center col-span-full place-self-center mt-10'>
                   <XCircleIcon className='w-12 h-12' />
                   <p className='mt-3'>

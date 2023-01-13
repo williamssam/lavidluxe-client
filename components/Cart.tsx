@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
+import { urlFor } from 'utils/sanity/client'
 import { QuantityPicker } from './QuantityPicker'
 
 type CartProps = {
@@ -57,8 +58,8 @@ export const Cart = ({}: CartProps) => {
               key={product?.name}
               className='flex items-center gap-5 border-b border-dashed pb-5'>
               <Image
-                src={product.image}
-                alt={`${product.name}`}
+                src={urlFor(product.image).auto('format').url()}
+                alt={product.name}
                 width={64}
                 height={80}
                 className='w-16 h-20 object-cover rounded'
