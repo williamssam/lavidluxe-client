@@ -13,20 +13,6 @@ import { ReactElement, useState } from 'react'
 import { openCartDrawer } from 'store/atoms'
 import { client } from 'utils/sanity/client'
 
-// export const getServerSideProps: GetServerSideProps<{
-//   data: Categories
-// }> = async () => {
-//   const { data } = await client.query<Categories>({
-//     query: GET_ALL_CATEGORY_PRODUCTS,
-//   })
-
-//   return {
-//     props: {
-//       data: data,
-//     },
-//   }
-// }
-
 export const getServerSideProps: GetServerSideProps<{
   categories: Category[]
 }> = async () => {

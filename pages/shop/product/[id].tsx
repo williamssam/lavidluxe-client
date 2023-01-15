@@ -4,6 +4,7 @@ import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import { ProductFooter } from 'components/ProductFooter'
 import { QuantityPicker } from 'components/QuantityPicker'
 import { Select } from 'components/Select'
+import { Timer } from 'components/Timer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Product } from 'models/productModel'
@@ -17,6 +18,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
+import { checkDate } from 'utils/functions/checkDate'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { client, urlFor } from 'utils/sanity/client'
 
@@ -51,7 +53,7 @@ export const getStaticProps: GetStaticProps = async context => {
   // const {id = ""} = context.params
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug && !(_id in path('drafts.**'))] {
-      name, price, image, slug, _id, stockStatus, description, tags, productColors
+      name, price, image, slug, _id, stockStatus, description, tags, productColors, promo
     }`,
     { slug: context.params?.id }
   )
@@ -72,7 +74,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
 
-  console.log('product', product)
+  console.log('product', product.promo)
 
   // Convert this to usereducer
   const [productQuantity, setProductQuantity] = useState(1)
@@ -90,7 +92,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     id: product._id,
     image: urlFor(product.image).auto('format').url(),
     name: product.name,
-    price: product.price,
+    price: product.promo?.promoOn ? product.promo.promoPrice : product.price,
     size: selectedSize,
     color: selectedColor,
   }
@@ -100,7 +102,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   return (
     <>
       <Head>
-        <title>Details - Lavidluxe</title>
+        <title>{product?.name} - Lavidluxe</title>
       </Head>
 
       <main
@@ -117,7 +119,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           imgAttributes={{ alt: product.name }}
         />
 
-        <section className='justify-end self-center xl:self-start xl:mt-32 px-3 py-5 md:col-span-2 md:px-16 lg:px-10 xl:px-16 md:pb-0'>
+        <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 lg:px-10 xl:px-16 md:pb-0'>
           <button
             className='text-xs mb-5 flex items-center gap-2'
             onClick={() => router.push('/shop/all')}>
@@ -140,9 +142,22 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               </div>
 
               <div className='flex items-center gap-2 pt-1'>
-                <p className='text-sm text-[#8c8c8c] font-bold'>
+                {/* <p className='text-sm text-[#8c8c8c] font-bold'>
+                  {formatCurrency(product.price)}
+                </p> */}
+                <p
+                  className={`text-[#8c8c8c] ${
+                    product.promo?.promoOn
+                      ? 'line-through text-xs font-normal'
+                      : 'no-underline text-sm font-bold'
+                  }`}>
                   {formatCurrency(product.price)}
                 </p>
+                {product.promo?.promoOn ? (
+                  <p className='text-sm text-[#8c8c8c] font-bold'>
+                    {formatCurrency(product.promo.promoPrice)}
+                  </p>
+                ) : null}
               </div>
             </div>
 
@@ -157,7 +172,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             )}
           </header>
 
-          {/* {product.onSale ? <Timer deadline={product.dateOnSaleTo} /> : null} */}
+          {product.promo?.promoOn && checkDate(product.promo.promoStart) ? (
+            <Timer deadline={product.promo.promoEnd} />
+          ) : null}
 
           {product.description ? (
             <div className='max-w-[55ch] pt-10 lg:pt-5 xl:pt-10 font-vollkorn text-base leading-7 md:text-left '>

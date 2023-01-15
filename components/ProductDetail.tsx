@@ -21,7 +21,9 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           fill={true}
           sizes='1080, 560'
           className={`rounded object-cover object-top hover:scale-110 transition-all ${
-            product.stockStatus === 'in-stock' ? 'grayscale-0' : 'grayscale'
+            product.stockStatus === 'in-stock'
+              ? 'grayscale-0'
+              : 'grayscale opacity-50'
           }`}
         />
         {product.promo?.promoOn ? (
@@ -30,7 +32,7 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           </p>
         ) : null}
         {product.stockStatus !== 'in-stock' ? (
-          <p className='absolute top-3 left-3 bg-[#333333] text-white uppercase py-2 px-4 text-xs font-bold rounded tracking-wider'>
+          <p className='absolute top-3 left-3 bg-red-600 text-white uppercase py-2 px-4 text-xs font-bold rounded tracking-wider'>
             Out of stock
           </p>
         ) : null}

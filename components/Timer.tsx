@@ -26,9 +26,9 @@ export const Timer = ({ deadline }: TimerProps) => {
   return (
     <div className='text-xs mt-5'>
       <p className='uppercase font-bold tracking-[3px] text-[0.6rem]'>
-        Discounts ends on:
+        Promo (discount) ends on:
       </p>
-      <ul className='flex items-center gap-1 pt-1'>
+      <ul className='flex items-center gap-4 pt-1'>
         {Object.entries({
           Days: time / DAY,
           Hours: (time / HOUR) % 24,
@@ -37,7 +37,7 @@ export const Timer = ({ deadline }: TimerProps) => {
         }).map(([label, value]) => (
           <div
             key={label}
-            className='flex items-center gap-1 px-2 py-1 bg-gray-200 rounded-sm'>
+            className='flex items-center gap-1 px-2 py-1 bg-gray-200 rounded-sm outline-1 outline outline-offset-2 outline-gray-300'>
             <p>{`${Math.floor(value)}`.padStart(2, '0')}</p>
             <span className='lowercase'>{label}</span>
           </div>

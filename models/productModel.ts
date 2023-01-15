@@ -17,6 +17,8 @@ export interface Product {
   promo: {
     promoOn: true
     promoPrice: number
+    promoStart: string
+    promoEnd: string
   }
   stockStatus: 'in-stock' | 'out-of-stock'
 }
