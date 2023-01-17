@@ -3,8 +3,8 @@ import { Select } from './Select'
 
 type FilterProps = {
   sort: string[]
-  selected: string | number
-  setSelected: Dispatch<SetStateAction<string | number>>
+  selected: string
+  setSelected: Dispatch<SetStateAction<string>>
 }
 
 export const Filter = ({ sort, selected, setSelected }: FilterProps) => {

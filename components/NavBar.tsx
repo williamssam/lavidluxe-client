@@ -51,7 +51,7 @@ export const NavBar = () => {
               href={nav.route}
               className={`py-2 px-3 rounded transition-all ${
                 router.asPath === nav.route
-                  ? 'text-white font-black bg-main'
+                  ? 'text-white font-black bg-dark'
                   : 'text-gray-600 hover:text-main hover:bg-gray-50'
               }`}>
               {nav.name}

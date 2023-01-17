@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ReactCanvasConfetti from 'react-canvas-confetti'
 import { useCartStore } from 'store/cartStore'
+import { formatCurrency } from 'utils/functions/formatCurrency'
 import { client } from 'utils/sanity/client'
 
 export const getServerSideProps: GetServerSideProps<{
@@ -53,22 +54,22 @@ const OrderSuccessful = ({
   const cart = useCartStore(state => state.cart)
   const clearCart = useCartStore(state => state.clearCart)
   const { fire, getInstance } = useConfetti()
-  const { total } = useCart(cart)
-  console.log('response', response)
+  const { total, subtotal } = useCart(cart)
+  // console.log('response', response)
 
-  const cartItems = cart?.map(cart => {
-    return {
-      name: cart.name,
-      quantity: cart.quantity,
-      amount: cart.price,
-      color: cart.color,
-      size: cart.size,
-      _key: nanoid(),
-    }
-  })
+  const cartItems = cart?.map(cart => ({
+    name: cart.name,
+    quantity: cart.quantity,
+    amount: cart.price,
+    color: cart.color,
+    size: cart.size,
+    _key: nanoid(),
+  }))
+  let orderId = nanoid(5)
 
   const createOrderAndSendMail = async () => {
     const { payment_type, tx_ref, meta, customer } = response.data
+
     try {
       const order = {
         _type: 'order',
@@ -88,7 +89,34 @@ const OrderSuccessful = ({
       }
       await client.create(order)
     } catch (error) {
-      console.log(error)
+      if (error instanceof Error) {
+        console.log(error)
+      }
+    } finally {
+      const sendSuccessMail = await fetch('/api/send-mail', {
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: customer.email,
+          address: `${meta.address}, ${meta.city}, ${meta.state}`,
+          phoneNumber: customer.phone_number,
+          name: `${meta.firstName} ${meta.lastName}`,
+          subtotal: formatCurrency(subtotal),
+          total: formatCurrency(total),
+          year: new Date().getFullYear(),
+          order_id: `#LALU-${orderId}`,
+          items: cart?.map(cart => ({
+            product_name: cart.name,
+            quantity: cart.quantity,
+            price: cart.price,
+            color: cart.color,
+            size: cart.size,
+          })),
+        }),
+      })
+
+      await sendSuccessMail.json()
     }
   }
 
@@ -112,7 +140,7 @@ const OrderSuccessful = ({
             <p className='text-8xl'>🎉</p>
             <div className='text-center'>
               <p className='uppercase text-xs tracking-[5px]'>
-                Order #LL-{nanoid(4)}
+                Order #LALU-{orderId}
               </p>
               <h2 className='text-3xl font-vollkorn font-bold text-green-600 uppercase tracking-[4px]'>
                 Thank you!
@@ -138,9 +166,9 @@ const OrderSuccessful = ({
                 Payment method
               </h4>
               <p>
-                {/* Payment successful - {formatCurrency(response.data.amount)} */}
+                Payment successful -
                 <span className='font-bold'>
-                  {/* {formatCurrency(response.amount)} */}
+                  {formatCurrency(response.data.amount)}
                 </span>
               </p>
             </div>
@@ -182,9 +210,5 @@ const OrderSuccessful = ({
     </>
   )
 }
-
-// OrderSuccessful.getLayout = function getLayout(page: ReactElement) {
-//   return <CheckoutLayout>{page}</CheckoutLayout>
-// }
 
 export default OrderSuccessful

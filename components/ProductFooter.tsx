@@ -1,9 +1,21 @@
 import { TruckIcon } from '@heroicons/react/20/solid'
 import { Facebook } from 'assets/icon/Facebook'
-import { Instagram } from 'assets/icon/Instagram'
 import { Twitter } from 'assets/icon/Twitter'
+import { Whatsapp } from 'assets/icon/Whatsapp'
+import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
+import { useState } from 'react'
 
-export const ProductFooter = () => {
+type ProductFooterProps = {
+  name: string
+}
+
+export const ProductFooter = ({ name }: ProductFooterProps) => {
+  const [pageUrl, setPageUrl] = useState('')
+
+  useIsomorphicLayoutEffect(() => {
+    setPageUrl(window.location.href)
+  }, [])
+
   return (
     <footer className='mt-10'>
       <p className='text-center text-[0.7rem] font-bold uppercase tracking-[3px] text-main'>
@@ -26,29 +38,32 @@ export const ProductFooter = () => {
         <ul className='flex items-center gap-2'>
           <li>
             <a
-              href='#'
+              href={`https://www.facebook.com/sharer.php?u=${pageUrl}`}
               target='_blank'
               rel='noopener noreferrer'
               className='transition-colors hover:text-gray-800'>
               <Facebook />
+              <span className='sr-only'>Facebook</span>
             </a>
           </li>
           <li>
             <a
-              href='#'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='transition-colors hover:text-gray-800'>
-              <Instagram />
-            </a>
-          </li>
-          <li>
-            <a
-              href='#'
+              href={`https://twitter.com/intent/tweet?url=${pageUrl}&text=${name}`}
               target='_blank'
               rel='noopener noreferrer'
               className='transition-colors hover:text-gray-800'>
               <Twitter />
+              <span className='sr-only'>Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={`whatsapp://send?text=${name}%20${pageUrl}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='transition-colors hover:text-gray-800'>
+              <Whatsapp />
+              <span className='sr-only'>Whatsapp</span>
             </a>
           </li>
         </ul>

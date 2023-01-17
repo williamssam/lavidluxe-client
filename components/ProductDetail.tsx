@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Product } from 'models/productModel'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,12 +11,28 @@ type ProductDetailProps = {
   product: Product
 }
 
+const item = {
+  hidden: { y: 30, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2,
+    },
+  },
+}
+
 export const ProductDetail = ({ product }: ProductDetailProps) => {
   return (
     <Link
       href={`/shop/product/${product.slug.current}`}
       className='group transition-colors'>
-      <div className='relative h-80 lg:h-[35rem] overflow-hidden rounded'>
+      <motion.div
+        variants={item}
+        initial='hidden'
+        animate='visible'
+        className='relative h-80 lg:h-[35rem] overflow-hidden rounded'>
         <Image
           alt={product.name}
           src={urlFor(product.image).auto('format').url()}
@@ -39,8 +56,12 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
             Out of stock
           </p>
         ) : null}
-      </div>
-      <div className='text-center'>
+      </motion.div>
+      <motion.div
+        variants={item}
+        initial='hidden'
+        animate='visible'
+        className='text-center'>
         <p className='pt-5 font-bold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 text-xs md:tracking-[4px]'>
           {product.name}
         </p>
@@ -57,7 +78,7 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
             </p>
           ) : null}
         </div>
-      </div>
+      </motion.div>
     </Link>
   )
 }

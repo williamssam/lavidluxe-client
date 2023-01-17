@@ -29,7 +29,7 @@ export const HomeScreenSwiper = ({
         </p>
         <Link
           href='/shop/all'
-          className='bg-white lg:bg-[#333333] py-4 mt-2 lg:mt-5 rounded hover:bg-main hover:text-white transition-all px-8 md:px-10 text-xs font-bold uppercase tracking-[3px] md:tracking-[5px] text-[#333333] lg:text-white flex items-center justify-center gap-5'>
+          className='bg-white lg:bg-[#333333] py-4 mt-2 lg:mt-5 rounded hover:bg-main hover:text-white transition-all px-8 md:px-10 text-xs font-bold uppercase tracking-[3px] md:tracking-[5px] text-[#333333] lg:text-white flex items-center justify-center gap-5 hover:shadow-[0_0.5em_0.5em_-0.4em_#155399] hover:-translate-y-2 focus:shadow-[0_0.5em_0.5em_-0.4em_#155399] focus:-translate-y-2'>
           Start shopping now <ArrowLongRightIcon className='w-5' />
         </Link>
       </div>

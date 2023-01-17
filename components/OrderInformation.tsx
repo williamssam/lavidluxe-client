@@ -31,7 +31,7 @@ export const OrderInformation = () => {
                   </h4>
                   <p className='text-[#999999] capitalize pt-1'>
                     {product?.size ? `Size ${product.size}` : null}{' '}
-                    {product?.color ? `/ ${product.color}` : null}
+                    {product?.color !== 'Select' ? `/ ${product.color}` : null}
                   </p>
 
                   <p className='text-gray-500 pt-3'>
@@ -68,7 +68,7 @@ export const OrderInformation = () => {
           </p>
         </div>
         <div className='flex items-center justify-between text-sm'>
-          <p>VAT (Value Added Tax - 5%)</p>
+          <p>VAT (Value Added Tax)</p>
           <p className='text-gray-700 font-bold'>{formatCurrency(vat)}</p>
         </div>
       </div>

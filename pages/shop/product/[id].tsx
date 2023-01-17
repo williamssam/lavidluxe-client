@@ -11,7 +11,7 @@ import { Product } from 'models/productModel'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactElement, useState } from 'react'
+import { ReactElement, Reducer, useReducer, useState } from 'react'
 import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
 import { toast, ToastContainer } from 'react-toastify'
@@ -21,11 +21,6 @@ import { useCartStore } from 'store/cartStore'
 import { checkDate } from 'utils/functions/checkDate'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { client, urlFor } from 'utils/sanity/client'
-
-// ;`*[_type == "category" && !(_id in path('drafts.**'))] | order(_createdAt asc) {
-//       _id, title, slug,
-//       products[]->{name, price, image, slug, _id, stockStatus}
-//     }`
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -69,23 +64,32 @@ type ProductDetailsProps = {
   product: Product
 }
 
+type InitialState = {
+  productQuantity: number
+  selectError: string
+}
+
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   const addToCart = useCartStore(state => state.addToCart)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
 
-  console.log('product', product)
+  // https://dev.to/builderio/a-cure-for-react-usestate-hell-1ldi
+  const [value, updateValue] = useReducer<Reducer<InitialState, any>>(
+    (prev, next) => {
+      return { ...prev, ...next }
+    },
+    { productQuantity: 1, selectError: '' }
+  )
 
-  // Convert this to usereducer
-  const [productQuantity, setProductQuantity] = useState(1)
-  const [selectedSize, setSelectedSize] = useState<string | number>(size[0])
-  const [selectedColor, setSelectedColor] = useState<string | number>('Select')
-  const [selectError, setSelectError] = useState('')
+  const [selectedSize, setSelectedSize] = useState<number>(size[0])
+  const [selectedColor, setSelectedColor] = useState<string>('Select')
 
-  const increaseProductQuantity = () => setProductQuantity(productQuantity + 1)
+  const increaseProductQuantity = () =>
+    updateValue({ productQuantity: value.productQuantity + 1 })
   const decreaseProductQuantity = () => {
-    if (productQuantity === 1) return
-    setProductQuantity(productQuantity - 1)
+    if (value.productQuantity === 1) return
+    updateValue({ productQuantity: value.productQuantity - 1 })
   }
 
   const cartProduct = {
@@ -97,12 +101,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     color: selectedColor,
   }
 
-  // let pageUrl = typeof window !== undefined ? window.location.href : null
+  let pageTitle = `${product?.name} - Lavidluxe`
 
   return (
     <>
       <Head>
-        <title>{product?.name} - Lavidluxe</title>
+        <title>{pageTitle}</title>
       </Head>
 
       <main
@@ -214,9 +218,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             ) : null}
           </div>
 
-          {selectError ? (
+          {value.selectError ? (
             <p className='text-xs text-red-600 leading-3 bg-red-200 p-1 font-bold'>
-              {selectError}
+              {value.selectError}
             </p>
           ) : null}
 
@@ -225,20 +229,22 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <QuantityPicker
                 onDecrease={decreaseProductQuantity}
                 onIncrease={increaseProductQuantity}
-                quantity={productQuantity}
+                quantity={value.productQuantity}
               />
 
               <button
                 onClick={() => {
                   if (
                     product.productColors.length &&
+                    !product.productColors.includes('') &&
                     selectedColor === 'Select'
                   ) {
-                    setSelectError('Please select a color')
+                    updateValue({ selectError: 'Please select a color' })
                     return
                   }
-                  addToCart(cartProduct, productQuantity)
-                  setSelectError('')
+                  addToCart(cartProduct, value.productQuantity)
+                  updateValue({ selectError: '' })
+
                   toast.success(`🥳 '${product.name}' added to your cart`)
                 }}
                 type='button'
@@ -259,7 +265,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </div>
           )}
 
-          <ProductFooter />
+          <ProductFooter name={product?.name} />
         </section>
       </main>
 

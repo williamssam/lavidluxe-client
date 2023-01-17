@@ -35,9 +35,9 @@ const Shop = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { parent } = useAnimate()
 
-  console.log('data', categories)
+  // console.log('data', categories)
   const sort = ['Default', 'Price: high to low', 'Price: low to high']
-  const [selected, setSelected] = useState<string | number>(sort[0])
+  const [selected, setSelected] = useState<string>(sort[0])
   const [currentSort, setCurrentSort] = useState(selected)
 
   const [openCart] = useAtom(openCartDrawer)

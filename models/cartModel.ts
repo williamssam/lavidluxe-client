@@ -3,8 +3,7 @@ export type Item = {
   price: number
   name: string
   image: string
-  // databaseId: number
-  color?: string | number
+  color?: string
   size: number | string
 }
 

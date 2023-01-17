@@ -2,19 +2,19 @@ import { Listbox, Transition } from '@headlessui/react'
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Dispatch, Fragment, SetStateAction } from 'react'
 
-type SelectProps = {
-  data: (string | number)[]
+type SelectProps<T> = {
+  data: Array<T>
   className?: string
-  setSelected: Dispatch<SetStateAction<string | number>>
-  selected: string | number
+  setSelected: Dispatch<SetStateAction<T>>
+  selected: T
 }
 
-export const Select = ({
+export const Select = <T extends string | number>({
   data,
   className,
   selected,
   setSelected,
-}: SelectProps) => {
+}: SelectProps<T>) => {
   return (
     <div className=''>
       <Listbox value={selected} onChange={setSelected}>
