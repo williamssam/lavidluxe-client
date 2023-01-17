@@ -27,7 +27,10 @@ const Payment = () => {
   }
 
   const config = {
-    public_key: process.env.NEXT_PUBLIC_FLW_PUBLIC_KEY!,
+    public_key:
+      process.env.NODE_ENV === 'development'
+        ? process.env.NEXT_PUBLIC_FLW_DEV_PUBLIC_KEY!
+        : process.env.NEXT_PUBLIC_FLW_PROD_PUBLIC_KEY!,
     tx_ref: nanoid(),
     amount: total,
     currency: 'NGN',

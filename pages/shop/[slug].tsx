@@ -1,6 +1,5 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import { Filter } from 'components/Filter'
-import { Pagination } from 'components/Pagination'
 import { ProductDetail } from 'components/ProductDetail'
 import { Tabs } from 'components/Tabs'
 import { useAnimate } from 'hooks/useAnimate'
@@ -46,7 +45,7 @@ const Shop = ({
   const { slug } = router.query
 
   const sortObj: {
-    [key: string]: (a: Product, b: Product) => number
+    [key: string]: (a: Product, b: Product) => any
   } = {
     Default: (a, b) => a,
     'Price: high to low': (a, b) => b.price - a.price,
@@ -99,7 +98,7 @@ const Shop = ({
           )}
         </div>
 
-        <Pagination />
+        {/* <Pagination /> */}
       </main>
     </>
   )

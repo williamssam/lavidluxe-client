@@ -21,7 +21,11 @@ export const getServerSideProps: GetServerSideProps<{
     `https://api.flutterwave.com/v3/transactions/${trasactionid}/verify`,
     {
       headers: {
-        Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+        Authorization: `Bearer ${
+          process.env.NODE_ENV === 'development'
+            ? process.env.FLW_DEV_SECRET_KEY
+            : process.env.FLW_PROD_SECRET_KEY
+        }`,
       },
     }
   )
