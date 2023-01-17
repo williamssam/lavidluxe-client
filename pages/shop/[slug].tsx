@@ -1,15 +1,16 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
 import { Filter } from 'components/Filter'
+import { Pagination } from 'components/Pagination'
 import { ProductDetail } from 'components/ProductDetail'
 import { Tabs } from 'components/Tabs'
 import { useAnimate } from 'hooks/useAnimate'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import { Category } from 'models/productModel'
+import { Category, Product } from 'models/productModel'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { openCartDrawer } from 'store/atoms'
 import { client } from 'utils/sanity/client'
 
@@ -35,16 +36,27 @@ const Shop = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { parent } = useAnimate()
 
-  console.log('categories', categories)
-
-  // console.log('data', data)
-  const sort = ['Latest', 'Oldest', 'Price: low to high', 'Price: high to low']
+  console.log('data', categories)
+  const sort = ['Default', 'Price: high to low', 'Price: low to high']
   const [selected, setSelected] = useState<string | number>(sort[0])
+  const [currentSort, setCurrentSort] = useState(selected)
 
-  // const [column, setColumn] = useState(3)
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
   const { slug } = router.query
+
+  const sortObj: {
+    [key: string]: (a: Product, b: Product) => number
+  } = {
+    Default: (a, b) => a,
+    'Price: high to low': (a, b) => b.price - a.price,
+    'Price: low to high': (a, b) => a.price - b.price,
+  }
+
+  useEffect(() => {
+    setCurrentSort(selected)
+    console.log('current sort', currentSort)
+  }, [currentSort, selected])
 
   return (
     <>
@@ -66,9 +78,11 @@ const Shop = ({
             category =>
               category.slug.current === slug &&
               (category.products?.length ? (
-                category.products?.map(product => (
-                  <ProductDetail product={product} key={product._id} />
-                ))
+                [...category.products]
+                  ?.sort(sortObj[currentSort])
+                  ?.map(product => (
+                    <ProductDetail product={product} key={product._id} />
+                  ))
               ) : (
                 <div
                   key={category._id}
@@ -85,14 +99,7 @@ const Shop = ({
           )}
         </div>
 
-        {/* {categories.map(category =>
-          category.slug == slug && category.products.pageInfo.hasNextPage ? (
-            <Pagination
-              key={category.id}
-              pageInfo={category.products.pageInfo}
-            />
-          ) : null
-        )} */}
+        <Pagination />
       </main>
     </>
   )

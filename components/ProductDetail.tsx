@@ -1,6 +1,7 @@
 import { Product } from 'models/productModel'
 import Image from 'next/image'
 import Link from 'next/link'
+import { blurDataURL } from 'utils/dataURl'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { getPercentageDecrease } from 'utils/functions/getPercentage'
 import { urlFor } from 'utils/sanity/client'
@@ -20,6 +21,8 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           src={urlFor(product.image).auto('format').url()}
           fill={true}
           sizes='1080, 560'
+          placeholder='blur'
+          blurDataURL={blurDataURL}
           className={`rounded object-cover object-top hover:scale-110 transition-all ${
             product.stockStatus === 'in-stock'
               ? 'grayscale-0'

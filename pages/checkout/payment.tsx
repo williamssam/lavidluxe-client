@@ -114,28 +114,6 @@ const Payment = () => {
         </div>
 
         <ul className='pt-5 text-sm'>
-          {/* <li className='flex items-center gap-2'>
-            <input
-              type='radio'
-              name='payment-type'
-              id='payment-on-delivery'
-              className='hidden peer'
-              value='payment-on-delivery'
-              onChange={handleChange}
-              checked={checkedValue === 'payment-on-delivery'}
-            />
-            <span className='bg-main w-6 h-6 rounded items-center justify-center hidden peer-checked:flex translate-x-3 peer-checked:translate-x-0 transition-transform'>
-              <CheckIcon className='w-4 h-4 text-gray-100' />
-            </span>
-            <label
-              htmlFor='payment-on-delivery'
-              className='py-2 px-5 rounded bg-[#8c8c8c] relative left-0 peer-checked:left-2 flex items-center gap-4 w-52 text-white peer-checked:bg-main cursor-pointer transition-all ring-2 ring-gray-300 peer-checked:ring-main/50'>
-              <div>
-                <span className='font-bold'>Payment on delivery</span>
-                <p className='text-[0.6rem] leading-3 text-gray-200'>(POD)</p>
-              </div>
-            </label>
-          </li> */}
           <li className='flex items-center gap-2 mt-4'>
             <input
               type='radio'
@@ -160,12 +138,6 @@ const Payment = () => {
               </div>
             </label>
           </li>
-          {/* {checkedError ? (
-            <li className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-              <InformationCircleIcon className='w-4 h-4' />
-              <span>Please select a payment method</span>
-            </li>
-          ) : null} */}
         </ul>
 
         <footer className='flex flex-col md:flex-row items-center justify-between mt-10'>

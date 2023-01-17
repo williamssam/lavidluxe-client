@@ -74,7 +74,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const [openCart] = useAtom(openCartDrawer)
   const router = useRouter()
 
-  console.log('product', product.promo)
+  console.log('product', product)
 
   // Convert this to usereducer
   const [productQuantity, setProductQuantity] = useState(1)
@@ -129,13 +129,15 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           <header className='text-center md:text-left flex items-center justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center'>
             <div>
               <div>
-                {product.tags?.map(tag => (
-                  <p
-                    className='text-[0.65rem] text-left text-main font-bold'
-                    key={tag}>
-                    #{tag}
-                  </p>
-                ))}
+                {product.tags
+                  ? product.tags?.map(tag => (
+                      <p
+                        className='text-[0.65rem] text-left text-main font-bold'
+                        key={tag}>
+                        #{tag}
+                      </p>
+                    ))
+                  : null}
                 <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
                   {product.name}
                 </h2>
@@ -194,7 +196,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 className='w-[5.1rem]'
               />
             </div>
-            {product.productColors.length ? (
+
+            {product.productColors.length &&
+            !product.productColors.includes('') ? (
               <div className='flex items-center gap-3'>
                 <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                   Color

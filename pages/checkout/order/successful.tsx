@@ -2,8 +2,9 @@ import logo from 'assets/images/logo.png'
 import { useCart } from 'hooks/useCart'
 import { useConfetti } from 'hooks/useConfetti'
 import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
+import { FluttwerwaveResponse } from 'models/fluttwerwaveModel'
 import { nanoid } from 'nanoid'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,96 +12,86 @@ import ReactCanvasConfetti from 'react-canvas-confetti'
 import { useCartStore } from 'store/cartStore'
 import { client } from 'utils/sanity/client'
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  // const { query } = context
-  // const trasactionid = query.transaction_id
+export const getServerSideProps: GetServerSideProps<{
+  response: FluttwerwaveResponse
+}> = async context => {
+  const { query } = context
+  const trasactionid = query.transaction_id
+  const res = await fetch(
+    `https://api.flutterwave.com/v3/transactions/${trasactionid}/verify`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+      },
+    }
+  )
+  const data = await res.json()
 
-  // VERIFY PAYMENT
-  // const res = await fetch(
-  //   `https://api.flutterwave.com/v3/transactions/${trasactionid}/verify`,
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
-  //     },
-  //   }
-  // )
-  // const data = await res.json()
-
-  // if (data.status === 'error') {
-  //   return {
-  //     redirect: {
-  //       destination: '/checkout/order/not-successful',
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  if (data.status === 'error') {
+    return {
+      redirect: {
+        destination: '/checkout/order/not-successful',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {
-      // response: data,
+      response: data,
     },
   }
 }
 
-const OrderSuccessful = () => {
+const OrderSuccessful = ({
+  response,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const cart = useCartStore(state => state.cart)
   const clearCart = useCartStore(state => state.clearCart)
-  const { vat } = useCart(cart)
   const { fire, getInstance } = useConfetti()
+  const { total } = useCart(cart)
+  console.log('response', response)
 
-  // console.log('response', response)
-  // confetti
+  const cartItems = cart?.map(cart => {
+    return {
+      name: cart.name,
+      quantity: cart.quantity,
+      amount: cart.price,
+      color: cart.color,
+      size: cart.size,
+      _key: nanoid(),
+    }
+  })
 
-  // CREATE ORDER MUTATION
-
-  // SEND MAIL TO CLIENT
-
-  // SEND MAIL TO ADMIN
+  const createOrderAndSendMail = async () => {
+    const { payment_type, tx_ref, meta, customer } = response.data
+    try {
+      const order = {
+        _type: 'order',
+        orderBy: `${meta.firstName} ${meta.lastName}`,
+        transactionId: tx_ref,
+        paymentMethod: payment_type,
+        totalAmount: total,
+        status: 'processing',
+        orderItems: cartItems,
+        shippingInformation: {
+          name: `${meta.firstName} ${meta.lastName}`,
+          email: customer.email,
+          address: `${meta.address}, ${meta.city}, ${meta.state}`,
+          phoneNumber: customer.phone_number,
+        },
+        customerNote: meta.customerNote,
+      }
+      await client.create(order)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useIsomorphicLayoutEffect(() => {
-    // const { payment_type, tx_ref, meta, customer } = response.data
-    const order = {
-      _type: 'order',
-      orderBy: 'Williams Samuel',
-      transactionId: nanoid(),
-      paymentMethod: 'card',
-      totalAmount: 56000,
-      status: 'processing',
-      orderItems: [
-        {
-          name: 'Lisa set',
-          quantity: 2,
-          amount: 28000,
-          color: 'green',
-          size: 14,
-        },
-        {
-          name: 'Lisa set',
-          quantity: 2,
-          amount: 28000,
-          color: 'green',
-          size: 14,
-        },
-      ],
-      shippingInformation: {
-        name: 'Williams Samuel',
-        email: 'ghostdeveloper@yopmail.com',
-        address: 'London, United Kingdom',
-        phoneNumber: '+5678964415',
-      },
-      customerNote: '',
-    }
-    client
-      .create(order)
-      .then(res => {
-        console.log(`Order was created, document ${res}`)
-      })
-      .catch(err => console.log(err))
+    createOrderAndSendMail()
+    fire()
   }, [])
-
-  // useEffect(() => {
-  //   fire()
-  // }, [])
 
   return (
     <>
@@ -116,7 +107,9 @@ const OrderSuccessful = () => {
           <div className='flex flex-col items-center justify-center gap-3'>
             <p className='text-8xl'>🎉</p>
             <div className='text-center'>
-              {/* <p className='uppercase text-xs tracking-[5px]'>Order #1007</p> */}
+              <p className='uppercase text-xs tracking-[5px]'>
+                Order #LL-{nanoid(4)}
+              </p>
               <h2 className='text-3xl font-vollkorn font-bold text-green-600 uppercase tracking-[4px]'>
                 Thank you!
               </h2>

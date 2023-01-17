@@ -3,11 +3,12 @@ import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { createClient } from 'next-sanity'
 
 export const client = createClient({
-  projectId: 't2mc6s36',
-  dataset: 'production',
-  apiVersion: '2023-01-12',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset:
+    process.env.NODE_ENV === 'development' ? 'development' : 'production',
+  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
   useCdn: true,
-  token: process.env.SANITY_TOKEN,
+  token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
   withCredentials: true,
 })
 
