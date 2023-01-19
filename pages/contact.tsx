@@ -40,77 +40,77 @@ const Contact = () => {
       </Head>
 
       <main
-        className={`min-h-screen pt-24 md:pt-28 px-5 md:px-20 transition-all ${
+        className={`min-h-screen px-5 pt-24 transition-all md:px-20 md:pt-28 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
-        <h2 className='text-3xl md:text-5xl uppercase tracking-[5px] md:tracking-[10px] font-vollkorn font-bold text-main'>
+        <h2 className='font-vollkorn text-3xl font-bold uppercase tracking-[5px] text-dark md:text-5xl md:tracking-[10px]'>
           Contact 👋
         </h2>
 
-        <section className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
+        <section className='grid grid-cols-1 gap-10 lg:grid-cols-2'>
           <div className='mt-1 md:mt-5'>
-            <ul className='grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-7 md:gap-y-10 pt-8'>
+            <ul className='grid grid-cols-1 gap-x-2 gap-y-7 pt-8 md:grid-cols-2 md:gap-y-10'>
               <li>
-                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
-                  Address <MapPinIcon className='w-4 h-4' />
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
+                  Address <MapPinIcon className='h-4 w-4' />
                 </h4>
-                <p className='pt-[0.15rem] flex px-2'>
+                <p className='flex px-2 pt-[0.15rem]'>
                   No 11, Isashi Road, Ojo Lagos
                 </p>
               </li>
               <li>
-                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
-                  Email <AtSymbolIcon className='w-4 h-4' />
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
+                  Email <AtSymbolIcon className='h-4 w-4' />
                 </h4>
                 <a
                   href='mailto:lavidluxe@gmail.com'
-                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
+                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   lavidluxe@gmail.com
                 </a>
               </li>
               <li>
-                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
-                  Phone <PhoneIcon className='w-4 h-4' />
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
+                  Phone <PhoneIcon className='h-4 w-4' />
                 </h4>
                 <a
                   href='tel:+2348162234838'
-                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
+                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   +234 816 223 4838
                 </a>
               </li>
               <li>
-                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
                   Whatsapp <Whatsapp />
                 </h4>
                 <a
                   href='https://api.whatsapp.com/send?phone=2347010126912&text=Welcome%20to%20Lavidluxe!!!'
-                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
+                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   +234 701 012 6912
                 </a>
               </li>
               <li>
-                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
                   Facebook <Facebook />
                 </h4>
                 <a
                   href='https://www.facebook.com/lavidluxe'
-                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
+                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
               </li>
               <li>
-                <h4 className='uppercase rounded tracking-[3px] text-xs font-bold flex items-center gap-2 bg-gray-200 w-max py-1 px-3'>
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
                   Instagram <Instagram />
                 </h4>
                 <a
                   href='https://www.instagram.com/lavidluxe/'
-                  className='hover:text-main transition-colors pt-[0.15rem] flex px-2'>
+                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
               </li>
             </ul>
 
-            <div className='w-full mt-8'>
+            <div className='mt-8 w-full'>
               <iframe
                 width='100%'
                 height='250'
@@ -124,11 +124,11 @@ const Contact = () => {
 
           <div className='px-0 pb-6 lg:pb-0 xl:px-24'>
             <form onSubmit={handleSubmit(submitForm)}>
-              <h3 className='uppercase text=xs tracking-[4px] font-black text-gray-700 text-2xl'>
+              <h3 className='text=xs text-2xl font-black uppercase tracking-[4px] text-gray-700'>
                 Get in touch
               </h3>
-              <div className='pt-4 flex flex-col w-full'>
-                <label htmlFor='full-name' className='capitalize text-sm'>
+              <div className='flex w-full flex-col pt-4'>
+                <label htmlFor='full-name' className='text-sm capitalize'>
                   Your name
                 </label>
                 <input
@@ -137,20 +137,20 @@ const Contact = () => {
                     required: true,
                   })}
                   id='full-name'
-                  className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                    errors.name ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                  className={`mt-1 w-full flex-1 rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                    errors.name ? 'ring-2 ring-red-600' : 'ring-gray-300'
                   }`}
                   placeholder='Enter email address'
                 />
                 {errors.name ? (
-                  <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                    <InformationCircleIcon className='w-4 h-4' />
+                  <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                    <InformationCircleIcon className='h-4 w-4' />
                     Your name is required
                   </span>
                 ) : null}
               </div>
-              <div className='pt-4 flex flex-col w-full'>
-                <label htmlFor='email-address' className='capitalize text-sm'>
+              <div className='flex w-full flex-col pt-4'>
+                <label htmlFor='email-address' className='text-sm capitalize'>
                   Your email address
                 </label>
                 <input
@@ -159,23 +159,23 @@ const Contact = () => {
                     required: true,
                   })}
                   id='email-address'
-                  className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
+                  className={`mt-1 w-full flex-1 rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
                     errors.emailAddress
-                      ? 'ring-red-600 ring-2'
+                      ? 'ring-2 ring-red-600'
                       : 'ring-gray-300'
                   }`}
                   placeholder='Enter email address'
                 />
                 {errors.emailAddress ? (
-                  <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                    <InformationCircleIcon className='w-4 h-4' />
+                  <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                    <InformationCircleIcon className='h-4 w-4' />
                     Your email address is required
                   </span>
                 ) : null}
               </div>
 
               <div className='mt-7'>
-                <label htmlFor='message' className='capitalize text-sm'>
+                <label htmlFor='message' className='text-sm capitalize'>
                   Your message
                 </label>
                 <textarea
@@ -183,12 +183,12 @@ const Contact = () => {
                   {...register('message', {
                     required: true,
                   })}
-                  className={`px-3 py-3 rounded ring-1 text-sm ring-gray-300 flex-1 focus:border-none focus:ring-2 focus:ring-blue-700 focus:outline-none mt-1 text-gray-700 h-52 w-full resize-none ${
-                    errors.message ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                  className={`mt-1 h-52 w-full flex-1 resize-none rounded px-3 py-3 text-sm text-gray-700 ring-1 ring-gray-300 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-700 ${
+                    errors.message ? 'ring-2 ring-red-600' : 'ring-gray-300'
                   }`}></textarea>
                 {errors.message ? (
-                  <span className='text-xs p-1 text-red-600 flex items-center gap-2'>
-                    <InformationCircleIcon className='w-4 h-4' />
+                  <span className='flex items-center gap-2 p-1 text-xs text-red-600'>
+                    <InformationCircleIcon className='h-4 w-4' />
                     Your message is required
                   </span>
                 ) : null}
@@ -196,7 +196,7 @@ const Contact = () => {
 
               <button
                 type='submit'
-                className='flex justify-center bg-[#333333] rounded w-full mt-5 text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95'>
+                className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95'>
                 Submit
               </button>
             </form>

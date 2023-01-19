@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Product } from 'models/productModel'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,29 +9,12 @@ import { urlFor } from 'utils/sanity/client'
 type ProductDetailProps = {
   product: Product
 }
-
-const item = {
-  hidden: { y: 30, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2,
-    },
-  },
-}
-
 export const ProductDetail = ({ product }: ProductDetailProps) => {
   return (
     <Link
       href={`/shop/product/${product.slug.current}`}
       className='group transition-colors'>
-      <motion.div
-        variants={item}
-        initial='hidden'
-        animate='visible'
-        className='relative h-80 lg:h-[35rem] overflow-hidden rounded'>
+      <div className='relative h-80 overflow-hidden rounded lg:h-[35rem]'>
         <Image
           alt={product.name}
           src={urlFor(product.image).auto('format').url()}
@@ -40,29 +22,25 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           sizes='1080, 560'
           placeholder='blur'
           blurDataURL={blurDataURL}
-          className={`rounded object-cover object-top hover:scale-110 transition-all ${
+          className={`rounded object-cover object-top transition-all hover:scale-110 ${
             product.stockStatus === 'in-stock'
               ? 'grayscale-0'
-              : 'grayscale opacity-50'
+              : 'opacity-50 grayscale'
           }`}
         />
         {product.promo?.promoOn ? (
-          <p className='absolute top-3 right-3 bg-[#333333] text-white py-2 px-4 text-xs font-bold rounded tracking-wider'>
+          <p className='absolute top-3 right-3 rounded bg-[#333333] py-2 px-4 text-xs font-bold tracking-wider text-white'>
             {getPercentageDecrease(product.promo.promoPrice, product.price)}%
           </p>
         ) : null}
         {product.stockStatus !== 'in-stock' ? (
-          <p className='absolute top-3 left-3 bg-red-600 text-white uppercase py-2 px-4 text-xs font-bold rounded tracking-wider'>
+          <p className='absolute top-3 left-3 rounded bg-red-600 py-2 px-4 text-xs font-bold uppercase tracking-wider text-white'>
             Out of stock
           </p>
         ) : null}
-      </motion.div>
-      <motion.div
-        variants={item}
-        initial='hidden'
-        animate='visible'
-        className='text-center'>
-        <p className='pt-5 font-bold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 text-xs md:tracking-[4px]'>
+      </div>
+      <div className='text-center'>
+        <p className='pt-5 text-xs font-bold uppercase tracking-[2px] text-[#333333] group-hover:text-blue-700 md:tracking-[4px]'>
           {product.name}
         </p>
         <div className='flex items-center justify-center gap-3 pt-1'>
@@ -73,12 +51,12 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
             {formatCurrency(product.price)}
           </p>
           {product.promo?.promoOn ? (
-            <p className='text-xs text-[#8c8c8c] font-bold'>
+            <p className='text-xs font-bold text-[#8c8c8c]'>
               {formatCurrency(product.promo.promoPrice)}
             </p>
           ) : null}
         </div>
-      </motion.div>
+      </div>
     </Link>
   )
 }

@@ -16,15 +16,15 @@ const AboutUs = () => {
         <title>About Us - Lavidluxe</title>
       </Head>
       <main
-        className={`min-h-screen flex flex-col lg:flex-row items-center px-4 lg:px-20 justify-center pt-20 lg:pt-10 transition-all ${
+        className={`flex min-h-screen flex-col items-center justify-center px-4 pt-20 transition-all lg:flex-row lg:px-20 lg:pt-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
-        <article className='max-w-[70ch] lg:w-[55ch] mx-auto md:text-center lg:text-left pt-12 pb-8 lg:py-0 order-2 lg:order-1'>
-          <h2 className='text-3xl lg:text-5xl uppercase tracking-[5px] md:tracking-[10px] font-vollkorn font-bold text-main'>
+        <article className='order-2 mx-auto max-w-[70ch] pt-12 pb-8 md:text-center lg:order-1 lg:w-[55ch] lg:py-0 lg:text-left'>
+          <h2 className='font-vollkorn text-3xl font-bold uppercase tracking-[5px] text-dark md:tracking-[10px] lg:text-5xl'>
             About us 😎
           </h2>
 
-          <div className='text-base lg:text-lg flex flex-col gap-5 mdlg:gap-6 leading-7 lg:leading-9 md:leading-10'>
+          <div className='mdlg:gap-6 flex flex-col gap-5 text-base leading-7 md:leading-10 lg:text-lg lg:leading-9'>
             <p className='pt-3 lg:pt-6'>
               We are a premium bespoke and ready-to-wear brand that provides
               high-quality yet affordable female and male wears, hoodies and
@@ -40,18 +40,18 @@ const AboutUs = () => {
               our creativity and style. We work hard and meticulously to ensure
               quality delivery and customer happiness.
             </p>
-            <p className='uppercase tracking-widest text-sm text-center md:text-left font-black text-main'>
+            <p className='text-center text-sm font-black uppercase tracking-widest text-main md:text-left'>
               Be elegant, be beautiful, and join the ageless adventure, geng!
               🚀😍
             </p>
           </div>
         </article>
 
-        <section className='md:my-0 lg:pl-10 order-1 lg:order-2'>
+        <section className='order-1 md:my-0 lg:order-2 lg:pl-10'>
           <Image
             src={hero}
             alt='product image'
-            className='w-[30rem] h-full object-cover rounded-md shadow-xl'
+            className='h-full w-[30rem] rounded-md object-cover shadow-xl'
           />
         </section>
       </main>

@@ -2,7 +2,6 @@ import { XCircleIcon } from '@heroicons/react/20/solid'
 import { Filter } from 'components/Filter'
 import { ProductDetail } from 'components/ProductDetail'
 import { Tabs } from 'components/Tabs'
-import { useAnimate } from 'hooks/useAnimate'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Category, Product } from 'models/productModel'
@@ -33,7 +32,7 @@ export const getServerSideProps: GetServerSideProps<{
 const Shop = ({
   categories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { parent } = useAnimate()
+  // const { parent } = useAnimate()
 
   // console.log('data', categories)
   const sort = ['Default', 'Price: high to low', 'Price: low to high']
@@ -64,14 +63,14 @@ const Shop = ({
       </Head>
 
       <main
-        className={`min-h-screen px-4 py-10 md:pt-20 md:pb-10 md:px-16 transition-all ${
+        className={`min-h-screen px-4 py-10 transition-all md:px-16 md:pt-20 md:pb-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <Tabs categories={categories} />
         <Filter sort={sort} selected={selected} setSelected={setSelected} />
 
         <div
-          ref={parent}
+          // ref={parent}
           className='grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
           {categories?.map(
             category =>
@@ -85,12 +84,12 @@ const Shop = ({
               ) : (
                 <div
                   key={category._id}
-                  className='bg-gray-100 py-6 px-3 lg:px-16 rounded font-vollkorn w-max flex flex-col items-center col-span-full place-self-center mt-10'>
-                  <XCircleIcon className='w-12 h-12' />
+                  className='col-span-full mt-10 flex w-max flex-col items-center place-self-center rounded bg-gray-100 py-6 px-3 font-vollkorn lg:px-16'>
+                  <XCircleIcon className='h-12 w-12' />
                   <p className='mt-3'>
                     No product(s) available under this category
                   </p>
-                  <strong className='uppercase tracking-[3px] text-sm'>
+                  <strong className='text-sm uppercase tracking-[3px]'>
                     {router.asPath.slice(6).replace(/-/g, ' ')}
                   </strong>
                 </div>

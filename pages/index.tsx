@@ -23,7 +23,7 @@ const Home = () => {
       </Head>
       {/*  */}
       <main
-        className={`flex min-h-screen items-center transition-all bg-[#333333]/15 ${
+        className={`bg-[#333333]/15 flex min-h-screen items-center transition-all ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <Swiper
@@ -43,7 +43,7 @@ const Home = () => {
           <SwiperSlide>
             <HomeScreenSwiper
               className='bg-[url("../public/lavidluxe-two.jpg")]'
-              subtitle='Handmade premium bespoke'
+              subtitle='Premium bespoke brand'
               title='Modern & edgy'
               about='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
             />
@@ -58,7 +58,7 @@ const Home = () => {
           </SwiperSlide>
           <SwiperSlide>
             <HomeScreenSwiper
-              className='bg-[url("https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80")]'
+              className='bg-[url("../public/stella.jpg")]'
               subtitle='Welcome to our homepage'
               title='Modern & edgy'
               about='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
