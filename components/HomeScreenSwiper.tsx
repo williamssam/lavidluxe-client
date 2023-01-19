@@ -16,20 +16,20 @@ export const HomeScreenSwiper = ({
 }: HomeScreenSwiperProps) => {
   return (
     <div
-      className={`grid bg-no-repeat bg-cover lg:bg-auto h-screen px-2 md:px-10 pb-6 lg:pb-20 ${className}`}>
-      <div className='flex flex-col bg-[#333333] lg:bg-transparent self-end justify-items-end lg:items-end lg:justify-end h-max lg:h-full gap-3 p-5 md:p-10 lg:p-0 rounded-md'>
-        <h2 className='text-gray-300 lg:text-main text-center uppercase tracking-[3px] md:tracking-[6px] text-[0.65rem] lg:text-sm font-bold'>
+      className={`grid h-screen bg-cover bg-no-repeat px-2 pb-6 md:px-10 lg:bg-auto lg:pb-20 ${className}`}>
+      <div className='flex h-max flex-col justify-items-end gap-3 self-end rounded-md bg-[#333333] p-5 md:p-10 lg:h-full lg:items-end lg:justify-end lg:bg-transparent lg:p-0'>
+        <h2 className='text-center text-[0.65rem] font-bold uppercase tracking-[3px] text-gray-300 md:tracking-[6px] lg:text-sm lg:text-main'>
           {subtitle}
         </h2>
-        <p className='font-vollkorn text-[2.3rem] text-center lg:text-right lg:text-[5rem] capitalize text-white lg:text-gray-900 tracking-wide leading-[0.8]'>
+        <p className='text-center font-vollkorn text-[2.3rem] capitalize leading-[0.8] tracking-wide text-white lg:text-right lg:text-[5rem] lg:text-gray-900'>
           {title}
         </p>
-        <p className='lg:max-w-[60ch] pt-3 text-sm text-center lg:text-right text-gray-400 lg:text-gray-600 lg:pt-2'>
+        <p className='pt-3 text-center text-sm text-gray-400 lg:max-w-[60ch] lg:pt-2 lg:text-right lg:text-gray-600'>
           {about}
         </p>
         <Link
           href='/shop/all'
-          className='bg-white lg:bg-[#333333] py-4 mt-2 lg:mt-5 rounded hover:bg-main hover:text-white transition-all px-8 md:px-10 text-xs font-bold uppercase tracking-[3px] md:tracking-[5px] text-[#333333] lg:text-white flex items-center justify-center gap-5 hover:shadow-[0_0.5em_0.5em_-0.4em_#155399] hover:-translate-y-2 focus:shadow-[0_0.5em_0.5em_-0.4em_#155399] focus:-translate-y-2'>
+          className='mt-2 flex items-center justify-center gap-5 rounded bg-white py-4 px-8 text-xs font-bold uppercase tracking-[3px] text-[#333333] transition-all hover:bg-main md:px-10 md:tracking-[5px] lg:mt-5 lg:bg-[#333333] lg:text-white'>
           Start shopping now <ArrowLongRightIcon className='w-5' />
         </Link>
       </div>

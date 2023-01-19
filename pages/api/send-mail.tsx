@@ -93,16 +93,16 @@ export default async function handler(
 
         emailTransporter.sendMail(mailOptions, (error, response) => {
           error
-            ? res.status(400).send({ message: 'Message not sent', error })
+            ? res.status(400).json({ message: 'Message not sent', error })
             : res
                 .status(200)
-                .send({ message: 'mail sent successfully!', response })
+                .json({ message: 'mail sent successfully!', response })
           emailTransporter.close()
         })
         res.end()
       } catch (err) {
         if (err instanceof Error) {
-          res.status(400).json({
+          return res.status(400).json({
             message: err.message,
           })
         }

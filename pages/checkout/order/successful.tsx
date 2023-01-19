@@ -8,6 +8,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRef } from 'react'
 import ReactCanvasConfetti from 'react-canvas-confetti'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
@@ -55,6 +56,7 @@ const OrderSuccessful = ({
   const clearCart = useCartStore(state => state.clearCart)
   const { fire, getInstance } = useConfetti()
   const { total, subtotal } = useCart(cart)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
   // console.log('response', response)
 
   const cartItems = cart?.map(cart => ({
@@ -66,10 +68,9 @@ const OrderSuccessful = ({
     _key: nanoid(),
   }))
   let orderId = nanoid(5)
+  const { payment_type, tx_ref, meta, customer } = response.data
 
-  const createOrderAndSendMail = async () => {
-    const { payment_type, tx_ref, meta, customer } = response.data
-
+  const createOrder = async () => {
     try {
       const order = {
         _type: 'order',
@@ -88,67 +89,70 @@ const OrderSuccessful = ({
         customerNote: meta.customerNote,
       }
       await client.create(order)
+      return
     } catch (error) {
       if (error instanceof Error) {
         console.log(error)
       }
-    } finally {
-      const sendSuccessMail = await fetch('/api/send-mail', {
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: customer.email,
-          address: `${meta.address}, ${meta.city}, ${meta.state}`,
-          phoneNumber: customer.phone_number,
-          name: `${meta.firstName} ${meta.lastName}`,
-          subtotal: formatCurrency(subtotal),
-          total: formatCurrency(total),
-          year: new Date().getFullYear(),
-          order_id: `#LALU-${orderId}`,
-          items: cart?.map(cart => ({
-            product_name: cart.name,
-            quantity: cart.quantity,
-            price: cart.price,
-            color: cart.color,
-            size: cart.size,
-          })),
-        }),
-      })
-
-      await sendSuccessMail.json()
     }
   }
 
+  // const sendMail = () => {
+  //   fetch('/api/send-mail', {
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       email: customer.email,
+  //       address: `${meta.address}, ${meta.city}, ${meta.state}`,
+  //       phoneNumber: customer.phone_number,
+  //       name: `${meta.firstName} ${meta.lastName}`,
+  //       subtotal: formatCurrency(subtotal),
+  //       total: formatCurrency(total),
+  //       year: new Date().getFullYear(),
+  //       order_id: `#LALU-${orderId}`,
+  //       items: cart?.map(cart => ({
+  //         product_name: cart.name,
+  //         quantity: cart.quantity,
+  //         price: cart.price,
+  //         color: cart.color,
+  //         size: cart.size,
+  //       })),
+  //     }),
+  //   }).then(res => console.log(res))
+  // }
+
   useIsomorphicLayoutEffect(() => {
-    createOrderAndSendMail()
     fire()
+    createOrder()
+    // sendMail()
   }, [])
 
   return (
     <>
-      <section className='w-full h-screen bg-main flex items-center justify-center'>
+      <section className='flex h-screen w-full items-center justify-center bg-main'>
         <Head>
           <title>Thank you for your purchase - Lavidluxe</title>
         </Head>
 
-        <section className='max-w-[70ch] bg-gray-100 shadow-xl p-6 rounded'>
-          <header className='flex justify-center mb-5'>
+        <section className='max-w-[70ch] rounded bg-gray-100 p-6 shadow-xl'>
+          <header className='mb-5 flex justify-center'>
             <Image src={logo} alt='lavidluxe logo' className='w-20' />
           </header>
           <div className='flex flex-col items-center justify-center gap-3'>
             <p className='text-8xl'>🎉</p>
             <div className='text-center'>
-              <p className='uppercase text-xs tracking-[5px]'>
+              <p className='text-xs uppercase tracking-[5px]'>
                 Order #LALU-{orderId}
               </p>
-              <h2 className='text-3xl font-vollkorn font-bold text-green-600 uppercase tracking-[4px]'>
+              <h2 className='font-vollkorn text-3xl font-bold uppercase tracking-[4px] text-green-600'>
                 Thank you!
               </h2>
             </div>
           </div>
-          <div className='border border-gray-300 rounded-lg py-4 px-4 md:px-6 mt-10 flex flex-col gap-4 text-sm'>
-            <h3 className='uppercase tracking-[3px] text-xs font-bold text-gray-700'>
+          <div className='mt-10 flex flex-col gap-4 rounded-lg border border-gray-300 py-4 px-4 text-sm md:px-6'>
+            <h3 className='text-xs font-bold uppercase tracking-[3px] text-gray-700'>
               Your order is confirmed
             </h3>
             <p>
@@ -156,13 +160,13 @@ const OrderSuccessful = ({
               shortly.
             </p>
           </div>
-          <div className='text-xs border border-gray-300 rounded-lg py-4 px-4 md:px-6 mt-7 flex flex-col gap-4'>
-            <h3 className='uppercase tracking-[3px] text-xs font-bold text-gray-700'>
+          <div className='mt-7 flex flex-col gap-4 rounded-lg border border-gray-300 py-4 px-4 text-xs md:px-6'>
+            <h3 className='text-xs font-bold uppercase tracking-[3px] text-gray-700'>
               information
             </h3>
 
             <div>
-              <h4 className='uppercase tracking-[2px] text-[0.6rem] text-gray-700'>
+              <h4 className='text-[0.6rem] uppercase tracking-[2px] text-gray-700'>
                 Payment method
               </h4>
               <p>
@@ -179,14 +183,14 @@ const OrderSuccessful = ({
             </p>
           </div>
 
-          <footer className='flex flex-col items-center justify-between mt-10'>
+          <footer className='mt-10 flex flex-col items-center justify-between'>
             <Link
               href='/shop/all'
               onClick={() => clearCart()}
-              className='flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
+              className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
               Continue shopping
             </Link>
-            <p className='text-xs mt-2'>
+            <p className='mt-2 text-xs'>
               Need help?{' '}
               <a href='mailto:#' className='text-main'>
                 Contact us
