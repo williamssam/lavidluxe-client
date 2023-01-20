@@ -59,14 +59,14 @@ class MyDocument extends Document {
           <meta property='og:image' content='/og-image.jpg' />
           <meta property='og:image:width' content='279' />
           <meta property='og:image:height' content='279' />
-          <meta property='og:title' content='Lavidluxe' />
+          <meta property='og:title' content='Lavidluxe Clothing' />
           <meta
             property='og:description'
             content='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
           />
           <meta property='og:url' content='https://lavidluxe.com'></meta>
         </Head>
-        <body className='bg-white font-lato text-gray-500 max-w-[115rem] mx-auto'>
+        <body className='mx-auto max-w-[115rem] bg-white font-lato text-gray-500'>
           <Main />
           <NextScript />
         </body>

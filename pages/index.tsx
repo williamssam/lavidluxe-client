@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Home - Lavidluxe</title>
+        <title>Lavidluxe Clothing</title>
       </Head>
       {/*  */}
       <main

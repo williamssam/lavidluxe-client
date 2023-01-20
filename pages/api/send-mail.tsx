@@ -37,7 +37,7 @@ export default async function handler(
     })
 
     const accessToken = await new Promise((resolve, reject) => {
-      oauth2Client.getAccessToken((err, token) => {
+      oauth2Client.getAccessToken((err: Error, token: string) => {
         if (err) {
           reject('Failed to create access token :( ' + err)
         }
@@ -91,14 +91,17 @@ export default async function handler(
         }
         let emailTransporter = await createTransporter()
 
-        emailTransporter.sendMail(mailOptions, (error, response) => {
-          error
-            ? res.status(400).json({ message: 'Message not sent', error })
-            : res
-                .status(200)
-                .json({ message: 'mail sent successfully!', response })
-          emailTransporter.close()
-        })
+        emailTransporter.sendMail(
+          mailOptions,
+          (error: Error, response: any) => {
+            error
+              ? res.status(400).json({ message: 'Message not sent', error })
+              : res
+                  .status(200)
+                  .json({ message: 'mail sent successfully!', response })
+            emailTransporter.close()
+          }
+        )
         res.end()
       } catch (err) {
         if (err instanceof Error) {

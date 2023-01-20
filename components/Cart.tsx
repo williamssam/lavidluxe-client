@@ -1,7 +1,7 @@
 import {
   ShoppingCartIcon,
   TrashIcon,
-  XMarkIcon,
+  XMarkIcon
 } from '@heroicons/react/20/solid'
 import { useAnimate } from 'hooks/useAnimate'
 import { useCart } from 'hooks/useCart'
@@ -101,7 +101,7 @@ export const Cart = ({}: CartProps) => {
             </li>
           ))
         ) : (
-          <li className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
+          <li className='flex flex-col items-center justify-center bg-gray-200 py-8 px-4'>
             <ShoppingCartIcon className='w-10 h-10 text-main' />
             <p className='uppercase font-vollkorn font-bold tracking-wider pt-4'>
               Your cart is empty

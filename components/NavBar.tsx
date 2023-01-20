@@ -131,7 +131,7 @@ export const NavBar = () => {
           target='_blank'
           rel='noopener noreferrer'
           className='mt-auto flex flex-col items-center rounded bg-gray-300 p-1 text-center text-[0.55rem] capitalize text-gray-600'>
-          <p>&copy; {new Date().getFullYear()}, Lavidluxe</p>
+          <p>&copy; {new Date().getFullYear()}, Lavidluxe Clothing</p>
           <p>Designed and built by Williams Samuel</p>
         </a>
       </div>

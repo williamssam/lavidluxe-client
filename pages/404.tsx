@@ -19,13 +19,13 @@ const NotFound = () => {
         <title>Page not found - Lavidluxe</title>
       </Head>
       <main
-        className={`min-h-screen transition-all px-4 md:px-16 flex flex-col md:flex-row xl:gap-20 items-center justify-center text-sm lg:text-base text-center ${
+        className={`flex min-h-screen flex-col items-center justify-center px-4 text-center text-sm transition-all md:flex-row md:px-16 lg:text-base xl:gap-20 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <Image src={errorIlustration} alt='error illustration' />
 
         <div className='max-w-[70ch] text-center lg:text-left'>
-          <h2 className='font-vollkorn font-bold text-2xl md:text-4xl lg:text-6xl text-gray-700'>
+          <h2 className='font-vollkorn text-2xl font-bold text-gray-700 md:text-4xl lg:text-6xl'>
             Looks like you are lost
           </h2>
           <p className='pt-2'>
@@ -37,7 +37,7 @@ const NotFound = () => {
           </p>
           <Link
             href='/'
-            className='rounded flex justify-center w-max mx-auto lg:mx-0 bg-[#333333] text-white py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main active:scale-95 mt-10'>
+            className='mx-auto mt-10 flex w-max justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95 lg:mx-0'>
             Return home
           </Link>
         </div>
