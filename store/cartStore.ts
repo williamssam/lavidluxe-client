@@ -55,10 +55,7 @@ export const useCartStore = create<CartState>()(
         {
           name: 'cart-storage',
         }
-      ),
-      {
-        enabled: true,
-      }
+      )
     )
   )
 )

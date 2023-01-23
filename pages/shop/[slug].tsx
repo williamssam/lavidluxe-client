@@ -2,6 +2,7 @@ import { XCircleIcon } from '@heroicons/react/20/solid'
 import { Filter } from 'components/Filter'
 import { ProductDetail } from 'components/ProductDetail'
 import { Tabs } from 'components/Tabs'
+import { useAnimate } from 'hooks/useAnimate'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Category, Product } from 'models/productModel'
@@ -32,9 +33,8 @@ export const getServerSideProps: GetServerSideProps<{
 const Shop = ({
   categories,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  // const { parent } = useAnimate()
+  const { parent } = useAnimate()
 
-  // console.log('data', categories)
   const sort = ['Default', 'Price: high to low', 'Price: low to high']
   const [selected, setSelected] = useState<string>(sort[0])
   const [currentSort, setCurrentSort] = useState(selected)
@@ -70,7 +70,7 @@ const Shop = ({
         <Filter sort={sort} selected={selected} setSelected={setSelected} />
 
         <div
-          // ref={parent}
+          ref={parent}
           className='grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
           {categories?.map(
             category =>
