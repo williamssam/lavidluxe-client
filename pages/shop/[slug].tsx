@@ -53,7 +53,7 @@ const Shop = ({
 
   useEffect(() => {
     setCurrentSort(selected)
-    console.log('current sort', currentSort)
+    // console.log('current sort', currentSort)
   }, [currentSort, selected])
 
   return (
@@ -79,7 +79,7 @@ const Shop = ({
                 [...category.products]
                   ?.sort(sortObj[currentSort])
                   ?.map(product => (
-                    <ProductDetail product={product} key={product._id} />
+                    <ProductDetail product={product} key={product?._id} />
                   ))
               ) : (
                 <div

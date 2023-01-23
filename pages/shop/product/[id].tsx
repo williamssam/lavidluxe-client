@@ -93,10 +93,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   }
 
   const cartProduct = {
-    id: product._id,
+    id: product?._id,
     image: urlFor(product.image).auto('format').url(),
-    name: product.name,
-    price: product.promo?.promoOn ? product.promo.promoPrice : product.price,
+    name: product?.name,
+    price: product?.promo?.promoOn ? product.promo.promoPrice : product.price,
     size: selectedSize,
     color: selectedColor,
   }
@@ -110,40 +110,40 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       </Head>
 
       <main
-        className={`min-h-screen items-center transition-all grid grid-cols-1 lg:grid-cols-5 overflow-hidden ${
+        className={`grid min-h-screen grid-cols-1 items-center overflow-hidden transition-all lg:grid-cols-5 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <InnerImageZoom
-          src={urlFor(product.image).auto('format').url()}
-          zoomSrc={urlFor(product.image).auto('format').url()}
+          src={urlFor(product?.image).auto('format').url()}
+          zoomSrc={urlFor(product?.image).auto('format').url()}
           className='mt-16 h-[28rem] bg-main/10 object-cover object-top md:col-span-3 md:mt-0 md:h-[35rem] lg:h-screen'
           zoomType='hover'
           zoomPreload={true}
           fullscreenOnMobile={true}
-          imgAttributes={{ alt: product.name }}
+          imgAttributes={{ alt: product?.name }}
         />
 
-        <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 lg:px-10 xl:px-16 md:pb-0'>
+        <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 md:pb-0 lg:px-10 xl:px-16'>
           <button
-            className='text-xs mb-5 flex items-center gap-2'
+            className='mb-5 flex items-center gap-2 text-xs'
             onClick={() => router.push('/shop/all')}>
-            <ArrowLeftIcon className='w-4 h-4' />
+            <ArrowLeftIcon className='h-4 w-4' />
             Back to shop
           </button>
-          <header className='text-center md:text-left flex items-center justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center'>
+          <header className='flex items-center justify-between text-center md:text-left lg:flex-col lg:items-start xl:flex-row xl:items-center'>
             <div>
               <div>
-                {product.tags
+                {product?.tags
                   ? product.tags?.map(tag => (
                       <p
-                        className='text-[0.65rem] text-left text-main font-bold'
+                        className='text-left text-[0.65rem] font-bold text-main'
                         key={tag}>
                         #{tag}
                       </p>
                     ))
                   : null}
                 <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
-                  {product.name}
+                  {product?.name}
                 </h2>
               </div>
 
@@ -153,42 +153,42 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </p> */}
                 <p
                   className={`text-[#8c8c8c] ${
-                    product.promo?.promoOn
-                      ? 'line-through text-xs font-normal'
-                      : 'no-underline text-sm font-bold'
+                    product?.promo?.promoOn
+                      ? 'text-xs font-normal line-through'
+                      : 'text-sm font-bold no-underline'
                   }`}>
-                  {formatCurrency(product.price)}
+                  {formatCurrency(product?.price)}
                 </p>
-                {product.promo?.promoOn ? (
-                  <p className='text-sm text-[#8c8c8c] font-bold'>
+                {product?.promo?.promoOn ? (
+                  <p className='text-sm font-bold text-[#8c8c8c]'>
                     {formatCurrency(product.promo.promoPrice)}
                   </p>
                 ) : null}
               </div>
             </div>
 
-            {product.stockStatus === 'in-stock' ? (
-              <p className='uppercase tracking-[3px] text-[0.6rem] py-1 px-2 bg-emerald-100 text-emerald-500 rounded font-black'>
+            {product?.stockStatus === 'in-stock' ? (
+              <p className='rounded bg-emerald-100 py-1 px-2 text-[0.6rem] font-black uppercase tracking-[3px] text-emerald-500'>
                 In stock
               </p>
             ) : (
-              <p className='uppercase tracking-[3px] text-[0.6rem] py-1 px-2 bg-gray-200 text-gray-500 rounded font-black'>
+              <p className='rounded bg-gray-200 py-1 px-2 text-[0.6rem] font-black uppercase tracking-[3px] text-gray-500'>
                 Out of stock
               </p>
             )}
           </header>
 
-          {product.promo?.promoOn && checkDate(product.promo.promoStart) ? (
+          {product?.promo?.promoOn && checkDate(product.promo.promoStart) ? (
             <Timer deadline={product.promo.promoEnd} />
           ) : null}
 
-          {product.description ? (
-            <div className='max-w-[55ch] pt-10 lg:pt-5 xl:pt-10 font-vollkorn text-base leading-7 md:text-left '>
+          {product?.description ? (
+            <div className='max-w-[55ch] pt-10 font-vollkorn text-base leading-7 md:text-left lg:pt-5 xl:pt-10 '>
               <p>{product.description}</p>
             </div>
           ) : null}
 
-          <div className='flex items-center justify-between border-y border-y-[#dddddd] py-1 text-xs mt-10'>
+          <div className='mt-10 flex items-center justify-between border-y border-y-[#dddddd] py-1 text-xs'>
             <div className='flex items-center gap-3'>
               <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                 Size
@@ -201,8 +201,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               />
             </div>
 
-            {product.productColors.length &&
-            !product.productColors.includes('') ? (
+            {product?.productColors?.length &&
+            !product?.productColors?.includes('') ? (
               <div className='flex items-center gap-3'>
                 <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                   Color
@@ -218,13 +218,13 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             ) : null}
           </div>
 
-          {value.selectError ? (
-            <p className='text-xs text-red-600 leading-3 bg-red-200 p-1 font-bold'>
+          {value?.selectError ? (
+            <p className='bg-red-200 p-1 text-xs font-bold leading-3 text-red-600'>
               {value.selectError}
             </p>
           ) : null}
 
-          {product.stockStatus === 'in-stock' ? (
+          {product?.stockStatus === 'in-stock' ? (
             <div className='mt-8 flex flex-col items-center justify-center gap-8 md:flex-row md:justify-start lg:flex-col xl:flex-row'>
               <QuantityPicker
                 onDecrease={decreaseProductQuantity}
@@ -235,8 +235,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               <button
                 onClick={() => {
                   if (
-                    product.productColors.length &&
-                    !product.productColors.includes('') &&
+                    product?.productColors?.length &&
+                    !product?.productColors.includes('') &&
                     selectedColor === 'Select'
                   ) {
                     updateValue({ selectError: 'Please select a color' })
@@ -245,15 +245,15 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   addToCart(cartProduct, value.productQuantity)
                   updateValue({ selectError: '' })
 
-                  toast.success(`🥳 '${product.name}' added to your cart`)
+                  toast.success(`🥳 '${product?.name}' added to your cart`)
                 }}
                 type='button'
-                className='w-full border rounded border-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main hover:text-white active:scale-95'>
+                className='w-full rounded border border-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main hover:text-white active:scale-95'>
                 Add to cart
               </button>
             </div>
           ) : (
-            <div className='mt-8 text-sm bg-gray-200 p-2 text-center'>
+            <div className='mt-8 bg-gray-200 p-2 text-center text-sm'>
               <p>Product is currently out of stock.</p>
               <p>
                 Kindly check back or{' '}
