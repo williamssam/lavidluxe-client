@@ -8,7 +8,7 @@ import { Timer } from 'components/Timer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Product } from 'models/productModel'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactElement, Reducer, useReducer, useState } from 'react'
@@ -23,29 +23,7 @@ import { formatCurrency } from 'utils/functions/formatCurrency'
 import { client, urlFor } from 'utils/sanity/client'
 
 const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-export const getStaticPaths: GetStaticPaths = async () => {
-  // When this is true (in preview environments) don't
-  // prerender any static pages
-  // (faster builds, but slower initial page load)
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    }
-  }
-
-  const paths = await client.fetch(
-    `*[_type == "product" && defined(slug.current)][].slug.current`
-  )
-
-  return {
-    paths: paths.map((id: string) => ({ params: { id } })),
-    fallback: true,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async context => {
-  // const {id = ""} = context.params
+export const getServerSideProps: GetServerSideProps = async context => {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug && !(_id in path('drafts.**'))] {
       name, price, image, slug, _id, stockStatus, description, tags, productColors, promo
