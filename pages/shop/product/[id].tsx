@@ -94,7 +94,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
   const cartProduct = {
     id: product?._id,
-    image: urlFor(product.image).auto('format').url(),
+    image: urlFor(product?.image).auto('format').url(),
     name: product?.name,
     price: product?.promo?.promoOn ? product.promo.promoPrice : product.price,
     size: selectedSize,
