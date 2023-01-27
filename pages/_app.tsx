@@ -5,6 +5,8 @@ import { Router } from 'next/router'
 import NProgress from 'nprogress'
 import type { ReactElement, ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 import 'styles/globals.css'
 import 'styles/page-loader.css'
 import 'swiper/css/bundle'
@@ -31,6 +33,19 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       FallbackComponent={ErrorFallback}
       onReset={() => typeof window !== undefined && window.location.reload()}>
       <Component {...pageProps} />
+
+      <ToastContainer
+        position='bottom-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </ErrorBoundary>
   )
 }

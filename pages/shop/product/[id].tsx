@@ -14,8 +14,7 @@ import { useRouter } from 'next/router'
 import { ReactElement, Reducer, useReducer, useState } from 'react'
 import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.min.css'
+import { toast } from 'react-toastify'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
 import { checkDate } from 'utils/functions/checkDate'
@@ -246,19 +245,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           <ProductFooter name={product?.name} />
         </section>
       </main>
-
-      <ToastContainer
-        position='bottom-center'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        theme='light'
-      />
     </>
   )
 }

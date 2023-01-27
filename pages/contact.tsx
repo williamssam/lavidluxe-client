@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser'
 import {
   AtSymbolIcon,
   InformationCircleIcon,
@@ -8,11 +9,14 @@ import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
 import { Whatsapp } from 'assets/icon/Whatsapp'
 import { Footer } from 'components/Footer'
+import { Spinner } from 'components/Spinner'
+import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast, ToastContainer } from 'react-toastify'
 import { openCartDrawer } from 'store/atoms'
 
 type FormValues = {
@@ -23,15 +27,44 @@ type FormValues = {
 
 const Contact = () => {
   const [openCart] = useAtom(openCartDrawer)
+  const [loading, setLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const {
     handleSubmit,
     formState: { errors },
     register,
+    reset,
   } = useForm<FormValues>({})
 
   const submitForm: SubmitHandler<FormValues> = data => {
-    console.log(data)
+    setLoading(true)
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_TEMPLATE_ID as string,
+        data,
+        process.env.NEXT_PUBLIC_PUBLIC_KEY as string
+      )
+      .then(
+        result => {
+          console.log(result.text)
+          setLoading(false)
+          setIsSuccess(true)
+        },
+        error => {
+          console.log(error.text)
+          setLoading(false)
+        }
+      )
   }
+
+  useIsomorphicLayoutEffect(() => {
+    if (isSuccess) {
+      toast.success(`🥳 Message sent successfully!`)
+      reset()
+    }
+    setIsSuccess(false)
+  }, [isSuccess])
 
   return (
     <>
@@ -140,7 +173,7 @@ const Contact = () => {
                   className={`mt-1 w-full flex-1 rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
                     errors.name ? 'ring-2 ring-red-600' : 'ring-gray-300'
                   }`}
-                  placeholder='Enter email address'
+                  placeholder='Enter your full name'
                 />
                 {errors.name ? (
                   <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
@@ -196,8 +229,10 @@ const Contact = () => {
 
               <button
                 type='submit'
-                className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95'>
+                disabled={loading}
+                className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-none disabled:opacity-30'>
                 Submit
+                {loading ? <Spinner /> : null}
               </button>
             </form>
           </div>
@@ -205,6 +240,19 @@ const Contact = () => {
       </main>
 
       <Footer />
+
+      <ToastContainer
+        position='bottom-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </>
   )
 }
