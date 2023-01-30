@@ -69,12 +69,12 @@ const Information = () => {
 
       <form onSubmit={handleSubmit(submitForm)}>
         <div className='mt-10'>
-          <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
+          <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
             Contact information
           </h3>
 
-          <div className='pt-4 flex flex-col w-full'>
-            <label htmlFor='email-address' className='capitalize text-sm'>
+          <div className='flex w-full flex-col pt-4'>
+            <label htmlFor='email-address' className='text-sm capitalize'>
               Email Address
             </label>
             <input
@@ -85,26 +85,26 @@ const Information = () => {
                   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
               })}
               id='email-address'
-              className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                errors.emailAddress ? 'ring-red-600 ring-2' : 'ring-gray-300'
+              className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                errors.emailAddress ? 'ring-2 ring-red-600' : 'ring-gray-300'
               }`}
             />
             {errors.emailAddress?.type === 'required' ? (
-              <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                <InformationCircleIcon className='w-4 h-4' />
+              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                <InformationCircleIcon className='h-4 w-4' />
                 Email Address is required
               </span>
             ) : null}
             {errors.emailAddress?.type === 'pattern' ? (
-              <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                <InformationCircleIcon className='w-4 h-4' />
+              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                <InformationCircleIcon className='h-4 w-4' />
                 Invalid email address
               </span>
             ) : null}
           </div>
 
-          <div className='pt-4 flex flex-col w-full'>
-            <label htmlFor='phoneNumber' className='capitalize text-sm'>
+          <div className='flex w-full flex-col pt-4'>
+            <label htmlFor='phoneNumber' className='text-sm capitalize'>
               Phone Number
             </label>
             <input
@@ -113,13 +113,13 @@ const Information = () => {
                 required: true,
               })}
               id='phoneNumber'
-              className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                errors.phoneNumber ? 'ring-red-600 ring-2' : 'ring-gray-300'
+              className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                errors.phoneNumber ? 'ring-2 ring-red-600' : 'ring-gray-300'
               }`}
             />
             {errors.phoneNumber ? (
-              <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                <InformationCircleIcon className='w-4 h-4' />
+              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                <InformationCircleIcon className='h-4 w-4' />
                 Phone number is required
               </span>
             ) : null}
@@ -128,14 +128,14 @@ const Information = () => {
 
         <div className='mt-12'>
           <div className='flex items-center justify-between text-xs'>
-            <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
+            <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
               Shipping Information
             </h3>
           </div>
 
-          <div className='flex flex-col md:gap-4 lg:flex-row items-start lg:items-center justify-between w-full'>
-            <div className='pt-4 flex flex-col w-full'>
-              <label htmlFor='first-name' className='capitalize text-sm'>
+          <div className='flex w-full flex-col items-start justify-between md:gap-4 lg:flex-row lg:items-center'>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='first-name' className='text-sm capitalize'>
                 First Name
               </label>
               <input
@@ -144,19 +144,19 @@ const Information = () => {
                   required: true,
                 })}
                 id='first-name'
-                className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                  errors.firstName ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  errors.firstName ? 'ring-2 ring-red-600' : 'ring-gray-300'
                 }`}
               />
               {errors.firstName ? (
-                <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                  <InformationCircleIcon className='w-4 h-4' />
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
                   First name is required
                 </span>
               ) : null}
             </div>
-            <div className='pt-4 flex flex-col w-full'>
-              <label htmlFor='last-name' className='capitalize text-sm'>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='last-name' className='text-sm capitalize'>
                 Last Name
               </label>
               <input
@@ -165,20 +165,20 @@ const Information = () => {
                   required: true,
                 })}
                 id='last-name'
-                className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                  errors.lastName ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  errors.lastName ? 'ring-2 ring-red-600' : 'ring-gray-300'
                 }`}
               />
               {errors.lastName ? (
-                <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                  <InformationCircleIcon className='w-4 h-4' />
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
                   Last name is required
                 </span>
               ) : null}
             </div>
           </div>
-          <div className='pt-4 flex flex-col w-full'>
-            <label htmlFor='address' className='capitalize text-sm'>
+          <div className='flex w-full flex-col pt-4'>
+            <label htmlFor='address' className='text-sm capitalize'>
               Address
             </label>
             <input
@@ -187,21 +187,21 @@ const Information = () => {
                 required: true,
               })}
               id='address'
-              className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                errors.address ? 'ring-red-600 ring-2' : 'ring-gray-300'
+              className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                errors.address ? 'ring-2 ring-red-600' : 'ring-gray-300'
               }`}
             />
             {errors.address ? (
-              <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                <InformationCircleIcon className='w-4 h-4' />
+              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                <InformationCircleIcon className='h-4 w-4' />
                 Shipping address is required
               </span>
             ) : null}
           </div>
 
-          <div className='flex flex-col md:gap-4 lg:flex-row items-start lg:items-center justify-between w-full'>
-            <div className='pt-4 flex flex-col w-full'>
-              <label htmlFor='city' className='capitalize text-sm'>
+          <div className='flex w-full flex-col items-start justify-between md:gap-4 lg:flex-row lg:items-center'>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='city' className='text-sm capitalize'>
                 City
               </label>
               <input
@@ -210,19 +210,19 @@ const Information = () => {
                   required: true,
                 })}
                 id='city'
-                className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                  errors.city ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  errors.city ? 'ring-2 ring-red-600' : 'ring-gray-300'
                 }`}
               />
               {errors.city ? (
-                <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                  <InformationCircleIcon className='w-4 h-4' />
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
                   City is required
                 </span>
               ) : null}
             </div>
-            <div className='pt-4 flex flex-col w-full'>
-              <label htmlFor='state' className='capitalize text-sm'>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='state' className='text-sm capitalize'>
                 State
               </label>
               <input
@@ -231,13 +231,13 @@ const Information = () => {
                   required: true,
                 })}
                 id='state'
-                className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 text-gray-700 w-full flex-1 ${
-                  errors.state ? 'ring-red-600 ring-2' : 'ring-gray-300'
+                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  errors.state ? 'ring-2 ring-red-600' : 'ring-gray-300'
                 }`}
               />
               {errors.state ? (
-                <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                  <InformationCircleIcon className='w-4 h-4' />
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
                   State is required
                 </span>
               ) : null}
@@ -246,45 +246,45 @@ const Information = () => {
         </div>
 
         <div className='mt-12'>
-          <h3 className='uppercase tracking-[4px] text-xs font-bold  text-gray-700'>
+          <h3 className='text-xs font-bold uppercase tracking-[4px]  text-gray-700'>
             Instruction for seller
           </h3>
 
-          <div className='pt-4 flex flex-col w-full'>
-            <label htmlFor='order-notes' className='capitalize text-sm'>
+          <div className='flex w-full flex-col pt-4'>
+            <label htmlFor='order-notes' className='text-sm capitalize'>
               Order notes
             </label>
             <textarea
               id='order-notes'
               rows={3}
-              className={`px-3 py-3 ring-1 rounded text-sm focus:border-none focus:ring-2 focus:ring-main focus:outline-none mt-1 resize-none text-gray-700 w-full flex-1 ${
-                errors.orderNote ? 'ring-red-600 ring-2' : 'ring-gray-300'
+              className={`mt-1 w-full flex-1 resize-none appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                errors.orderNote ? 'ring-2 ring-red-600' : 'ring-gray-300'
               }`}
               placeholder='Special instructions for seller'
               {...register('orderNote')}></textarea>
             {errors.firstName ? (
-              <span className='text-xs p-1 text-red-600 flex items-center gap-2 pt-1'>
-                <InformationCircleIcon className='w-4 h-4' />
+              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                <InformationCircleIcon className='h-4 w-4' />
                 First name is required
               </span>
             ) : null}
           </div>
         </div>
 
-        <label className='text-sm pt-5 flex items-center gap-2'>
+        <label className='flex items-center gap-2 pt-5 text-sm'>
           <input
             type='checkbox'
-            className='accent-main sr-only peer'
+            className='peer sr-only accent-main'
             {...register('saveInfo')}
           />
-          <div className='w-4 h-4 ring-1 relative ring-gray-400 rounded-sm after:opacity-0 peer-checked:after:opacity-100 after:transition-opacity after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:content-[""] after:w-[0.65rem] after:h-[0.65rem] after:bg-dark after:rounded-sm'></div>
+          <div className='relative h-4 w-4 appearance-none rounded-sm ring-1 ring-gray-400 after:absolute after:top-1/2 after:left-1/2 after:h-[0.65rem] after:w-[0.65rem] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-sm after:bg-dark after:opacity-0 after:transition-opacity after:content-[""] peer-checked:after:opacity-100'></div>
           <span>Save this information for next time</span>
         </label>
 
-        <footer className='flex flex-col md:flex-row items-center justify-between mt-10'>
+        <footer className='mt-10 flex flex-col items-center justify-between md:flex-row'>
           <button
             type='submit'
-            className='ml-auto flex rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
+            className='ml-auto mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
             Continue to payment
           </button>
         </footer>

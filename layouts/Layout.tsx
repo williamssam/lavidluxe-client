@@ -16,26 +16,28 @@ export const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <header
-        className={`absolute max-w-[115rem] left-1/2 -translate-x-1/2 top-0 right-0 z-50 flex w-full items-center justify-between bg-transparent px-2 py-3 text-gray-900 md:px-10 ${
+        className={`absolute left-1/2 top-0 right-0 z-50 flex w-full max-w-[115rem] -translate-x-1/2 items-center justify-between bg-transparent px-2 py-3 text-gray-900 md:px-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <NavBar />
 
         <h1 className='font-oswald text-3xl uppercase text-gray-600'>
-          <Link href='/' className='text-gray-800 font-vollkorn font-black'>
+          <Link href='/' className='font-vollkorn font-black text-gray-800'>
             <Image
               alt='lavidluxe logo'
               src={logo}
-              className='w-full h-6 md:h-10 object-cover opacity-90'
+              // height={24}
+              // width={20}
+              className='h-8 w-max opacity-90 md:h-10'
             />
           </Link>
         </h1>
 
         <button
           onClick={() => setOpenCart(!openCart)}
-          className='group flex items-center gap-2 py-1 px-2 text-main transition-all hover:bg-main rounded hover:text-white'>
+          className='group flex items-center gap-2 rounded py-1 px-2 text-main transition-all hover:bg-main hover:text-white'>
           <ShoppingBagIcon className='h-5 w-5' aria-hidden='true' />
-          <p className='hidden lg:block text-xs font-bold uppercase tracking-[4px]'>
+          <p className='hidden text-xs font-bold uppercase tracking-[4px] lg:block'>
             Cart
           </p>
           {cart.length > 0 ? (

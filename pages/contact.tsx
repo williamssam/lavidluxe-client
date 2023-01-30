@@ -170,7 +170,7 @@ const Contact = () => {
                     required: true,
                   })}
                   id='full-name'
-                  className={`mt-1 w-full flex-1 rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
                     errors.name ? 'ring-2 ring-red-600' : 'ring-gray-300'
                   }`}
                   placeholder='Enter your full name'
@@ -192,7 +192,7 @@ const Contact = () => {
                     required: true,
                   })}
                   id='email-address'
-                  className={`mt-1 w-full flex-1 rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
                     errors.emailAddress
                       ? 'ring-2 ring-red-600'
                       : 'ring-gray-300'
@@ -216,7 +216,7 @@ const Contact = () => {
                   {...register('message', {
                     required: true,
                   })}
-                  className={`mt-1 h-52 w-full flex-1 resize-none rounded px-3 py-3 text-sm text-gray-700 ring-1 ring-gray-300 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-700 ${
+                  className={`mt-1 h-52 w-full flex-1 resize-none appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 ring-gray-300 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-700 ${
                     errors.message ? 'ring-2 ring-red-600' : 'ring-gray-300'
                   }`}></textarea>
                 {errors.message ? (

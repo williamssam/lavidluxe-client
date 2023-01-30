@@ -93,7 +93,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <InnerImageZoom
           src={urlFor(product?.image).auto('format').url()}
           zoomSrc={urlFor(product?.image).auto('format').url()}
-          className='mt-16 h-[28rem] bg-main/10 object-cover object-top md:col-span-3 md:mt-0 md:h-[35rem] lg:h-screen'
+          className='mt-16 h-[30rem] bg-main/10 object-cover object-top sm:h-[35rem] md:col-span-3 md:mt-0 md:h-[35rem] lg:h-screen'
           zoomType='hover'
           zoomPreload={true}
           fullscreenOnMobile={true}
@@ -196,13 +196,13 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </div>
 
           {value?.selectError ? (
-            <p className='bg-red-200 p-1 text-xs font-bold leading-3 text-red-600'>
+            <p className='bg-red-200 py-1 px-2 text-xs font-bold leading-3 text-red-600'>
               {value.selectError}
             </p>
           ) : null}
 
           {product?.stockStatus === 'in-stock' ? (
-            <div className='mt-8 flex flex-col items-center justify-center gap-8 md:flex-row md:justify-start lg:flex-col xl:flex-row'>
+            <div className='mt-8 flex items-center justify-center gap-8 md:flex-row md:justify-start'>
               <QuantityPicker
                 onDecrease={decreaseProductQuantity}
                 onIncrease={increaseProductQuantity}

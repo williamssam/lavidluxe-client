@@ -14,7 +14,7 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
     <Link
       href={`/shop/product/${product.slug.current}`}
       className='group transition-colors'>
-      <div className='relative h-80 overflow-hidden rounded lg:h-[35rem]'>
+      <div className='relative h-96 overflow-hidden rounded lg:h-[35rem]'>
         <Image
           alt={product?.name}
           src={urlFor(product?.image).auto('format').url()}
@@ -22,7 +22,7 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           sizes='1080, 560'
           placeholder='blur'
           blurDataURL={blurDataURL}
-          className={`rounded object-cover object-top transition-all hover:scale-110 ${
+          className={`rounded object-cover transition-all hover:scale-110 ${
             product?.stockStatus === 'in-stock'
               ? 'grayscale-0'
               : 'opacity-50 grayscale'
