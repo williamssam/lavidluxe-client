@@ -66,7 +66,7 @@ const OrderNotSuccesful = () => {
           </Link>
           <p className='mt-2 text-xs'>
             Need help?{' '}
-            <a href='mailto:#' className='text-main'>
+            <a href='mailto:lavidluxe@gmail.com' className='text-main'>
               Contact us
             </a>
           </p>

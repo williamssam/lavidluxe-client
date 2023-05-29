@@ -13,11 +13,7 @@ import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { QuantityPicker } from './QuantityPicker'
 
-type CartProps = {
-  // openCartDrawer: boolean
-}
-
-export const Cart = ({}: CartProps) => {
+export const Cart = () => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
 
   const cart = useCartStore(state => state.cart)

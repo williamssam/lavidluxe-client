@@ -126,7 +126,7 @@ const Contact = () => {
                   Facebook <Facebook />
                 </h4>
                 <a
-                  href='https://www.facebook.com/lavidluxe'
+                  href='https://web.facebook.com/boschicwardrobe'
                   className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
@@ -136,7 +136,7 @@ const Contact = () => {
                   Instagram <Instagram />
                 </h4>
                 <a
-                  href='https://www.instagram.com/lavidluxe/'
+                  href='https://www.instagram.com/lavidluxe_clothing'
                   className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>

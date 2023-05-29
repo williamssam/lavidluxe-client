@@ -1,6 +1,7 @@
 import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
 import { Twitter } from 'assets/icon/Twitter'
+import { Whatsapp } from 'assets/icon/Whatsapp'
 import logo from 'assets/images/logo-two.png'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
@@ -23,24 +24,23 @@ export const Footer = () => {
         />
         <p className='pt-1 text-xs'>
           All rights reserved. &copy; {new Date().getFullYear()}{' '}
-          <Link href='/'>lavidluxe.com</Link>
+          <Link href='/'>Lavidluxe</Link>
         </p>
-        {/* <h3 className='text-3xl font-black'>Lavidluxe</h3> */}
       </div>
       <a
         href='https://williamssam.netlify.app/'
         target='_blank'
         rel='noopener noreferrer'
-        className='text-[0.6rem] text-gray-300'>
+        className='text-xs text-gray-300'>
         Designed and developed by{' '}
-        <span className='font-bold'>Williams Samuel</span>
+        <span className='font-bold underline'>Williams Samuel</span>
       </a>
       <ul className='flex items-center gap-4 text-white'>
         <li>
           <a
             target='_blank'
             rel='noopener noreferrer'
-            href='#'
+            href='https://web.facebook.com/boschicwardrobe'
             className='transition-all hover:text-main'>
             <Facebook />
           </a>
@@ -49,7 +49,7 @@ export const Footer = () => {
           <a
             target='_blank'
             rel='noopener noreferrer'
-            href='#'
+            href='https://twitter.com/lavidluxe'
             className='transition-all hover:text-main'>
             <Twitter />
           </a>
@@ -61,6 +61,15 @@ export const Footer = () => {
             href='https://www.instagram.com/lavidluxe_clothing/'
             className='transition-all hover:text-main'>
             <Instagram />
+          </a>
+        </li>
+        <li>
+          <a
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://api.whatsapp.com/send?phone=2347010126912'
+            className='transition-all hover:text-main'>
+            <Whatsapp />
           </a>
         </li>
       </ul>
