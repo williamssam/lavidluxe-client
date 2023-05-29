@@ -76,7 +76,12 @@ const Shop = () => {
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         {categories ? <Tabs categories={categories} /> : null}
-        <Filter sort={sort} selected={selected} setSelected={setSelected} />
+        <Filter
+          sort={sort}
+          selected={selected}
+          setSelected={setSelected}
+          products={categories}
+        />
 
         <div
           ref={parent}
