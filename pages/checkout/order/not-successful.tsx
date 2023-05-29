@@ -59,7 +59,7 @@ const OrderNotSuccesful = () => {
 
         <footer className='mt-10 flex flex-col items-center justify-between'>
           <Link
-            href='/shop/all'
+            href='/shop/women-wears'
             className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
             Go back to shop
           </Link>

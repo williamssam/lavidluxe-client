@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { ErrorFallback } from 'components/ErrorFallback'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
@@ -33,6 +34,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       FallbackComponent={ErrorFallback}
       onReset={() => typeof window !== undefined && window.location.reload()}>
       <Component {...pageProps} />
+      <Analytics />
 
       <ToastContainer
         position='bottom-center'

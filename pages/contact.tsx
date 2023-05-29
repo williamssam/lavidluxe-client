@@ -16,7 +16,7 @@ import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { openCartDrawer } from 'store/atoms'
 
 type FormValues = {
@@ -47,12 +47,12 @@ const Contact = () => {
       )
       .then(
         result => {
-          console.log(result.text)
+          // console.log(result.text)
           setLoading(false)
           setIsSuccess(true)
         },
         error => {
-          console.log(error.text)
+          // console.log(error.text)
           setLoading(false)
         }
       )

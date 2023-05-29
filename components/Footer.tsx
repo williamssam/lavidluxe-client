@@ -12,7 +12,7 @@ export const Footer = () => {
 
   return (
     <footer
-      className={`bg-[#333333] px-6 py-4 text-white md:px-10 flex flex-wrap gap-5 items-center justify-between ${
+      className={`flex flex-wrap items-center justify-between gap-5 bg-[#333333] px-6 py-4 text-white md:px-10 ${
         openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
       }`}>
       <div>
@@ -21,7 +21,7 @@ export const Footer = () => {
           src={logo}
           className='w-10 object-cover invert'
         />
-        <p className='text-xs pt-1'>
+        <p className='pt-1 text-xs'>
           All rights reserved. &copy; {new Date().getFullYear()}{' '}
           <Link href='/'>lavidluxe.com</Link>
         </p>
@@ -41,7 +41,7 @@ export const Footer = () => {
             target='_blank'
             rel='noopener noreferrer'
             href='#'
-            className='hover:text-main transition-all'>
+            className='transition-all hover:text-main'>
             <Facebook />
           </a>
         </li>
@@ -50,7 +50,7 @@ export const Footer = () => {
             target='_blank'
             rel='noopener noreferrer'
             href='#'
-            className='hover:text-main transition-all'>
+            className='transition-all hover:text-main'>
             <Twitter />
           </a>
         </li>
@@ -58,8 +58,8 @@ export const Footer = () => {
           <a
             target='_blank'
             rel='noopener noreferrer'
-            href='#'
-            className='hover:text-main transition-all'>
+            href='https://www.instagram.com/lavidluxe_clothing/'
+            className='transition-all hover:text-main'>
             <Instagram />
           </a>
         </li>

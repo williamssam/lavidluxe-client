@@ -21,11 +21,11 @@ import { checkDate } from 'utils/functions/checkDate'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { client, urlFor } from 'utils/sanity/client'
 
-const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+// const size = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 export const getServerSideProps: GetServerSideProps = async context => {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug && !(_id in path('drafts.**'))] {
-      name, price, image, slug, _id, stockStatus, description, tags, productColors, promo
+      name, price, image, slug, _id, stockStatus, description, sizes, tags, productColors, promo
     }`,
     { slug: context.params?.id }
   )
@@ -59,6 +59,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     { productQuantity: 1, selectError: '' }
   )
 
+  const size = product.sizes.split(',').map(num => +num)
   const [selectedSize, setSelectedSize] = useState<number>(size[0])
   const [selectedColor, setSelectedColor] = useState<string>('Select')
 
@@ -103,7 +104,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 md:pb-0 lg:px-10 xl:px-16'>
           <button
             className='mb-5 flex items-center gap-2 text-xs'
-            onClick={() => router.push('/shop/all')}>
+            onClick={() => router.push('/shop/women-wears')}>
             <ArrowLeftIcon className='h-4 w-4' />
             Back to shop
           </button>
