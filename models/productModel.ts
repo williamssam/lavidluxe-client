@@ -7,6 +7,7 @@ export interface Category {
 
 export interface Product {
   _id: string
+  _createdAt: string
   description: string
   image: Image
   name: string

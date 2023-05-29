@@ -179,7 +179,7 @@ const ProductDetails = () => {
                     data={product.productColors}
                     selected={selectedColor}
                     setSelected={setSelectedColor}
-                    className='w-24'
+                    className='w-24 !capitalize'
                   />
                 </div>
               ) : null}

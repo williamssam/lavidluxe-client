@@ -19,7 +19,7 @@ export const Filter = ({ sort, selected, setSelected }: FilterProps) => {
             data={sort}
             selected={selected}
             setSelected={setSelected}
-            className='w-44 rounded border'
+            className='w-44 rounded border !normal-case'
           />
         </div>
       </div>

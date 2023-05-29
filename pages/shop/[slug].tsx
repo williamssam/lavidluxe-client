@@ -18,7 +18,7 @@ const getProducts = async () => {
   const products = await client.fetch(
     `*[_type == "category" && !(_id in path('drafts.**'))] | order(_createdAt asc) {
       _id, title, slug,
-      products[]->{name, price, image, slug, _id, stockStatus,promo}
+      products[]->{name, price, image, slug, _id, stockStatus, promo, _createdAt}
     }`
   )
 
@@ -36,11 +36,11 @@ export const getServerSideProps = async () => {
   }
 }
 
+const sort = ['Latest', 'Oldest', 'Price: high to low', 'Price: low to high']
 const Shop = () => {
   const { parent } = useAnimate()
   const { data: categories, isLoading } = useQuery(['products'], getProducts)
 
-  const sort = ['Default', 'Price: high to low', 'Price: low to high']
   const [selected, setSelected] = useState<string>(sort[0])
   const [currentSort, setCurrentSort] = useState(selected)
 
@@ -51,7 +51,8 @@ const Shop = () => {
   const sortObj: {
     [key: string]: (a: Product, b: Product) => any
   } = {
-    Default: (a, b) => a,
+    Latest: (a, b) => Date.parse(b._createdAt) - Date.parse(a._createdAt),
+    Oldest: (a, b) => Date.parse(a._createdAt) - Date.parse(b._createdAt),
     'Price: high to low': (a, b) => b.price - a.price,
     'Price: low to high': (a, b) => a.price - b.price,
   }

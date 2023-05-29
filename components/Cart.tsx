@@ -23,8 +23,6 @@ export const Cart = () => {
   const clearCart = useCartStore(state => state.clearCart)
   const { subtotal } = useCart(cart)
 
-  // console.log('cart', cart)
-
   const { parent } = useAnimate()
 
   return (
