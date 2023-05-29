@@ -8,7 +8,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRef } from 'react'
 import ReactCanvasConfetti from 'react-canvas-confetti'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
@@ -56,8 +55,6 @@ const OrderSuccessful = ({
   const clearCart = useCartStore(state => state.clearCart)
   const { fire, getInstance } = useConfetti()
   const { total, subtotal } = useCart(cart)
-  const buttonRef = useRef<HTMLButtonElement | null>(null)
-  // console.log('response', response)
 
   const cartItems = cart?.map(cart => ({
     name: cart.name,

@@ -12,7 +12,7 @@ export const Tabs = ({ categories }: TabsProps) => {
 
   return (
     <ul className='mt-14 flex flex-wrap items-center justify-center gap-8 text-[0.7rem] font-bold uppercase tracking-widest text-[#999999] md:mt-10 md:text-[0.69rem] md:tracking-[3px] lg:gap-16'>
-      {categories.length > 0 ? (
+      {categories?.length > 0 ? (
         categories?.map(category => (
           <li key={category._id}>
             <Link

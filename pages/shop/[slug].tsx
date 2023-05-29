@@ -1,39 +1,44 @@
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import { QueryClient, dehydrate, useQuery } from '@tanstack/react-query'
 import { Filter } from 'components/Filter'
 import { ProductDetail } from 'components/ProductDetail'
+import { Spinner } from 'components/Spinner'
 import { Tabs } from 'components/Tabs'
 import { useAnimate } from 'hooks/useAnimate'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Category, Product } from 'models/productModel'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useState } from 'react'
 import { openCartDrawer } from 'store/atoms'
 import { client } from 'utils/sanity/client'
 
-export const getServerSideProps: GetServerSideProps<{
-  categories: Category[]
-}> = async () => {
-  const categories = await client.fetch(
+const getProducts = async () => {
+  const products = await client.fetch(
     `*[_type == "category" && !(_id in path('drafts.**'))] | order(_createdAt asc) {
       _id, title, slug,
       products[]->{name, price, image, slug, _id, stockStatus,promo}
     }`
   )
 
+  return products as Category[]
+}
+
+export const getServerSideProps = async () => {
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(['products'], getProducts)
+
   return {
     props: {
-      categories,
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }
 
-const Shop = ({
-  categories,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Shop = () => {
   const { parent } = useAnimate()
+  const { data: categories, isLoading } = useQuery(['products'], getProducts)
 
   const sort = ['Default', 'Price: high to low', 'Price: low to high']
   const [selected, setSelected] = useState<string>(sort[0])
@@ -53,8 +58,11 @@ const Shop = ({
 
   useEffect(() => {
     setCurrentSort(selected)
-    // console.log('current sort', currentSort)
   }, [currentSort, selected])
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <>
@@ -66,7 +74,7 @@ const Shop = ({
         className={`min-h-screen px-4 py-10 transition-all md:px-16 md:pt-20 md:pb-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
-        <Tabs categories={categories} />
+        {categories ? <Tabs categories={categories} /> : null}
         <Filter sort={sort} selected={selected} setSelected={setSelected} />
 
         <div

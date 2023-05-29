@@ -9,7 +9,7 @@ const OrderNotSuccesful = () => {
       },
       method: 'POST',
       body: JSON.stringify({
-        recipient: 'williamsdamisamuel@outlook.com',
+        recipient: 'ghostdeveloper@yopmail.com',
         address: '11, Isashi Road, Lagos',
         name: 'ghost developer',
         phone_number: '08138505782',
@@ -29,6 +29,7 @@ const OrderNotSuccesful = () => {
       }),
     }).then(res => console.log(res))
   }
+
   return (
     <section className='flex h-screen w-full items-center justify-center bg-main'>
       <Head>
