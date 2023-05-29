@@ -89,6 +89,8 @@ export default async function handler(
           generateTextFromHTML: true,
           html: htmlToSend,
         }
+
+        console.log('mail options', mailOptions)
         let emailTransporter = await createTransporter()
 
         emailTransporter.sendMail(
@@ -98,7 +100,7 @@ export default async function handler(
               ? res.status(400).json({ message: 'Message not sent', error })
               : res
                   .status(200)
-                  .json({ message: 'mail sent successfully!', response })
+                  .json({ message: 'Mail sent successfully!', response })
             emailTransporter.close()
           }
         )

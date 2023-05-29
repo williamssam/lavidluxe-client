@@ -8,7 +8,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRef } from 'react'
 import ReactCanvasConfetti from 'react-canvas-confetti'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
@@ -56,8 +55,6 @@ const OrderSuccessful = ({
   const clearCart = useCartStore(state => state.clearCart)
   const { fire, getInstance } = useConfetti()
   const { total, subtotal } = useCart(cart)
-  const buttonRef = useRef<HTMLButtonElement | null>(null)
-  // console.log('response', response)
 
   const cartItems = cart?.map(cart => ({
     name: cart.name,
@@ -185,14 +182,14 @@ const OrderSuccessful = ({
 
           <footer className='mt-10 flex flex-col items-center justify-between'>
             <Link
-              href='/shop/all'
+              href='/shop/women-wears'
               onClick={() => clearCart()}
               className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
               Continue shopping
             </Link>
             <p className='mt-2 text-xs'>
               Need help?{' '}
-              <a href='mailto:#' className='text-main'>
+              <a href='mailto:lavidluxe@gmail.com' className='text-main'>
                 Contact us
               </a>
             </p>

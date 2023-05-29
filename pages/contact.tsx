@@ -16,7 +16,7 @@ import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { openCartDrawer } from 'store/atoms'
 
 type FormValues = {
@@ -47,12 +47,12 @@ const Contact = () => {
       )
       .then(
         result => {
-          console.log(result.text)
+          // console.log(result.text)
           setLoading(false)
           setIsSuccess(true)
         },
         error => {
-          console.log(error.text)
+          // console.log(error.text)
           setLoading(false)
         }
       )
@@ -126,7 +126,7 @@ const Contact = () => {
                   Facebook <Facebook />
                 </h4>
                 <a
-                  href='https://www.facebook.com/lavidluxe'
+                  href='https://web.facebook.com/boschicwardrobe'
                   className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
@@ -136,7 +136,7 @@ const Contact = () => {
                   Instagram <Instagram />
                 </h4>
                 <a
-                  href='https://www.instagram.com/lavidluxe/'
+                  href='https://www.instagram.com/lavidluxe_clothing'
                   className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>

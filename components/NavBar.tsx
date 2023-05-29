@@ -12,35 +12,35 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
+const navs = [
+  {
+    id: 1,
+    name: 'Home',
+    route: '/',
+    icon: <HomeIcon className='h-4 w-4' />,
+  },
+  {
+    id: 2,
+    name: 'Shop',
+    route: '/shop/women-wears',
+    icon: <BuildingStorefrontIcon className='h-4 w-4' />,
+  },
+  {
+    id: 3,
+    name: 'About us',
+    route: '/about-us',
+    icon: <UserGroupIcon className='h-4 w-4' />,
+  },
+  {
+    id: 4,
+    name: 'Contact',
+    route: '/contact',
+    icon: <DevicePhoneMobileIcon className='h-4 w-4' />,
+  },
+]
 export const NavBar = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const router = useRouter()
-  const navs = [
-    {
-      id: 1,
-      name: 'Home',
-      route: '/',
-      icon: <HomeIcon className='h-4 w-4' />,
-    },
-    {
-      id: 2,
-      name: 'Shop',
-      route: '/shop/all',
-      icon: <BuildingStorefrontIcon className='h-4 w-4' />,
-    },
-    {
-      id: 3,
-      name: 'About us',
-      route: '/about-us',
-      icon: <UserGroupIcon className='h-4 w-4' />,
-    },
-    {
-      id: 4,
-      name: 'Contact',
-      route: '/contact',
-      icon: <DevicePhoneMobileIcon className='h-4 w-4' />,
-    },
-  ]
   return (
     <nav className=''>
       {/* menu for desktop */}

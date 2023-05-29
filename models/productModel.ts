@@ -13,6 +13,7 @@ export interface Product {
   price: number
   productColors: string[]
   slug: Slug
+  sizes: string
   tags: string[]
   promo: {
     promoOn: true
