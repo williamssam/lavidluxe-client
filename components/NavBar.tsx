@@ -42,8 +42,9 @@ const navs = [
 export const NavBar = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const router = useRouter()
+
   return (
-    <nav className='pt-1'>
+    <nav className='order-1 lg:order-2'>
       {/* menu for desktop */}
       <ul className='hidden items-center gap-3 text-xs font-bold uppercase lg:flex'>
         {navs?.map(nav => (

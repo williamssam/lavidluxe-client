@@ -29,6 +29,7 @@ export const ProductDetail = ({ product, category }: ProductDetailProps) => {
               : 'opacity-50 grayscale'
           }`}
         />
+
         {product?.promo?.promoOn ? (
           <p className='absolute top-3 right-3 rounded bg-[#333333] py-2 px-4 text-xs font-bold tracking-wider text-white'>
             {getPercentageDecrease(product?.promo?.promoPrice, product?.price)}%
