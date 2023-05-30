@@ -21,7 +21,7 @@ export const ProductFooter = ({ name }: ProductFooterProps) => {
       <p className='text-center text-[0.7rem] font-bold uppercase tracking-[3px] text-main'>
         Free shipping on orders above N100,000
       </p>
-      <div className='mt-3 flex flex-col items-center justify-center bg-gray-100 py-4 text-center text-xs text-gray-500 rounded'>
+      <div className='mt-3 flex flex-col items-center justify-center rounded bg-gray-100 py-4 text-center text-xs text-gray-500'>
         <TruckIcon className='h-8 w-8 text-gray-600' aria-hidden='true' />
         <p className='px-4 pt-2'>
           We deliver everywhere in{' '}
@@ -32,18 +32,18 @@ export const ProductFooter = ({ name }: ProductFooterProps) => {
       </div>
 
       {/* share product */}
-      <div className='mt-8 flex items-center justify-center gap-2 text-sm md:justify-end'>
+      <div className='mt-8 flex flex-col items-center justify-center gap-2 text-sm md:flex-row md:justify-end'>
         <p>Share product on:</p>
 
-        <ul className='flex items-center gap-2'>
+        <ul className='flex flex-wrap items-center gap-2'>
           <li>
             <a
               href={`https://www.facebook.com/sharer.php?u=${pageUrl}`}
               target='_blank'
               rel='noopener noreferrer'
-              className='transition-colors hover:text-gray-800'>
+              className='flex items-center gap-1 rounded bg-main py-1 px-2 text-white transition-opacity hover:opacity-80'>
               <Facebook />
-              <span className='sr-only'>Facebook</span>
+              <span className='text-xs'>Facebook</span>
             </a>
           </li>
           <li>
@@ -51,9 +51,9 @@ export const ProductFooter = ({ name }: ProductFooterProps) => {
               href={`https://twitter.com/intent/tweet?url=${pageUrl}&text=${name}`}
               target='_blank'
               rel='noopener noreferrer'
-              className='transition-colors hover:text-gray-800'>
+              className='flex items-center gap-1 rounded bg-blue-600 py-1 px-2 text-white transition-opacity hover:opacity-80'>
               <Twitter />
-              <span className='sr-only'>Twitter</span>
+              <span className='text-xs'>Twitter</span>
             </a>
           </li>
           <li>
@@ -61,9 +61,9 @@ export const ProductFooter = ({ name }: ProductFooterProps) => {
               href={`whatsapp://send?text=${name}%20${pageUrl}`}
               target='_blank'
               rel='noopener noreferrer'
-              className='transition-colors hover:text-gray-800'>
+              className='flex items-center gap-1 rounded bg-green-600 py-1 px-2 text-white transition-opacity hover:opacity-80'>
               <Whatsapp />
-              <span className='sr-only'>Whatsapp</span>
+              <span className='text-xs'>Whatsapp</span>
             </a>
           </li>
         </ul>

@@ -8,11 +8,12 @@ import { urlFor } from 'utils/sanity/client'
 
 type ProductDetailProps = {
   product: Product
+  category: String
 }
-export const ProductDetail = ({ product }: ProductDetailProps) => {
+export const ProductDetail = ({ product, category }: ProductDetailProps) => {
   return (
     <Link
-      href={`/shop/product/${product.slug.current}`}
+      href={`/shop/${category}/${product.slug.current}`}
       className='group transition-colors'>
       <div className='relative h-96 overflow-hidden rounded lg:h-[35rem]'>
         <Image

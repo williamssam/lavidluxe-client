@@ -96,7 +96,7 @@ const ProductDetails = () => {
           <section className='justify-end self-center px-3 py-5 md:col-span-2 md:px-16 md:pb-0 lg:px-10 xl:px-16'>
             <button
               className='mb-5 flex items-center gap-2 text-xs'
-              onClick={() => router.push('/shop/women-wears')}>
+              onClick={() => router.back()}>
               <ArrowLeftIcon className='h-4 w-4' />
               Back to shop
             </button>

@@ -21,7 +21,7 @@ export const Filter = ({
   const categories = products?.find(category => category.slug.current === slug)
 
   return (
-    <section className='flex items-center justify-between pt-10 md:pt-20'>
+    <section className='flex flex-wrap items-center justify-center gap-1 pt-10 md:justify-between md:pt-20'>
       <p className='text-xs'>
         There are {categories?.products?.length} products in total
       </p>

@@ -37,6 +37,7 @@ export const getServerSideProps = async () => {
 }
 
 const sort = ['Latest', 'Oldest', 'Price: high to low', 'Price: low to high']
+
 const Shop = () => {
   const { parent } = useAnimate()
   const { data: categories, isLoading } = useQuery(['products'], getProducts)
@@ -83,7 +84,7 @@ const Shop = () => {
           products={categories}
         />
 
-        <div
+        <section
           ref={parent}
           className='grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
           {categories?.map(
@@ -93,7 +94,11 @@ const Shop = () => {
                 [...category.products]
                   ?.sort(sortObj[currentSort])
                   ?.map(product => (
-                    <ProductDetail product={product} key={product?._id} />
+                    <ProductDetail
+                      product={product}
+                      key={product?._id}
+                      category={category.slug.current}
+                    />
                   ))
               ) : (
                 <div
@@ -103,15 +108,13 @@ const Shop = () => {
                   <p className='mt-3'>
                     No product(s) available under this category
                   </p>
-                  <strong className='text-sm uppercase tracking-[3px]'>
+                  <strong className='text-sm uppercase'>
                     {router.asPath.slice(6).replace(/-/g, ' ')}
                   </strong>
                 </div>
               ))
           )}
-        </div>
-
-        {/* <Pagination /> */}
+        </section>
       </main>
     </>
   )

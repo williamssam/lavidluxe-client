@@ -10,13 +10,12 @@ import { Instagram } from 'assets/icon/Instagram'
 import { Whatsapp } from 'assets/icon/Whatsapp'
 import { Footer } from 'components/Footer'
 import { Spinner } from 'components/Spinner'
-import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
 import { ReactElement, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { openCartDrawer } from 'store/atoms'
 
 type FormValues = {
@@ -28,13 +27,18 @@ type FormValues = {
 const Contact = () => {
   const [openCart] = useAtom(openCartDrawer)
   const [loading, setLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
   const {
     handleSubmit,
     formState: { errors },
     register,
     reset,
-  } = useForm<FormValues>({})
+  } = useForm<FormValues>({
+    defaultValues: {
+      emailAddress: '',
+      message: '',
+      name: '',
+    },
+  })
 
   const submitForm: SubmitHandler<FormValues> = data => {
     setLoading(true)
@@ -49,7 +53,8 @@ const Contact = () => {
         result => {
           // console.log(result.text)
           setLoading(false)
-          setIsSuccess(true)
+          toast.success(`🥳 Message sent successfully!`)
+          reset()
         },
         error => {
           // console.log(error.text)
@@ -57,14 +62,6 @@ const Contact = () => {
         }
       )
   }
-
-  useIsomorphicLayoutEffect(() => {
-    if (isSuccess) {
-      toast.success(`🥳 Message sent successfully!`)
-      reset()
-    }
-    setIsSuccess(false)
-  }, [isSuccess])
 
   return (
     <>
@@ -155,104 +152,89 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className='px-0 pb-6 lg:pb-0 xl:px-24'>
-            <form onSubmit={handleSubmit(submitForm)}>
-              <h3 className='text=xs text-2xl font-black uppercase tracking-[4px] text-gray-700'>
-                Get in touch
-              </h3>
-              <div className='flex w-full flex-col pt-4'>
-                <label htmlFor='full-name' className='text-sm capitalize'>
-                  Your name
-                </label>
-                <input
-                  type='text'
-                  {...register('name', {
-                    required: true,
-                  })}
-                  id='full-name'
-                  className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                    errors.name ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                  }`}
-                  placeholder='Enter your full name'
-                />
-                {errors.name ? (
-                  <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                    <InformationCircleIcon className='h-4 w-4' />
-                    Your name is required
-                  </span>
-                ) : null}
-              </div>
-              <div className='flex w-full flex-col pt-4'>
-                <label htmlFor='email-address' className='text-sm capitalize'>
-                  Your email address
-                </label>
-                <input
-                  type='email'
-                  {...register('emailAddress', {
-                    required: true,
-                  })}
-                  id='email-address'
-                  className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                    errors.emailAddress
-                      ? 'ring-2 ring-red-600'
-                      : 'ring-gray-300'
-                  }`}
-                  placeholder='Enter email address'
-                />
-                {errors.emailAddress ? (
-                  <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                    <InformationCircleIcon className='h-4 w-4' />
-                    Your email address is required
-                  </span>
-                ) : null}
-              </div>
+          <form
+            onSubmit={handleSubmit(submitForm)}
+            className='px-0 pb-6 lg:pb-0 xl:px-24'>
+            <h3 className='text=xs text-2xl font-black uppercase tracking-[4px] text-gray-700'>
+              Get in touch
+            </h3>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='full-name' className='text-sm capitalize'>
+                Your name
+              </label>
+              <input
+                type='text'
+                {...register('name', {
+                  required: true,
+                })}
+                id='full-name'
+                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  errors.name ? 'ring-2 ring-red-600' : 'ring-gray-300'
+                }`}
+                placeholder='Enter your full name'
+              />
+              {errors.name ? (
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
+                  Your name is required
+                </span>
+              ) : null}
+            </div>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='email-address' className='text-sm capitalize'>
+                Your email address
+              </label>
+              <input
+                type='email'
+                {...register('emailAddress', {
+                  required: true,
+                })}
+                id='email-address'
+                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                  errors.emailAddress ? 'ring-2 ring-red-600' : 'ring-gray-300'
+                }`}
+                placeholder='Enter email address'
+              />
+              {errors.emailAddress ? (
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
+                  Your email address is required
+                </span>
+              ) : null}
+            </div>
 
-              <div className='mt-7'>
-                <label htmlFor='message' className='text-sm capitalize'>
-                  Your message
-                </label>
-                <textarea
-                  id='message'
-                  {...register('message', {
-                    required: true,
-                  })}
-                  className={`mt-1 h-52 w-full flex-1 resize-none appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 ring-gray-300 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-700 ${
-                    errors.message ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                  }`}></textarea>
-                {errors.message ? (
-                  <span className='flex items-center gap-2 p-1 text-xs text-red-600'>
-                    <InformationCircleIcon className='h-4 w-4' />
-                    Your message is required
-                  </span>
-                ) : null}
-              </div>
+            <div className='mt-7'>
+              <label htmlFor='message' className='text-sm capitalize'>
+                Your message
+              </label>
+              <textarea
+                id='message'
+                {...register('message', {
+                  required: true,
+                })}
+                className={`mt-1 h-52 w-full flex-1 resize-none appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 ring-gray-300 focus:border-none focus:outline-none focus:ring-2 focus:ring-blue-700 ${
+                  errors.message ? 'ring-2 ring-red-600' : 'ring-gray-300'
+                }`}></textarea>
+              {errors.message ? (
+                <span className='flex items-center gap-2 p-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
+                  Your message is required
+                </span>
+              ) : null}
+            </div>
 
-              <button
-                type='submit'
-                disabled={loading}
-                className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-none disabled:opacity-30'>
-                Submit
-                {loading ? <Spinner /> : null}
-              </button>
-            </form>
-          </div>
+            <button
+              type='submit'
+              disabled={loading}
+              className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-not-allowed disabled:opacity-30'>
+              Submit
+              {loading ? <Spinner /> : null}
+            </button>
+          </form>
         </section>
       </main>
 
       <Footer />
-
-      <ToastContainer
-        position='bottom-center'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        theme='light'
-      />
     </>
   )
 }

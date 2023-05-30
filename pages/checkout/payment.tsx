@@ -77,27 +77,27 @@ const Payment = () => {
 
       <CheckoutNav />
 
-      <div className='text-xs border border-gray-300 rounded-lg py-4 px-4 md:px-6 mt-10 flex flex-col gap-4'>
+      <div className='mt-10 flex flex-col gap-4 rounded-lg border border-gray-300 py-4 px-4 text-xs md:px-6'>
         <div className='flex items-center justify-between border-b pb-3'>
-          <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
+          <div className='flex flex-col items-start md:flex-row md:items-center md:gap-10'>
             <p className='w-10'>Contact</p>
             <p className='font-bold'>{info.email}</p>
           </div>
-          <button className='text-main font-bold' onClick={() => router.back()}>
+          <button className='font-bold text-main' onClick={() => router.back()}>
             Change
           </button>
         </div>
         <div className='flex items-center justify-between border-b pb-3'>
-          <div className='flex flex-col md:flex-row items-start md:items-center md:gap-10'>
+          <div className='flex flex-col items-start md:flex-row md:items-center md:gap-10'>
             <p className='w-10'>Ship to</p>
             <p className='font-bold'>{`${info.address}, ${info.city}, ${info.state}`}</p>
           </div>
-          <button className='text-main font-bold' onClick={() => router.back()}>
+          <button className='font-bold text-main' onClick={() => router.back()}>
             Change
           </button>
         </div>
         <div className='flex items-center justify-between'>
-          <div className='flex flex-col md:flex-row items-start md:gap-10'>
+          <div className='flex flex-col items-start md:flex-row md:gap-10'>
             <p className='w-12'>Note</p>
             <p className='font-bold'>
               We only deliver within Lagos, Nigeria. You must pay an extra
@@ -109,30 +109,30 @@ const Payment = () => {
       </div>
 
       <div className='mt-14'>
-        <div className='flex flex-col md:flex-row items-start md:items-center justify-between text-xs'>
-          <h3 className='uppercase tracking-[4px] text-xs font-bold text-gray-700'>
+        <div className='flex flex-col items-start justify-between text-xs md:flex-row md:items-center'>
+          <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
             Payment method
           </h3>
           <p>All transactions are secure and encrypted</p>
         </div>
 
         <ul className='pt-5 text-sm'>
-          <li className='flex items-center gap-2 mt-4'>
+          <li className='mt-4 flex items-center gap-2'>
             <input
               type='radio'
               name='payment-type'
               id='payment-with-card'
-              className='hidden peer'
+              className='peer hidden'
               value='payment-with-card'
               onChange={handleChange}
               checked={checkedValue === 'payment-with-card'}
             />
-            <span className='bg-main w-6 h-6 rounded items-center justify-center hidden peer-checked:flex'>
-              <CheckIcon className='w-4 h-4 text-gray-100' />
+            <span className='hidden h-6 w-6 items-center justify-center rounded bg-main peer-checked:flex'>
+              <CheckIcon className='h-4 w-4 text-gray-100' />
             </span>
             <label
               htmlFor='payment-with-card'
-              className='py-2 px-5 rounded bg-[#8c8c8c] relative left-0 peer-checked:left-2 flex items-center gap-4 w-52 text-white peer-checked:bg-main cursor-pointer transition-all ring-2 ring-gray-300 peer-checked:ring-main/50'>
+              className='relative left-0 flex w-52 cursor-pointer items-center gap-4 rounded bg-[#8c8c8c] py-2 px-5 text-white ring-2 ring-gray-300 transition-all peer-checked:left-2 peer-checked:bg-main peer-checked:ring-main/50'>
               <div>
                 <p className='font-bold'>Payment with card</p>
                 <p className='text-[0.6rem] leading-3 text-gray-200'>
@@ -143,19 +143,19 @@ const Payment = () => {
           </li>
         </ul>
 
-        <footer className='flex flex-col md:flex-row items-center justify-between mt-10'>
+        <footer className='mt-10 flex flex-col items-center justify-between md:flex-row'>
           <button
             type='button'
             onClick={() => router.back()}
-            className='text-sm flex items-center text-main transition-all py-1 px-2 rounded hover:bg-gray-50'>
-            <ChevronLeftIcon className='w-7 h-7' />
+            className='flex items-center rounded py-1 px-2 text-sm text-main transition-all hover:bg-gray-50'>
+            <ChevronLeftIcon className='h-7 w-7' />
             <span>Return to information</span>
           </button>
 
           {checkedValue === 'payment-on-delivery' ? (
             <Link
               href='/checkout/order-successful'
-              className='flex rounded justify-center bg-[#333333]  text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95'>
+              className='mt-3 flex w-full justify-center  rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
               Complete order
             </Link>
           ) : (
@@ -174,8 +174,8 @@ const Payment = () => {
                   },
                 })
               }}
-              disabled={loading}
-              className='flex items-center rounded justify-center bg-[#333333] text-white mt-3 md:mt-0 py-4 px-10 md:px-5 lg:px-10 text-xs font-bold uppercase w-full md:w-max tracking-[3px] lg:tracking-[4px] transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-none disabled:opacity-30'>
+              disabled={loading || cart.length <= 0}
+              className='mt-3 flex w-full items-center justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-not-allowed disabled:bg-[#333333] disabled:opacity-30 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
               <span>Pay for order</span>
               {loading ? <Spinner /> : null}
             </button>

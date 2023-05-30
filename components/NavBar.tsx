@@ -38,22 +38,24 @@ const navs = [
     icon: <DevicePhoneMobileIcon className='h-4 w-4' />,
   },
 ]
+
 export const NavBar = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const router = useRouter()
   return (
-    <nav className=''>
+    <nav className='pt-1'>
       {/* menu for desktop */}
       <ul className='hidden items-center gap-3 text-xs font-bold uppercase lg:flex'>
         {navs?.map(nav => (
           <li key={nav.id}>
             <Link
               href={nav.route}
-              className={`rounded py-2 px-3 transition-all ${
+              className={`flex items-center gap-2 rounded py-2 px-3 transition-all ${
                 router.asPath === nav.route
                   ? 'bg-dark font-black text-white'
                   : 'text-gray-600 hover:bg-gray-100 hover:text-main'
               }`}>
+              {nav.icon}
               {nav.name}
             </Link>
           </li>
