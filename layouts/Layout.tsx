@@ -45,7 +45,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
         </button>
       </header>
 
-      {children}
+      <main>{children}</main>
 
       {openCart ? <Cart /> : null}
     </>

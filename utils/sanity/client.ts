@@ -10,6 +10,7 @@ export const client = createClient({
   useCdn: true,
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
   withCredentials: true,
+  ignoreBrowserTokenWarning: true,
 })
 
 const builder = imageUrlBuilder(client)

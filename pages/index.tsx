@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Lavidluxe Clothing</title>
+        <title>Lavidluxe Clothings</title>
       </Head>
       {/*  */}
       <main
@@ -65,8 +65,6 @@ const Home = () => {
             />
           </SwiperSlide>
         </Swiper>
-
-        {/* <Image alt='laviluxe' src={lavidluxe} className='w-[0rem]' /> */}
       </main>
 
       <Footer />

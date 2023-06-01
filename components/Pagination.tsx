@@ -22,7 +22,7 @@ export const Pagination = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center mt-10'>
+    <div className='mt-10 flex flex-col items-center justify-center'>
       {/* <p className='text-xs'>
         Showing <span className='font-black text-[#333333]'>1</span> to{' '}
         <span className='font-black text-[#333333]'>12</span> of{' '}
@@ -30,13 +30,13 @@ export const Pagination = () => {
       </p> */}
 
       <div className='flex items-center gap-4 pt-2'>
-        <button className='flex items-center gap-2 bg-[#333333] font-bold text-gray-100 py-2 px-4 rounded text-xs uppercase tracking-[3px] active:scale-95 transition-all hover:bg-main disabled:bg-gray-300 disabled:active:scale-100 disabled:cursor-not-allowed'>
-          <ArrowLongLeftIcon className='w-4 h-4' />
+        <button className='flex items-center gap-2 rounded bg-[#333333] py-2 px-4 text-xs font-bold uppercase tracking-[3px] text-gray-100 transition-all hover:bg-main active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:active:scale-100'>
+          <ArrowLongLeftIcon className='h-4 w-4' />
           <span>Prev</span>
         </button>
-        <button className='flex items-center gap-2 bg-[#333333] font-bold text-gray-100 py-2 px-4 rounded text-xs uppercase tracking-[3px] active:scale-95 transition-all hover:bg-main disabled:bg-gray-300 disabled:active:scale-100 disabled:cursor-not-allowed'>
+        <button className='flex items-center gap-2 rounded bg-[#333333] py-2 px-4 text-xs font-bold uppercase tracking-[3px] text-gray-100 transition-all hover:bg-main active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:active:scale-100'>
           <span>Next</span>
-          <ArrowLongRightIcon className='w-4 h-4' />
+          <ArrowLongRightIcon className='h-4 w-4' />
         </button>
       </div>
     </div>

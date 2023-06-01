@@ -23,7 +23,7 @@ export const Filter = ({
   return (
     <section className='flex flex-wrap items-center justify-center gap-1 pt-10 md:justify-between md:pt-20'>
       <p className='text-xs'>
-        There are {categories?.products?.length} products in total
+        There are {categories?.products?.length} products.
       </p>
       <div className='flex items-center gap-1 text-xs'>
         <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>

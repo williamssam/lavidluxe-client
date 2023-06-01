@@ -1,16 +1,17 @@
 import { ShoppingCartIcon } from '@heroicons/react/20/solid'
 import { useCart } from 'hooks/useCart'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 
 export const OrderInformation = () => {
+  const router = useRouter()
   const cart = useCartStore(state => state.cart)
-
   const { shippingCost, subtotal, total, vat } = useCart(cart)
 
   return (
-    <section className='bg-gray-100 border-l h-full col-span-2 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
+    <section className='col-span-2 h-full border-l bg-gray-100 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
       <ul className='border-b border-b-gray-300 pb-3'>
         {cart.length > 0 ? (
           cart?.map(product => (
@@ -22,19 +23,19 @@ export const OrderInformation = () => {
                 width={64}
                 height={100}
                 alt={`${product.name}`}
-                className='w-16 h-20 object-cover rounded'
+                className='h-20 w-16 rounded object-cover'
               />
-              <div className='text-xs font-bold w-full flex items-center justify-between'>
+              <div className='flex w-full items-center justify-between text-xs font-bold'>
                 <div>
                   <h4 className='uppercase tracking-[4px] text-[#333333]'>
                     {product.name}
                   </h4>
-                  <p className='text-[#999999] capitalize pt-1'>
+                  <p className='pt-1 capitalize text-[#999999]'>
                     {product?.size ? `Size ${product.size}` : null}{' '}
                     {product?.color !== 'Select' ? `/ ${product.color}` : null}
                   </p>
 
-                  <p className='text-gray-500 pt-3'>
+                  <p className='pt-3 text-gray-500'>
                     Quantity: {product.quantity}
                   </p>
                 </div>
@@ -47,8 +48,8 @@ export const OrderInformation = () => {
           ))
         ) : (
           <li className='flex flex-col items-center justify-center bg-gray-100 py-8 px-4'>
-            <ShoppingCartIcon className='w-10 h-10 text-main' />
-            <p className='uppercase font-vollkorn font-bold tracking-wider pt-4'>
+            <ShoppingCartIcon className='h-10 w-10 text-main' />
+            <p className='pt-4 font-vollkorn font-bold uppercase tracking-wider'>
               Your cart is empty 😔
             </p>
             <p className='text-xs text-gray-400'>Add items to your cart</p>
@@ -56,20 +57,22 @@ export const OrderInformation = () => {
         )}
       </ul>
 
-      <div className='border-b border-b-gray-300 py-5 flex flex-col gap-3'>
+      <div className='flex flex-col gap-3 border-b border-b-gray-300 py-5'>
         <div className='flex items-center justify-between text-sm'>
           <p>Subtotal</p>
-          <p className='text-gray-700 font-bold'>{formatCurrency(subtotal)}</p>
+          <p className='font-bold text-gray-700'>{formatCurrency(subtotal)}</p>
         </div>
-        <div className='flex items-center justify-between text-sm'>
-          <p>Shipping</p>
-          <p className='text-gray-700 font-bold'>
-            {formatCurrency(shippingCost)}
-          </p>
-        </div>
+        {router.pathname.includes('payment') ? (
+          <div className='flex items-center justify-between text-sm'>
+            <p>Shipping</p>
+            <p className='font-bold text-gray-700'>
+              {formatCurrency(shippingCost)}
+            </p>
+          </div>
+        ) : null}
         <div className='flex items-center justify-between text-sm'>
           <p>VAT (Value Added Tax)</p>
-          <p className='text-gray-700 font-bold'>{formatCurrency(vat)}</p>
+          <p className='font-bold text-gray-700'>{formatCurrency(vat)}</p>
         </div>
       </div>
 
