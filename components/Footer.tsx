@@ -11,31 +11,33 @@ export const Footer = () => {
 
   return (
     <footer
-      className={`flex w-full flex-wrap items-center justify-between gap-5 bg-[#333333] px-6 py-4 text-white md:px-10 ${
+      className={`mt-auto flex w-full flex-wrap items-center justify-between gap-5 bg-[#333333] px-6 py-4 text-white md:px-10 ${
         openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
       }`}>
-      <div>
-        {/* <Image
+      {/* <Image
           alt='lavidluxe logo'
           src={logo}
           className='w-10 object-cover invert'
         /> */}
-        <p className='pt-1 text-xs'>
-          All rights reserved. &copy; {new Date().getFullYear()}{' '}
-          <Link href='/'>Lavidluxe</Link>
-        </p>
-        <Link href='/faqs' className='pt-1 text-sm underline'>
+      <p className='pt-1 text-xs'>
+        All rights reserved. &copy; {new Date().getFullYear()}{' '}
+        <Link href='/'>Lavidluxe</Link>
+      </p>
+      <div className='flex flex-col items-center gap-1'>
+        <Link
+          href='/faqs'
+          className='inline-block pt-1 text-xs uppercase hover:underline'>
           Faq
         </Link>
+        <a
+          href='https://williamssam.netlify.app/'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='text-xs text-gray-300'>
+          Designed and developed by{' '}
+          <span className='font-bold underline'>Williams Samuel</span>
+        </a>
       </div>
-      <a
-        href='https://williamssam.netlify.app/'
-        target='_blank'
-        rel='noopener noreferrer'
-        className='text-xs text-gray-300'>
-        Designed and developed by{' '}
-        <span className='font-bold underline'>Williams Samuel</span>
-      </a>
       <ul className='flex items-center gap-4 text-white'>
         <li>
           <a

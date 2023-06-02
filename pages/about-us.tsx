@@ -1,4 +1,3 @@
-import { Footer } from 'components/Footer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
@@ -55,8 +54,6 @@ const AboutUs = () => {
           />
         </section>
       </main>
-
-      <Footer />
     </>
   )
 }

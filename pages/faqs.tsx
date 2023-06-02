@@ -1,6 +1,5 @@
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
-import { Footer } from 'components/Footer'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import Head from 'next/head'
@@ -54,7 +53,7 @@ const Faqs = () => {
       <Head>
         <title>FAQ - Laviluxe Clothings</title>
       </Head>
-      <section
+      <main
         className={`px-5 pt-24 transition-all md:px-20 md:pt-28 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
@@ -105,9 +104,7 @@ const Faqs = () => {
           </p>
           <button>Message us</button>
         </div> */}
-      </section>
-
-      <Footer />
+      </main>
     </>
   )
 }

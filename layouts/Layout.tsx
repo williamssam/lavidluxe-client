@@ -1,10 +1,12 @@
 import { ShoppingBagIcon } from '@heroicons/react/20/solid'
 import logo from 'assets/images/logo-two.png'
 import { Cart } from 'components/Cart'
+import { Footer } from 'components/Footer'
 import { NavBar } from 'components/NavBar'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { PropsWithChildren } from 'react'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
@@ -12,6 +14,7 @@ import { useCartStore } from 'store/cartStore'
 export const Layout = ({ children }: PropsWithChildren) => {
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
   const cart = useCartStore(state => state.cart)
+  const router = useRouter()
 
   return (
     <>
@@ -45,7 +48,9 @@ export const Layout = ({ children }: PropsWithChildren) => {
         </button>
       </header>
 
-      <main>{children}</main>
+      {children}
+
+      {!router.pathname.includes('shop') ? <Footer /> : null}
 
       {openCart ? <Cart /> : null}
     </>

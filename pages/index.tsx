@@ -6,7 +6,6 @@ import { ReactElement } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
-import { Footer } from 'components/Footer'
 import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
 import { openCartDrawer } from 'store/atoms'
 import { Autoplay, Pagination } from 'swiper'
@@ -66,8 +65,6 @@ const Home = () => {
           </SwiperSlide>
         </Swiper>
       </main>
-
-      <Footer />
     </>
   )
 }

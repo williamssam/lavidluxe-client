@@ -7,6 +7,12 @@
   margin-inline: auto;
 }
 
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* reset for react-inner-image-zoom */
 /* .iiz__img {
   object-fit: cover;

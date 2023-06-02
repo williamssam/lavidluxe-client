@@ -7,7 +7,6 @@ import {
 } from '@heroicons/react/20/solid'
 import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
-import { Footer } from 'components/Footer'
 import { Spinner } from 'components/Spinner'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
@@ -233,8 +232,6 @@ const Contact = () => {
           </form>
         </section>
       </main>
-
-      <Footer />
     </>
   )
 }
