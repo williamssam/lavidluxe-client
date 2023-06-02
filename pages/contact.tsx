@@ -7,8 +7,6 @@ import {
 } from '@heroicons/react/20/solid'
 import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
-import { Whatsapp } from 'assets/icon/Whatsapp'
-import { Footer } from 'components/Footer'
 import { Spinner } from 'components/Spinner'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
@@ -73,83 +71,84 @@ const Contact = () => {
         className={`min-h-screen px-5 pt-24 transition-all md:px-20 md:pt-28 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
-        <h2 className='font-vollkorn text-3xl font-bold uppercase tracking-[5px] text-dark md:text-5xl md:tracking-[10px]'>
-          Contact 👋
+        <h2 className='text-center font-vollkorn text-3xl font-bold uppercase tracking-[5px] text-dark md:text-5xl md:tracking-[10px]'>
+          Contact Us
         </h2>
 
-        <section className='grid grid-cols-1 gap-10 lg:grid-cols-2'>
+        <div className='mt-8 w-full'>
+          <iframe
+            width='100%'
+            height='250'
+            src='https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Isashi%C2%A0Road,%C2%A0Ojo%C2%A0Lagos+(Lavidluxe)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'>
+            <a href='https://www.maps.ie/distance-area-calculator.html'>
+              measure area map
+            </a>
+          </iframe>
+        </div>
+
+        <section className='grid grid-cols-1 gap-10 py-10 lg:grid-cols-2'>
           <div className='mt-1 md:mt-5'>
-            <ul className='grid grid-cols-1 gap-x-2 gap-y-7 pt-8 md:grid-cols-2 md:gap-y-10'>
+            <ul className='grid grid-cols-1 gap-x-2 gap-y-7 pt-8 md:grid-cols-2'>
               <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
-                  Address <MapPinIcon className='h-4 w-4' />
+                  <MapPinIcon className='h-4 w-4' />
+                  Address
                 </h4>
-                <p className='flex px-2 pt-[0.15rem]'>
+                <p className='flex pt-[0.15rem]'>
                   No 11, Isashi Road, Ojo Lagos
                 </p>
               </li>
               <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
-                  Email <AtSymbolIcon className='h-4 w-4' />
+                  <AtSymbolIcon className='h-4 w-4' /> Email
                 </h4>
                 <a
                   href='mailto:lavidluxe@gmail.com'
-                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
+                  className='flex pt-[0.15rem] transition-colors hover:text-main'>
                   lavidluxe@gmail.com
                 </a>
               </li>
               <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
-                  Phone <PhoneIcon className='h-4 w-4' />
+                  <PhoneIcon className='h-4 w-4' /> Phone
                 </h4>
                 <a
                   href='tel:+2348162234838'
-                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
+                  className='flex pt-[0.15rem] transition-colors hover:text-main'>
                   +234 816 223 4838
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
                   Whatsapp <Whatsapp />
                 </h4>
                 <a
-                  href='https://api.whatsapp.com/send?phone=2347010126912&text=Welcome%20to%20Lavidluxe!!!'
-                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
+                  href='https://api.whatsapp.com/send?phone=2348162234838'
+                  className='flex pt-[0.15rem] transition-colors hover:text-main'>
                   +234 701 012 6912
                 </a>
-              </li>
+              </li> */}
               <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
-                  Facebook <Facebook />
+                  <Facebook /> Facebook
                 </h4>
                 <a
                   href='https://web.facebook.com/boschicwardrobe'
-                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
+                  className='flex pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
               </li>
               <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
-                  Instagram <Instagram />
+                  <Instagram /> Instagram
                 </h4>
                 <a
                   href='https://www.instagram.com/lavidluxe_clothing'
-                  className='flex px-2 pt-[0.15rem] transition-colors hover:text-main'>
+                  className='flex pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
               </li>
             </ul>
-
-            <div className='mt-8 w-full'>
-              <iframe
-                width='100%'
-                height='250'
-                src='https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Isashi%C2%A0Road,%C2%A0Ojo%C2%A0Lagos+(Lavidluxe)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'>
-                <a href='https://www.maps.ie/distance-area-calculator.html'>
-                  measure area map
-                </a>
-              </iframe>
-            </div>
           </div>
 
           <form
@@ -226,15 +225,13 @@ const Contact = () => {
             <button
               type='submit'
               disabled={loading}
-              className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95 disabled:cursor-not-allowed disabled:opacity-30'>
-              Submit
+              className='mt-5 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30'>
+              Send
               {loading ? <Spinner /> : null}
             </button>
           </form>
         </section>
       </main>
-
-      <Footer />
     </>
   )
 }

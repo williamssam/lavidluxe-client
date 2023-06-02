@@ -14,7 +14,7 @@ export const CheckoutLayout = ({ children }: PropsWithChildren) => {
       <section className='col-span-3 px-4 py-10 lg:px-10 lg:py-20 xl:pl-40 xl:pr-20'>
         <button
           onClick={() => router.push('/shop/women-wears')}
-          className='flex items-center gap-1 rounded bg-gray-100 px-2 py-1 text-xs text-[#333333] transition-all hover:opacity-80 active:scale-95'>
+          className='flex items-center gap-1 rounded bg-gray-100 px-2 py-1 text-xs text-[#333333] transition-all hover:opacity-80 active:scale-[0.98]'>
           <ArrowLeftIcon className='h-4 w-4' />
           <span>Back to shop</span>
         </button>
@@ -25,7 +25,7 @@ export const CheckoutLayout = ({ children }: PropsWithChildren) => {
             src={lavidluxeLogo}
             className='w-7 opacity-90'
           />
-          <Link href='/'>Lavidluxe Clothing</Link>
+          <span>Lavidluxe Clothings</span>
         </h1>
 
         {children}

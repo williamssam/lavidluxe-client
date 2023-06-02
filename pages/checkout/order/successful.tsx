@@ -2,30 +2,31 @@ import logo from 'assets/images/logo.png'
 import { useCart } from 'hooks/useCart'
 import { useConfetti } from 'hooks/useConfetti'
 import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
-import { FluttwerwaveResponse } from 'models/fluttwerwaveModel'
+import { PaystackResponse } from 'models/paystackModel'
 import { nanoid } from 'nanoid'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import ReactCanvasConfetti from 'react-canvas-confetti'
+import { toast } from 'react-toastify'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { client } from 'utils/sanity/client'
 
 export const getServerSideProps: GetServerSideProps<{
-  response: FluttwerwaveResponse
+  response: PaystackResponse
 }> = async context => {
   const { query } = context
-  const trasactionid = query.transaction_id
   const res = await fetch(
-    `https://api.flutterwave.com/v3/transactions/${trasactionid}/verify`,
+    `https://api.paystack.co/transaction/verify/${query.reference}`,
     {
       headers: {
         Authorization: `Bearer ${
-          process.env.NODE_ENV === 'development'
-            ? process.env.FLW_DEV_SECRET_KEY
-            : process.env.FLW_PROD_SECRET_KEY
+          process.env.NODE_ENV === 'production'
+            ? process.env.PAYSTACK_LIVE_SECRET_KEY
+            : process.env.PAYSTACK_TEST_SECRET_KEY
         }`,
       },
     }
@@ -51,6 +52,7 @@ export const getServerSideProps: GetServerSideProps<{
 const OrderSuccessful = ({
   response,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const router = useRouter()
   const cart = useCartStore(state => state.cart)
   const clearCart = useCartStore(state => state.clearCart)
   const { fire, getInstance } = useConfetti()
@@ -64,28 +66,60 @@ const OrderSuccessful = ({
     size: cart.size,
     _key: nanoid(),
   }))
-  let orderId = nanoid(5)
-  const { payment_type, tx_ref, meta, customer } = response.data
+
+  const sendMail = async () => {
+    const data = await fetch('/api/send-mail', {
+      headers: {
+        'content-type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        recipient: response.data.customer.email,
+        address: response.data.metadata.address,
+        phone_number: response.data.metadata.phoneNumber,
+        name: response.data.metadata.name,
+        subtotal: formatCurrency(subtotal),
+        total: formatCurrency(total),
+        year: new Date().getFullYear(),
+        order_id: response.data.metadata.orderID,
+        items: cart?.map(cart => ({
+          product_name: cart.name,
+          quantity: cart.quantity,
+          price: cart.price,
+          color: cart.color ?? '',
+          size: cart.size,
+        })),
+      }),
+    })
+
+    if (data.ok) {
+      toast.success('Order mail sent successfully!')
+    }
+  }
 
   const createOrder = async () => {
     try {
       const order = {
         _type: 'order',
-        orderBy: `${meta.firstName} ${meta.lastName}`,
-        transactionId: tx_ref,
-        paymentMethod: payment_type,
-        totalAmount: total,
-        status: 'processing',
+        orderId: response.data.metadata.orderID,
+        orderBy: response.data.metadata.name,
+        transactionId: response.data.reference,
+        paymentMethod: response.data.channel,
+        paidAt: new Date(response.data.paid_at).toLocaleString('default', {
+          hour12: true,
+        }),
+        amount: total,
         orderItems: cartItems,
         shippingInformation: {
-          name: `${meta.firstName} ${meta.lastName}`,
-          email: customer.email,
-          address: `${meta.address}, ${meta.city}, ${meta.state}`,
-          phoneNumber: customer.phone_number,
+          name: response.data.metadata.name,
+          email: response.data.customer.email,
+          address: response.data.metadata.address,
+          phoneNumber: response.data.metadata.phoneNumber,
         },
-        customerNote: meta.customerNote,
+        customerNote: response.data.metadata.customerNote,
       }
       await client.create(order)
+      await sendMail()
       return
     } catch (error) {
       if (error instanceof Error) {
@@ -94,57 +128,36 @@ const OrderSuccessful = ({
     }
   }
 
-  // const sendMail = () => {
-  //   fetch('/api/send-mail', {
-  //     headers: {
-  //       'content-type': 'application/json',
-  //     },
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       email: customer.email,
-  //       address: `${meta.address}, ${meta.city}, ${meta.state}`,
-  //       phoneNumber: customer.phone_number,
-  //       name: `${meta.firstName} ${meta.lastName}`,
-  //       subtotal: formatCurrency(subtotal),
-  //       total: formatCurrency(total),
-  //       year: new Date().getFullYear(),
-  //       order_id: `#LALU-${orderId}`,
-  //       items: cart?.map(cart => ({
-  //         product_name: cart.name,
-  //         quantity: cart.quantity,
-  //         price: cart.price,
-  //         color: cart.color,
-  //         size: cart.size,
-  //       })),
-  //     }),
-  //   }).then(res => console.log(res))
-  // }
-
   useIsomorphicLayoutEffect(() => {
+    if (cart.length === 0) {
+      router.push('/shop/women-wears')
+      return
+    }
     fire()
     createOrder()
-    // sendMail()
   }, [])
 
   return (
     <>
+      <Head>
+        <title>Thank you for your purchase - Lavidluxe</title>
+      </Head>
       <section className='flex h-screen w-full items-center justify-center bg-main'>
-        <Head>
-          <title>Thank you for your purchase - Lavidluxe</title>
-        </Head>
-
-        <section className='max-w-[70ch] rounded bg-gray-100 p-6 shadow-xl'>
+        <div className='h-[96%] max-w-[70ch] overflow-auto rounded bg-gray-100 p-6 shadow-xl'>
           <header className='mb-5 flex justify-center'>
             <Image src={logo} alt='lavidluxe logo' className='w-20' />
           </header>
           <div className='flex flex-col items-center justify-center gap-3'>
             <p className='text-8xl'>🎉</p>
             <div className='text-center'>
-              <p className='text-xs uppercase tracking-[5px]'>
-                Order #LALU-{orderId}
+              <p className='text-xs'>
+                Order No:{' '}
+                <span className='font-bold'>
+                  {response.data.metadata.orderID}
+                </span>
               </p>
-              <h2 className='font-vollkorn text-3xl font-bold uppercase tracking-[4px] text-green-600'>
-                Thank you!
+              <h2 className='font-vollkorn text-3xl font-bold text-dark'>
+                Thank you, {response.data.metadata.name.split(' ')[0]}
               </h2>
             </div>
           </div>
@@ -164,19 +177,30 @@ const OrderSuccessful = ({
 
             <div>
               <h4 className='text-[0.6rem] uppercase tracking-[2px] text-gray-700'>
-                Payment method
+                Payment
               </h4>
               <p>
                 Payment successful -
                 <span className='font-bold'>
-                  {formatCurrency(response.data.amount)}
+                  {formatCurrency(response.data.amount / 100)}
                 </span>
               </p>
+              <p>
+                Transaction reference:{' '}
+                <span className='font-bold'>{response.data.reference}</span>
+              </p>
+            </div>
+
+            <div>
+              <h4 className='text-[0.6rem] uppercase tracking-[2px] text-gray-700'>
+                Contact Information
+              </h4>
+              <p>{response.data.customer.email}</p>
             </div>
 
             <p>
               <strong>NB:</strong> Goods will be delivered to you within three
-              (3) working days
+              to seven working days
             </p>
           </div>
 
@@ -184,7 +208,7 @@ const OrderSuccessful = ({
             <Link
               href='/shop/women-wears'
               onClick={() => clearCart()}
-              className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
+              className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-16 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
               Continue shopping
             </Link>
             <p className='mt-2 text-xs'>
@@ -194,7 +218,7 @@ const OrderSuccessful = ({
               </a>
             </p>
           </footer>
-        </section>
+        </div>
       </section>
 
       <ReactCanvasConfetti

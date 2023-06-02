@@ -112,7 +112,7 @@ const ProductDetails = () => {
                         </p>
                       ))
                     : null}
-                  <h2 className='text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
+                  <h2 className='text-left text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
                     {product?.name}
                   </h2>
                 </div>
@@ -232,7 +232,7 @@ const ProductDetails = () => {
                     toast.success(`🥳 '${product.name}' added to your cart`)
                   }}
                   type='button'
-                  className='w-full rounded border border-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] transition-all hover:border-main hover:bg-main hover:text-white active:scale-95'>
+                  className='w-full rounded bg-main py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:bg-dark active:scale-[0.98]'>
                   Add to cart
                 </button>
               </div>

@@ -4,25 +4,25 @@ type UserInfo = {
   // name: string
   firstName: string
   lastName: string
-  email: string
-  phone_number: string
+  emailAddress: string
+  phoneNumber: string
   address: string
   state: string
-  payment_method?: string
+  paymentMethod?: string
   city: string
-  order_note?: string
+  orderNote?: string
 }
 
 export const userInfo = atom<UserInfo>({
   firstName: '',
   lastName: '',
-  email: '',
-  phone_number: '',
+  emailAddress: '',
+  phoneNumber: '',
   address: '',
-  payment_method: '',
+  paymentMethod: '',
   state: '',
   city: '',
-  order_note: '',
+  orderNote: '',
 })
 
 export const openCartDrawer = atom(false)

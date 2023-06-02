@@ -21,7 +21,9 @@ export const Select = <T extends string | number>({
         <div className='relative'>
           <Listbox.Button
             className={`relative cursor-pointer bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-main focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-main sm:text-sm ${className}`}>
-            <span className='block truncate'>{selected}</span>
+            <span className='block truncate'>
+              {selected ? selected : 'Select'}
+            </span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <ChevronUpDownIcon
                 className='h-5 w-5 text-gray-400'

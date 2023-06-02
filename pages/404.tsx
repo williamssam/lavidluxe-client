@@ -37,7 +37,7 @@ const NotFound = () => {
           </p>
           <Link
             href='/'
-            className='mx-auto mt-10 flex w-max justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-95 lg:mx-0'>
+            className='mx-auto mt-10 flex w-max justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] lg:mx-0'>
             Return home
           </Link>
         </div>

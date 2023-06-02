@@ -6,7 +6,6 @@ import { ReactElement } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
-import { Footer } from 'components/Footer'
 import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
 import { openCartDrawer } from 'store/atoms'
 import { Autoplay, Pagination } from 'swiper'
@@ -19,7 +18,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Lavidluxe Clothing</title>
+        <title>Lavidluxe Clothings</title>
       </Head>
       {/*  */}
       <main
@@ -65,11 +64,7 @@ const Home = () => {
             />
           </SwiperSlide>
         </Swiper>
-
-        {/* <Image alt='laviluxe' src={lavidluxe} className='w-[0rem]' /> */}
       </main>
-
-      <Footer />
     </>
   )
 }

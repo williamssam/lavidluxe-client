@@ -1,14 +1,16 @@
 import { InformationCircleIcon } from '@heroicons/react/20/solid'
 import { CheckoutNav } from 'components/CheckoutNav'
+import { Select } from 'components/Select'
+import { states } from 'constants/states'
 import { useAtom } from 'jotai'
 import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { userInfo } from 'store/atoms'
 
-type FormValues = {
+export type FormValues = {
   emailAddress: string
   firstName: string
   lastName: string
@@ -23,33 +25,41 @@ type FormValues = {
 
 const Information = () => {
   const router = useRouter()
+
   const [_, setInfo] = useAtom(userInfo)
   const {
     handleSubmit,
     formState: { errors },
     register,
     setValue,
-  } = useForm<FormValues>({})
+    control,
+    watch,
+  } = useForm<FormValues>({
+    defaultValues: {
+      address: '',
+      city: '',
+      emailAddress: '',
+      firstName: '',
+      lastName: '',
+      orderNote: '',
+      phoneNumber: '',
+      saveInfo: false,
+      state: '',
+    },
+  })
+  let selectedState = watch('state')
 
   const submitForm: SubmitHandler<FormValues> = data => {
-    setInfo({
-      email: data.emailAddress,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      phone_number: data.phoneNumber,
-      address: data.address,
-      state: data.state,
-      city: data.city,
-      order_note: data.orderNote,
-    })
     if (data.saveInfo) {
       localStorage.setItem('userInfo', JSON.stringify(data))
     }
+    delete data.saveInfo
+    setInfo(data)
     router.push('/checkout/payment')
   }
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('userInfo')!)
+    const userDetails = JSON.parse(localStorage.getItem('userInfo') as string)
     if (!userDetails) return
     setValue('address', userDetails.address)
     setValue('state', userDetails.state)
@@ -59,6 +69,7 @@ const Information = () => {
     setValue('phoneNumber', userDetails.phoneNumber)
     setValue('emailAddress', userDetails.emailAddress)
   }, [setValue])
+
   return (
     <>
       <Head>
@@ -201,44 +212,61 @@ const Information = () => {
 
           <div className='flex w-full flex-col items-start justify-between md:gap-4 lg:flex-row lg:items-center'>
             <div className='flex w-full flex-col pt-4'>
-              <label htmlFor='city' className='text-sm capitalize'>
-                City
-              </label>
-              <input
-                type='text'
-                {...register('city', {
-                  required: true,
-                })}
-                id='city'
-                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                  errors.city ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                }`}
-              />
-              {errors.city ? (
-                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                  <InformationCircleIcon className='h-4 w-4' />
-                  City is required
-                </span>
-              ) : null}
-            </div>
-            <div className='flex w-full flex-col pt-4'>
               <label htmlFor='state' className='text-sm capitalize'>
                 State
               </label>
-              <input
-                type='text'
-                {...register('state', {
-                  required: true,
-                })}
-                id='state'
-                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                  errors.state ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                }`}
+              <Controller
+                name='state'
+                rules={{ required: true }}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <Select
+                      data={states.map(state => state.name)}
+                      selected={field.value}
+                      setSelected={field.onChange}
+                      className={`mt-1 w-full flex-1 appearance-none rounded !p-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                        errors.state ? 'ring-2 ring-red-600' : 'ring-gray-300'
+                      }`}
+                    />
+                  </>
+                )}
               />
               {errors.state ? (
                 <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
                   <InformationCircleIcon className='h-4 w-4' />
                   State is required
+                </span>
+              ) : null}
+            </div>
+            <div className='flex w-full flex-col pt-4'>
+              <label htmlFor='state' className='text-sm capitalize'>
+                City
+              </label>
+              <Controller
+                name='city'
+                rules={{ required: true }}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <Select
+                      data={
+                        states.find(state => state.name === selectedState)
+                          ?.lgas as string[]
+                      }
+                      selected={field.value}
+                      setSelected={field.onChange}
+                      className={`mt-1 w-full flex-1 appearance-none rounded !p-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
+                        errors.city ? 'ring-2 ring-red-600' : 'ring-gray-300'
+                      }`}
+                    />
+                  </>
+                )}
+              />
+              {errors.city ? (
+                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
+                  <InformationCircleIcon className='h-4 w-4' />
+                  City is required
                 </span>
               ) : null}
             </div>
@@ -262,12 +290,6 @@ const Information = () => {
               }`}
               placeholder='Special instructions for seller'
               {...register('orderNote')}></textarea>
-            {errors.firstName ? (
-              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                <InformationCircleIcon className='h-4 w-4' />
-                First name is required
-              </span>
-            ) : null}
           </div>
         </div>
 
@@ -284,7 +306,7 @@ const Information = () => {
         <footer className='mt-10 flex flex-col items-center justify-between md:flex-row'>
           <button
             type='submit'
-            className='ml-auto mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-95 md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
+            className='ml-auto mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
             Continue to payment
           </button>
         </footer>

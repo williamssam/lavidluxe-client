@@ -18,17 +18,19 @@ export const ProductFooter = ({ name }: ProductFooterProps) => {
 
   return (
     <footer className='mt-10'>
-      <p className='text-center text-[0.7rem] font-bold uppercase tracking-[3px] text-main'>
+      {/* <p className='text-center text-[0.7rem] font-bold uppercase tracking-[3px] text-main'>
         Free shipping on orders above N100,000
-      </p>
-      <div className='mt-3 flex flex-col items-center justify-center rounded bg-gray-100 py-4 text-center text-xs text-gray-500'>
+      </p> */}
+      <div className='mt-3 flex flex-col items-center justify-center rounded border border-gray-200 bg-gray-100 p-5 text-center text-sm text-gray-500'>
         <TruckIcon className='h-8 w-8 text-gray-600' aria-hidden='true' />
         <p className='px-4 pt-2'>
           We deliver everywhere in{' '}
-          <strong className='text-main'>Lagos, Nigeria</strong> and some part of
-          Nigeria.
+          <strong className='text-main'>Nigeria</strong>.
         </p>
-        <p className='pt-1'>We deliver within three (3) working days</p>
+        <p className='pt-[6px]'>
+          Delivery takes three working days within Lagos and three to seven
+          working days outside of Lagos.
+        </p>
       </div>
 
       {/* share product */}
