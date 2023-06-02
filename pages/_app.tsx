@@ -4,7 +4,6 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Analytics } from '@vercel/analytics/react'
 import { ErrorFallback } from 'components/ErrorFallback'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
@@ -60,7 +59,6 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
 
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-      <Analytics />
 
       <ToastContainer
         position='bottom-center'
