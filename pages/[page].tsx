@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import { getDoc } from 'lib/getDoc'
+import { convertMDToHtml } from 'lib/convertMDToHtml'
 import type {
   GetStaticPaths,
   GetStaticProps,
@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<DocMD> = async context => {
-  const data = await getDoc(context.params?.page as string)
+  const data = await convertMDToHtml(context.params?.page as string)
 
   return {
     props: {

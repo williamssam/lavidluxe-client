@@ -1,8 +1,7 @@
-import { promises as fs } from 'fs'
 import handlebars from 'handlebars'
+import { getFile } from 'lib/getFile'
 import { transporter } from 'lib/transporter'
 import { NextApiRequest, NextApiResponse } from 'next'
-import path from 'path'
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,12 +19,8 @@ export default async function handler(
     items,
   } = req.body
 
-  const jsonDirectory = path.join(process.cwd(), 'mail')
-  const fileContents = await fs.readFile(
-    jsonDirectory + '/order-confirmed-mail.html',
-    'utf8'
-  )
-  const template = handlebars.compile(fileContents)
+  const fileContent = await getFile('mail', 'order-confirmed-mail.html')
+  const template = handlebars.compile(fileContent)
   const replacements = {
     recipient,
     name,

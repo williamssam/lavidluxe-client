@@ -1,16 +1,13 @@
-import fs from 'fs'
 import matter from 'gray-matter'
-import path from 'path'
 import { remark } from 'remark'
 import html from 'remark-html'
+import { getFile } from './getFile'
 
-export const getDoc = async (id: string) => {
-  const fullPath = path.join('docs', `${id}.md`)
-  console.log('fullPath', fullPath)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+export const convertMDToHtml = async (id: string) => {
+  const fileContent = await getFile('docs', `${id}.md`)
 
   // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
+  const matterResult = matter(fileContent)
 
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
