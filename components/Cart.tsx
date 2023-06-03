@@ -25,6 +25,8 @@ export const Cart = () => {
 
   const { parent } = useAnimate()
 
+  console.log(cart)
+
   return (
     <section
       className={`absolute right-0 top-0 h-screen w-80 overflow-auto border-l bg-gray-50 py-10 px-5 transition-all will-change-transform md:w-96 md:p-10 ${
@@ -58,16 +60,16 @@ export const Cart = () => {
                 className='h-20 w-16 rounded object-cover'
               />
               <div className='w-full text-xs font-bold'>
-                <div className='flex items-start justify-between'>
+                <div className='flex items-start justify-between gap-2'>
                   <div>
                     <h4 className='uppercase tracking-[4px] text-[#333333]'>
                       {product?.name}
                     </h4>
-                    <p className='pt-1 capitalize text-[#999999]'>
-                      {product?.size ? `Size ${product.size}` : null}{' '}
-                      {product?.color !== 'Select'
-                        ? `/ ${product.color}`
-                        : null}
+                    <p className='flex items-center gap-3 pt-1 capitalize text-[#999999]'>
+                      {product?.size ? <span>Size: {product.size}</span> : null}
+                      {product?.color ? (
+                        <span>Color: {product.color}</span>
+                      ) : null}
                     </p>
                   </div>
 

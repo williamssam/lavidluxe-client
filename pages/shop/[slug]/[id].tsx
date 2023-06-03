@@ -47,7 +47,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 type InitialState = {
   productQuantity: number
-  selectError: string
 }
 
 const ProductDetails = () => {
@@ -65,12 +64,34 @@ const ProductDetails = () => {
     (prev, next) => {
       return { ...prev, ...next }
     },
-    { productQuantity: 1, selectError: '' }
+    { productQuantity: 1 }
   )
 
-  const size = product!.sizes.split(',').map(num => +num)
-  const [selectedSize, setSelectedSize] = useState<number>(size[0])
-  const [selectedColor, setSelectedColor] = useState<string>('Select')
+  const size = product!.sizes?.split(',').map(num => +num)
+  const [selectedSize, setSelectedSize] = useState<number | string>(
+    size ? size[0] : ''
+  )
+  const [selectedColor, setSelectedColor] = useState<string>(
+    product?.productColors.length ? product.productColors[0] : ''
+  )
+
+  const addProductToCart = (product: Product) => {
+    addToCart(
+      {
+        id: product._id,
+        image: urlFor(product.image).auto('format').url(),
+        name: product?.name,
+        price: product?.promo?.promoOn
+          ? product.promo.promoPrice
+          : product.price,
+        size: selectedSize,
+        color: selectedColor,
+      },
+      value.productQuantity
+    )
+
+    toast.success(`🥳 '${product.name}' added to your cart`)
+  }
 
   return (
     <>
@@ -100,9 +121,19 @@ const ProductDetails = () => {
               <ArrowLeftIcon className='h-4 w-4' />
               Back to shop
             </button>
-            <header className='flex items-center justify-between text-center md:text-left lg:flex-col lg:items-start xl:flex-row xl:items-center'>
+            <header className='text-left'>
               <div>
-                <div>
+                <div className='flex w-full flex-wrap items-center gap-4'>
+                  {product?.stockStatus === 'in-stock' ? (
+                    <p className='w-max rounded bg-emerald-100 py-[2px] px-2 text-[0.6rem] font-black uppercase tracking-[3px] text-emerald-500'>
+                      In stock
+                    </p>
+                  ) : (
+                    <p className='w-max rounded bg-gray-200 py-[2px] px-2 text-[0.6rem] font-black uppercase tracking-[3px] text-gray-500'>
+                      Out of stock
+                    </p>
+                  )}
+
                   {product?.tags
                     ? product.tags?.map(tag => (
                         <p
@@ -112,37 +143,27 @@ const ProductDetails = () => {
                         </p>
                       ))
                     : null}
-                  <h2 className='text-left text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
-                    {product?.name}
-                  </h2>
                 </div>
-
-                <div className='flex items-center gap-2 pt-1'>
-                  <p
-                    className={`text-[#8c8c8c] ${
-                      product?.promo?.promoOn
-                        ? 'text-xs font-normal line-through'
-                        : 'text-sm font-bold no-underline'
-                    }`}>
-                    {formatCurrency(product?.price)}
-                  </p>
-                  {product?.promo?.promoOn ? (
-                    <p className='text-sm font-bold text-[#8c8c8c]'>
-                      {formatCurrency(product.promo.promoPrice)}
-                    </p>
-                  ) : null}
-                </div>
+                <h2 className='pt-1 text-left text-xl font-black uppercase tracking-[3px] text-gray-700 md:text-2xl md:tracking-[5px]'>
+                  {product?.name}
+                </h2>
               </div>
 
-              {product?.stockStatus === 'in-stock' ? (
-                <p className='rounded bg-emerald-100 py-1 px-2 text-[0.6rem] font-black uppercase tracking-[3px] text-emerald-500'>
-                  In stock
+              <div className='flex items-center gap-2 pt-1'>
+                <p
+                  className={`text-[#8c8c8c] ${
+                    product?.promo?.promoOn
+                      ? 'text-xs font-normal line-through'
+                      : 'text-sm font-bold no-underline'
+                  }`}>
+                  {formatCurrency(product?.price)}
                 </p>
-              ) : (
-                <p className='rounded bg-gray-200 py-1 px-2 text-[0.6rem] font-black uppercase tracking-[3px] text-gray-500'>
-                  Out of stock
-                </p>
-              )}
+                {product?.promo?.promoOn ? (
+                  <p className='text-sm font-bold text-[#8c8c8c]'>
+                    {formatCurrency(product.promo.promoPrice)}
+                  </p>
+                ) : null}
+              </div>
             </header>
 
             {product?.promo?.promoOn && checkDate(product.promo.promoStart) ? (
@@ -155,18 +176,20 @@ const ProductDetails = () => {
               </div>
             ) : null}
 
-            <div className='mt-10 flex items-center justify-between border-y border-y-[#dddddd] py-1 text-xs'>
-              <div className='flex items-center gap-3'>
-                <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
-                  Size
-                </h3>
-                <Select
-                  data={size}
-                  selected={selectedSize}
-                  setSelected={setSelectedSize}
-                  className='w-[5.1rem]'
-                />
-              </div>
+            <div className='mt-10 flex items-center justify-between border-y border-y-gray-200 py-1 text-xs'>
+              {size ? (
+                <div className='flex items-center gap-3'>
+                  <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
+                    Size
+                  </h3>
+                  <Select
+                    data={size}
+                    selected={selectedSize}
+                    setSelected={setSelectedSize}
+                    className='w-24'
+                  />
+                </div>
+              ) : null}
 
               {product?.productColors?.length &&
               !product?.productColors?.includes('') ? (
@@ -185,12 +208,6 @@ const ProductDetails = () => {
               ) : null}
             </div>
 
-            {value?.selectError ? (
-              <p className='bg-red-200 py-1 px-2 text-xs font-bold leading-3 text-red-600'>
-                {value.selectError}
-              </p>
-            ) : null}
-
             {product?.stockStatus === 'in-stock' ? (
               <div className='mt-8 flex items-center justify-center gap-8 md:flex-row md:justify-start'>
                 <QuantityPicker
@@ -205,32 +222,7 @@ const ProductDetails = () => {
                 />
 
                 <button
-                  onClick={() => {
-                    if (
-                      product?.productColors?.length &&
-                      !product?.productColors.includes('') &&
-                      selectedColor === 'Select'
-                    ) {
-                      updateValue({ selectError: 'Please select a color' })
-                      return
-                    }
-                    addToCart(
-                      {
-                        id: product._id,
-                        image: urlFor(product.image).auto('format').url(),
-                        name: product?.name,
-                        price: product?.promo?.promoOn
-                          ? product.promo.promoPrice
-                          : product.price,
-                        size: selectedSize,
-                        color: selectedColor,
-                      },
-                      value.productQuantity
-                    )
-                    updateValue({ selectError: '' })
-
-                    toast.success(`🥳 '${product.name}' added to your cart`)
-                  }}
+                  onClick={() => addProductToCart(product)}
                   type='button'
                   className='w-full rounded bg-main py-4 px-10 text-xs font-bold uppercase tracking-[5px] text-white transition-all hover:bg-dark active:scale-[0.98]'>
                   Add to cart

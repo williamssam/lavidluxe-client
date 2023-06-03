@@ -30,9 +30,11 @@ export const OrderInformation = () => {
                   <h4 className='uppercase tracking-[4px] text-[#333333]'>
                     {product.name}
                   </h4>
-                  <p className='pt-1 capitalize text-[#999999]'>
-                    {product?.size ? `Size ${product.size}` : null}{' '}
-                    {product?.color !== 'Select' ? `/ ${product.color}` : null}
+                  <p className='flex items-center gap-3 pt-1 capitalize text-[#999999]'>
+                    {product?.size ? <span>Size: {product.size}</span> : null}
+                    {product?.color ? (
+                      <span>Color: {product.color}</span>
+                    ) : null}
                   </p>
 
                   <p className='pt-3 text-gray-500'>

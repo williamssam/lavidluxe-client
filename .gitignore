@@ -1,5 +1,5 @@
 node_modules
 .next
-todo.txt
+*.txt
 .env.local
 .react-email

@@ -11,7 +11,7 @@ export const Footer = () => {
 
   return (
     <footer
-      className={`mt-auto flex w-full flex-wrap items-center justify-between gap-5 bg-[#333333] px-6 py-4 text-white md:px-10 ${
+      className={`mt-auto flex w-full flex-wrap items-center justify-center gap-5 bg-[#333333] px-6 py-4 text-white md:justify-between md:px-10 ${
         openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
       }`}>
       {/* <Image
@@ -24,11 +24,25 @@ export const Footer = () => {
         <Link href='/'>Lavidluxe</Link>
       </p>
       <div className='flex flex-col items-center gap-1'>
-        <Link
-          href='/faqs'
-          className='inline-block pt-1 text-xs uppercase hover:underline'>
-          Faq
-        </Link>
+        <div className='flex items-center gap-3'>
+          <Link
+            href='/faqs'
+            className='inline-block pt-1 text-xs uppercase hover:underline'>
+            Faqs
+          </Link>
+          <span>-</span>
+          <Link
+            href='/shipping-return-policy'
+            className='inline-block pt-1 text-xs uppercase hover:underline'>
+            Return policy
+          </Link>
+          <span>-</span>
+          <Link
+            href='/terms-of-service'
+            className='inline-block pt-1 text-xs uppercase hover:underline'>
+            Terms of use
+          </Link>
+        </div>
         <a
           href='https://williamssam.netlify.app/'
           target='_blank'
