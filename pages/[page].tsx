@@ -8,6 +8,7 @@ import type {
   InferGetStaticPropsType,
 } from 'next'
 import Head from 'next/head'
+import path from 'path'
 import { ReactElement } from 'react'
 import { openCartDrawer } from 'store/atoms'
 
@@ -20,7 +21,8 @@ type DocMD = {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync('docs')
+  const directory = path.join(process.cwd(), 'docs')
+  const files = fs.readdirSync(directory)
   const paths = files.map(file => ({
     params: {
       page: file.replace('.md', ''),
