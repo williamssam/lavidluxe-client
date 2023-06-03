@@ -50,7 +50,7 @@ const ShippingReturnPolicy = ({
   return (
     <>
       <Head>
-        <title>{data.title} - Lavidluxe Clothings</title>
+        <title>{data ? data.title : ''} - Lavidluxe Clothings</title>
       </Head>
       <main
         className={`px-5 py-24 transition-all md:px-20 md:py-28 ${
