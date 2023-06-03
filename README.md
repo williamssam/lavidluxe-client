@@ -1,6 +1,9 @@
-# **Lavidluxe**
+# **Lavidluxe Clothings**
 
-A premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.
+A premium Bespoke/ready to wear clothing brand that also sells handmade luxuries women and men clothes, handbags, unisex footwears, and other accessories.
+
+![Lavidlxue home page](readme-imgs/home-page.jpg)
+![Lavidluxe shop page](readme-imgs/shop.jpg)
 
 ## Tech Stack
 
@@ -8,6 +11,12 @@ A premium Bespoke/ready to wear clothing brand that also sells handmade luxury h
 - Tailwind css
 - Sanity (for headless cms)
 - Paystack (to accept payment)
-- nodemailer (to send mail)
+- Nodemailer (to new order mail to customer)
+- Email js (to send contact mail)
+- Whatsapp API (to notify admin of new order on whatsapp)
 
 _and more_
+
+---
+
+Designed and Developed by: [Williams Samuel](https://williamssam.netlify.app/)
