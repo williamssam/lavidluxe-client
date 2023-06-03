@@ -59,7 +59,7 @@ const ShippingReturnPolicy = ({
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         <section
-          dangerouslySetInnerHTML={{ __html: data.contentHtml }}
+          dangerouslySetInnerHTML={{ __html: data?.contentHtml }}
           className='prose prose-base mx-auto max-w-none prose-h2:font-vollkorn prose-h2:uppercase prose-h2:tracking-[4px] prose-h2:text-dark prose-a:text-main lg:prose-h2:text-4xl'
         />
       </main>
