@@ -1,13 +1,13 @@
-import { InformationCircleIcon } from '@heroicons/react/20/solid'
 import { CheckoutNav } from 'components/CheckoutNav'
-import { Select } from 'components/Select'
+import { DeliveryMethod } from 'components/DeliveryMethod'
+import { TextInput } from 'components/TextInput'
 import { states } from 'constants/states'
 import { useAtom } from 'jotai'
 import { CheckoutLayout } from 'layouts/CheckoutLayout'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { userInfo } from 'store/atoms'
 
 export type FormValues = {
@@ -18,42 +18,34 @@ export type FormValues = {
   address: string
   state: string
   city: string
-  // postalCode: number
-  saveInfo?: boolean
   orderNote?: string
+  deliveryMethod: 'ship' | 'pick up'
+  saveInfo?: boolean
 }
 
 const Information = () => {
   const router = useRouter()
 
   const [_, setInfo] = useAtom(userInfo)
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-    setValue,
-    control,
-    watch,
-  } = useForm<FormValues>({
-    defaultValues: {
-      address: '',
-      city: '',
-      emailAddress: '',
-      firstName: '',
-      lastName: '',
-      orderNote: '',
-      phoneNumber: '',
-      saveInfo: false,
-      state: '',
-    },
-  })
+  const { handleSubmit, register, setValue, control, watch } =
+    useForm<FormValues>({
+      defaultValues: {
+        address: '',
+        city: '',
+        emailAddress: '',
+        firstName: '',
+        lastName: '',
+        orderNote: '',
+        phoneNumber: '',
+        state: '',
+        deliveryMethod: 'ship',
+        saveInfo: false,
+      },
+    })
   let selectedState = watch('state')
 
   const submitForm: SubmitHandler<FormValues> = data => {
-    if (data.saveInfo) {
-      localStorage.setItem('lavidluxeUser', JSON.stringify(data))
-    }
-    delete data.saveInfo
+    localStorage.setItem('lavidluxeUser', JSON.stringify(data))
     setInfo(data)
     router.push('/checkout/payment')
   }
@@ -70,6 +62,8 @@ const Information = () => {
     setValue('lastName', userDetails.lastName)
     setValue('phoneNumber', userDetails.phoneNumber)
     setValue('emailAddress', userDetails.emailAddress)
+    setValue('deliveryMethod', userDetails.deliveryMethod)
+    setValue('saveInfo', userDetails.saveInfo)
   }, [setValue])
 
   return (
@@ -79,197 +73,89 @@ const Information = () => {
       <CheckoutNav />
 
       <form onSubmit={handleSubmit(submitForm)}>
+        {/* contact information  */}
         <div className='mt-10'>
           <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
             Contact information
           </h3>
 
-          <div className='flex w-full flex-col pt-4'>
-            <label htmlFor='email-address' className='text-sm capitalize'>
-              Email Address
-            </label>
-            <input
-              type='email'
-              {...register('emailAddress', {
-                required: true,
-                pattern:
-                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-              })}
-              id='email-address'
-              className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                errors.emailAddress ? 'ring-2 ring-red-600' : 'ring-gray-300'
-              }`}
-            />
-            {errors.emailAddress?.type === 'required' ? (
-              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                <InformationCircleIcon className='h-4 w-4' />
-                Email Address is required
-              </span>
-            ) : null}
-            {errors.emailAddress?.type === 'pattern' ? (
-              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                <InformationCircleIcon className='h-4 w-4' />
-                Invalid email address
-              </span>
-            ) : null}
-          </div>
-
-          <div className='flex w-full flex-col pt-4'>
-            <label htmlFor='phoneNumber' className='text-sm capitalize'>
-              Phone Number
-            </label>
-            <input
-              type='tel'
-              {...register('phoneNumber', {
-                required: true,
-              })}
-              id='phoneNumber'
-              className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                errors.phoneNumber ? 'ring-2 ring-red-600' : 'ring-gray-300'
-              }`}
-            />
-            {errors.phoneNumber ? (
-              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                <InformationCircleIcon className='h-4 w-4' />
-                Phone number is required
-              </span>
-            ) : null}
-          </div>
+          <TextInput
+            control={control}
+            label='Email Address'
+            name='emailAddress'
+            register={register}
+            type='email'
+            inputMode='email'
+          />
+          <TextInput
+            control={control}
+            label='Phone Number'
+            name='phoneNumber'
+            register={register}
+            type='text'
+            inputMode='tel'
+          />
         </div>
 
+        {/* delivery information */}
         <div className='mt-12'>
-          <div className='flex items-center justify-between text-xs'>
-            <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
-              Shipping Information
-            </h3>
-          </div>
+          <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
+            Delivery information
+          </h3>
+
+          <DeliveryMethod control={control} name='deliveryMethod' />
+        </div>
+
+        {/* customer information */}
+        <div className='mt-12'>
+          <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
+            Customer Information
+          </h3>
 
           <div className='flex w-full flex-col items-start justify-between md:gap-4 lg:flex-row lg:items-center'>
-            <div className='flex w-full flex-col pt-4'>
-              <label htmlFor='first-name' className='text-sm capitalize'>
-                First Name
-              </label>
-              <input
-                type='text'
-                {...register('firstName', {
-                  required: true,
-                })}
-                id='first-name'
-                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                  errors.firstName ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                }`}
-              />
-              {errors.firstName ? (
-                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                  <InformationCircleIcon className='h-4 w-4' />
-                  First name is required
-                </span>
-              ) : null}
-            </div>
-            <div className='flex w-full flex-col pt-4'>
-              <label htmlFor='last-name' className='text-sm capitalize'>
-                Last Name
-              </label>
-              <input
-                type='text'
-                {...register('lastName', {
-                  required: true,
-                })}
-                id='last-name'
-                className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                  errors.lastName ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                }`}
-              />
-              {errors.lastName ? (
-                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                  <InformationCircleIcon className='h-4 w-4' />
-                  Last name is required
-                </span>
-              ) : null}
-            </div>
-          </div>
-          <div className='flex w-full flex-col pt-4'>
-            <label htmlFor='address' className='text-sm capitalize'>
-              Address
-            </label>
-            <input
+            <TextInput
+              control={control}
+              label='First Name'
+              name='firstName'
+              register={register}
               type='text'
-              {...register('address', {
-                required: true,
-              })}
-              id='address'
-              className={`mt-1 w-full flex-1 appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                errors.address ? 'ring-2 ring-red-600' : 'ring-gray-300'
-              }`}
             />
-            {errors.address ? (
-              <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                <InformationCircleIcon className='h-4 w-4' />
-                Shipping address is required
-              </span>
-            ) : null}
+            <TextInput
+              control={control}
+              label='Last Name'
+              name='lastName'
+              register={register}
+              type='text'
+            />
           </div>
+          <TextInput
+            control={control}
+            label='Address'
+            name='address'
+            register={register}
+            type='text'
+          />
 
           <div className='flex w-full flex-col items-start justify-between md:gap-4 lg:flex-row lg:items-center'>
-            <div className='flex w-full flex-col pt-4'>
-              <label htmlFor='state' className='text-sm capitalize'>
-                State
-              </label>
-              <Controller
-                name='state'
-                rules={{ required: true }}
-                control={control}
-                render={({ field }) => (
-                  <>
-                    <Select
-                      data={states.map(state => state.name)}
-                      selected={field.value}
-                      setSelected={field.onChange}
-                      className={`mt-1 w-full flex-1 appearance-none rounded !p-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                        errors.state ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                      }`}
-                    />
-                  </>
-                )}
-              />
-              {errors.state ? (
-                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                  <InformationCircleIcon className='h-4 w-4' />
-                  State is required
-                </span>
-              ) : null}
-            </div>
-            <div className='flex w-full flex-col pt-4'>
-              <label htmlFor='state' className='text-sm capitalize'>
-                City
-              </label>
-              <Controller
-                name='city'
-                rules={{ required: true }}
-                control={control}
-                render={({ field }) => (
-                  <>
-                    <Select
-                      data={
-                        states.find(state => state.name === selectedState)
-                          ?.lgas as string[]
-                      }
-                      selected={field.value}
-                      setSelected={field.onChange}
-                      className={`mt-1 w-full flex-1 appearance-none rounded !p-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                        errors.city ? 'ring-2 ring-red-600' : 'ring-gray-300'
-                      }`}
-                    />
-                  </>
-                )}
-              />
-              {errors.city ? (
-                <span className='flex items-center gap-2 p-1 pt-1 text-xs text-red-600'>
-                  <InformationCircleIcon className='h-4 w-4' />
-                  City is required
-                </span>
-              ) : null}
-            </div>
+            <TextInput
+              control={control}
+              label='State'
+              name='state'
+              register={register}
+              type='select'
+              data={states.map(state => state.name)}
+            />
+            <TextInput
+              control={control}
+              label='City'
+              name='city'
+              register={register}
+              type='select'
+              data={
+                states.find(state => state.name === selectedState)
+                  ?.lgas as string[]
+              }
+            />
           </div>
         </div>
 
@@ -278,19 +164,13 @@ const Information = () => {
             Instruction for seller
           </h3>
 
-          <div className='flex w-full flex-col pt-4'>
-            <label htmlFor='order-notes' className='text-sm capitalize'>
-              Order notes
-            </label>
-            <textarea
-              id='order-notes'
-              rows={3}
-              className={`mt-1 w-full flex-1 resize-none appearance-none rounded px-3 py-3 text-sm text-gray-700 ring-1 focus:border-none focus:outline-none focus:ring-2 focus:ring-main ${
-                errors.orderNote ? 'ring-2 ring-red-600' : 'ring-gray-300'
-              }`}
-              placeholder='Special instructions for seller'
-              {...register('orderNote')}></textarea>
-          </div>
+          <TextInput
+            control={control}
+            label='Order Notes'
+            name='orderNote'
+            register={register}
+            type='textarea'
+          />
         </div>
 
         <label className='flex items-center gap-2 pt-5 text-sm'>
@@ -299,17 +179,15 @@ const Information = () => {
             className='peer sr-only accent-main'
             {...register('saveInfo')}
           />
-          <div className='relative h-4 w-4 appearance-none rounded-sm ring-1 ring-gray-400 after:absolute after:top-1/2 after:left-1/2 after:h-[0.65rem] after:w-[0.65rem] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-sm after:bg-dark after:opacity-0 after:transition-opacity after:content-[""] peer-checked:after:opacity-100'></div>
+          <div className='relative h-4 w-4 appearance-none rounded-sm ring-1 ring-gray-400 after:absolute after:top-1/2 after:left-1/2 after:h-[0.65rem] after:w-[0.65rem] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-sm after:bg-dark after:opacity-0 after:transition-opacity after:content-[""] peer-checked:ring-dark peer-checked:after:opacity-100'></div>
           <span>Save this information for next time</span>
         </label>
 
-        <footer className='mt-10 flex flex-col items-center justify-between md:flex-row'>
-          <button
-            type='submit'
-            className='ml-auto mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
-            Continue to payment
-          </button>
-        </footer>
+        <button
+          type='submit'
+          className='ml-auto mt-10 flex w-full justify-center rounded bg-[#333333] py-4 px-10 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
+          Continue to payment
+        </button>
       </form>
     </>
   )

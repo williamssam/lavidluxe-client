@@ -1,7 +1,6 @@
 import { atom } from 'jotai'
 
 type UserInfo = {
-  // name: string
   firstName: string
   lastName: string
   emailAddress: string
@@ -11,6 +10,7 @@ type UserInfo = {
   paymentMethod?: string
   city: string
   orderNote?: string
+  deliveryMethod: 'ship' | 'pick up'
 }
 
 export const userInfo = atom<UserInfo>({
@@ -23,6 +23,7 @@ export const userInfo = atom<UserInfo>({
   state: '',
   city: '',
   orderNote: '',
+  deliveryMethod: 'ship',
 })
 
 export const openCartDrawer = atom(false)

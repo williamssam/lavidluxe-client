@@ -5,7 +5,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { email, amount, name, phoneNumber, address, customerNote } = req.body
+  const {
+    email,
+    amount,
+    name,
+    phoneNumber,
+    address,
+    customerNote,
+    deliveryMethod,
+  } = req.body
 
   switch (req.method) {
     case 'POST':
@@ -36,6 +44,7 @@ export default async function handler(
                 address,
                 customerNote,
                 orderID: `#lavidluxe_${nanoid(5)}`,
+                deliveryMethod,
                 custom_fields: [
                   {
                     display_name: 'Customer Name',

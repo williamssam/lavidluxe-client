@@ -53,7 +53,7 @@ export const Filter = ({
 
       <RadioGroup
         value={grid}
-        onChange={value => {
+        onChange={(value: SetStateAction<number | null>) => {
           setGrid(value)
           localStorage.setItem('lavidluxeGrid', JSON.stringify(value))
         }}

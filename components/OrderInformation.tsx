@@ -11,7 +11,10 @@ export const OrderInformation = () => {
   const { shippingCost, subtotal, total, vat } = useCart(cart)
 
   return (
-    <section className='col-span-2 h-full border-l bg-gray-100 p-5 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
+    <section className='order-1 col-span-2 h-full border-l bg-gray-100 p-5 md:order-2 md:px-5 md:py-10 lg:px-10 lg:py-20 xl:p-20'>
+      <h3 className='pb-4 text-xs font-bold uppercase tracking-[4px] text-gray-700 md:hidden'>
+        Order Summary
+      </h3>
       <ul className='border-b border-b-gray-300 pb-3'>
         {cart.length > 0 ? (
           cart?.map(product => (

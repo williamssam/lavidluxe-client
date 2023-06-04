@@ -61,7 +61,7 @@ const OrderSuccessful = ({
   const cartItems = cart?.map(cart => ({
     name: cart.name,
     quantity: cart.quantity,
-    amount: cart.price,
+    amount: cart.price.toLocaleString(),
     color: cart.color,
     size: cart.size,
     _key: nanoid(),
@@ -110,13 +110,14 @@ const OrderSuccessful = ({
         }),
         amount: total,
         orderItems: cartItems,
-        shippingInformation: {
+        customerInformation: {
           name: response.data.metadata.name,
           email: response.data.customer.email,
           address: response.data.metadata.address,
           phoneNumber: response.data.metadata.phoneNumber,
         },
         customerNote: response.data.metadata.customerNote,
+        deliveryMethod: response.data.metadata.deliveryMethod,
       }
       await client.create(order)
       await sendMail()
@@ -198,8 +199,10 @@ const OrderSuccessful = ({
             </div>
 
             <p>
-              <strong>NB:</strong> Goods will be delivered to you within three
-              to seven working days
+              <strong>NB:</strong>{' '}
+              {response.data.metadata.deliveryMethod === 'pick up'
+                ? 'Your order must be picked up from our store at No 11, Isashi Road, Ojo, Lagos.'
+                : 'Order will be delivered to you within three to seven working days depending on your location.'}
             </p>
           </div>
 

@@ -115,6 +115,9 @@ export const Cart = () => {
           </p>
         </div>
       ) : null}
+      <p className='pt-1 text-xs font-medium'>
+        <strong>Note:</strong> Taxes and shipping calculated at checkout
+      </p>
 
       {cart.length > 0 ? (
         <Link

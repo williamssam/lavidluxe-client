@@ -11,17 +11,19 @@ import { toast } from 'react-toastify'
 import { useCartStore } from 'store/cartStore'
 import { FormValues } from './information'
 
-type UserInfo = Omit<FormValues, 'saveInfo'>
-
 const Payment = () => {
   const router = useRouter()
-  const [info, setInfo] = useState<UserInfo | null>(null)
+  const [info, setInfo] = useState<FormValues | null>(null)
   const [loading, setLoading] = useState(false)
   const cart = useCartStore(state => state.cart)
   const { total } = useCart(cart)
 
   const initializePayment = async () => {
     setLoading(true)
+    // remove user data from localstorage if save info is not checked
+    if (!info?.saveInfo) {
+      localStorage.removeItem('lavidluxeUser')
+    }
     const response = await fetch('/api/initialize-payment', {
       method: 'POST',
       body: JSON.stringify({
@@ -31,6 +33,7 @@ const Payment = () => {
         address: `${info?.address}, ${info?.city}, ${info?.state}`,
         phoneNumber: info?.phoneNumber,
         customerNote: info?.orderNote ?? '',
+        deliveryMethod: info?.deliveryMethod,
       }),
       headers: {
         'content-type': 'application/json',
@@ -42,16 +45,16 @@ const Payment = () => {
       return
     }
     window.location.href = data.data.authorization_url
-    // setLoading(false)
   }
 
   useIsomorphicLayoutEffect(() => {
+    if (cart.length === 0) {
+      router.push('/checkout/information')
+    }
+
     const userDetails = JSON.parse(
       localStorage.getItem('lavidluxeUser') as string
     )
-    if (!userDetails) {
-      router.push('/checkout/information')
-    }
     setInfo(userDetails)
   }, [])
 
@@ -64,7 +67,7 @@ const Payment = () => {
       <div className='mt-10 flex flex-col gap-4 rounded-lg border border-gray-300 py-4 px-4 text-xs md:px-6'>
         <div className='flex items-center justify-between border-b pb-3'>
           <div className='flex flex-col items-start md:flex-row md:items-center md:gap-10'>
-            <p className='w-10'>Contact</p>
+            <p className='md:w-10'>Contact</p>
             <p className='font-bold'>{info?.emailAddress}</p>
           </div>
           <button className='font-bold text-main' onClick={() => router.back()}>
@@ -73,18 +76,34 @@ const Payment = () => {
         </div>
         <div className='flex items-center justify-between border-b pb-3'>
           <div className='flex flex-col items-start md:flex-row md:items-center md:gap-10'>
-            <p className='w-10'>Ship to</p>
-            <p className='font-bold'>{`${info?.address}, ${info?.city}, ${info?.state}`}</p>
+            <p className='md:w-10'>Delivery Method</p>
+            <p className='font-bold capitalize'>{info?.deliveryMethod}</p>
           </div>
           <button className='font-bold text-main' onClick={() => router.back()}>
             Change
           </button>
         </div>
+        {info?.deliveryMethod === 'ship' ? (
+          <div className='flex items-center justify-between border-b pb-3'>
+            <div className='flex flex-col items-start md:flex-row md:items-center md:gap-10'>
+              <p className='md:w-10'>Ship to</p>
+              <p className='font-bold'>{`${info?.address}, ${info?.city}, ${info?.state}`}</p>
+            </div>
+            <button
+              className='font-bold text-main'
+              onClick={() => router.back()}>
+              Change
+            </button>
+          </div>
+        ) : null}
+
         <div className='flex items-center justify-between'>
           <div className='flex flex-col items-start md:flex-row md:gap-10'>
-            <p className='w-12'>Note</p>
+            <p className='w-10'>Note</p>
             <p className='font-bold'>
-              We deliver nationwide and some parts of the world.
+              {info?.deliveryMethod === 'pick up'
+                ? 'Your order must be picked up from our store at No 11, Isashi Road, Ojo, Lagos.'
+                : 'Your delivery will take three to seven working days depending on your location.'}
             </p>
           </div>
         </div>
