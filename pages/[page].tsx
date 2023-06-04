@@ -7,7 +7,7 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from 'next'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import path from 'path'
 import { ReactElement } from 'react'
 import { openCartDrawer } from 'store/atoms'
@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }))
   return {
     paths,
-    fallback: true,
+    fallback: false,
   }
 }
 
@@ -51,9 +51,8 @@ const ShippingReturnPolicy = ({
 
   return (
     <>
-      <Head>
-        <title>{data ? data.title : ''} - Lavidluxe Clothings</title>
-      </Head>
+      <NextSeo title={data && data?.title} />
+
       <main
         className={`px-5 py-24 transition-all md:px-20 md:py-28 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'

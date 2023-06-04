@@ -8,7 +8,7 @@ import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
 import { Product } from 'models/productModel'
 import { GetServerSideProps } from 'next'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactElement, Reducer, useReducer, useState } from 'react'
@@ -95,9 +95,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <Head>
-        <title>{`${product?.name} - Lavidluxe`}</title>
-      </Head>
+      <NextSeo title={product?.name} description={product?.description} />
 
       {product ? (
         <main

@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import hero from 'public/lavidluxe-two.jpg'
 import { ReactElement } from 'react'
@@ -11,9 +11,8 @@ const AboutUs = () => {
 
   return (
     <>
-      <Head>
-        <title>About Us - Lavidluxe</title>
-      </Head>
+      <NextSeo title='About Us' />
+
       <main
         className={`flex min-h-screen flex-col items-center justify-center px-4 pt-20 transition-all lg:flex-row lg:px-20 lg:pt-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'

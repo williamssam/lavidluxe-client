@@ -23,7 +23,7 @@ export const ProductDetail = ({ product, category }: ProductDetailProps) => {
           sizes='1080, 560'
           placeholder='blur'
           blurDataURL={blurDataURL}
-          className={`rounded object-cover transition-all hover:scale-110 ${
+          className={`rounded object-cover object-top transition-all hover:scale-110 ${
             product?.stockStatus === 'in-stock'
               ? 'grayscale-0'
               : 'opacity-50 grayscale'

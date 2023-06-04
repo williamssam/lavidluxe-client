@@ -1,12 +1,12 @@
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import Head from 'next/head'
 import { ReactElement } from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
 import { HomeScreenSwiper } from 'components/HomeScreenSwiper'
+import { NextSeo } from 'next-seo'
 import { openCartDrawer } from 'store/atoms'
 import { Autoplay, Pagination } from 'swiper'
 import 'swiper/css'
@@ -17,10 +17,8 @@ const Home = () => {
 
   return (
     <>
-      <Head>
-        <title>Lavidluxe Clothings</title>
-      </Head>
-      {/*  */}
+      <NextSeo title='Home' />
+
       <main
         className={`bg-[#333333]/15 flex min-h-screen items-center transition-all ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'

@@ -21,7 +21,7 @@ const Header = () => {
           href='/'
           className='flex items-center gap-2 font-black text-gray-800'>
           <Image alt='lavidluxe logo' src={logo} width={40} />
-          <span>Lavidluxe</span>
+          <span className='hidden md:inline-block'>Lavidluxe</span>
         </Link>
       </h1>
 
@@ -31,13 +31,13 @@ const Header = () => {
         onClick={() => setOpenCart(!openCart)}
         className='group order-3 flex items-center gap-2 rounded py-1 px-2 text-main transition-all hover:bg-main hover:text-white'>
         <ShoppingBagIcon className='h-5 w-5' aria-hidden='true' />
-        <p className='hidden text-xs font-bold uppercase tracking-[4px] lg:block'>
+        <span className='hidden text-xs font-bold uppercase tracking-[4px] lg:block'>
           Cart
-        </p>
-        {cart.length > 0 ? (
-          <p className='flex h-6 w-6 items-center justify-center rounded-full border-2 border-main text-xs font-bold group-hover:border-white'>
+        </span>
+        {cart.length ? (
+          <span className='flex h-6 w-6 items-center justify-center rounded-full border-2 border-main text-xs font-bold group-hover:border-white'>
             {cart?.length}
-          </p>
+          </span>
         ) : null}
       </button>
     </header>

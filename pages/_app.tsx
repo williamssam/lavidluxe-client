@@ -5,7 +5,9 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorFallback } from 'components/ErrorFallback'
+import { seoConfig } from 'config/seo'
 import type { NextPage } from 'next'
+import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
 import { Router } from 'next/router'
 import NProgress from 'nprogress'
@@ -54,6 +56,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       onReset={() => typeof window !== undefined && window.location.reload()}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
+          <DefaultSeo {...seoConfig} />
+
           <Component {...pageProps} />
         </Hydrate>
 

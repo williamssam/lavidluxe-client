@@ -4,7 +4,7 @@ import { Select } from 'components/Select'
 import { states } from 'constants/states'
 import { useAtom } from 'jotai'
 import { CheckoutLayout } from 'layouts/CheckoutLayout'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -51,7 +51,7 @@ const Information = () => {
 
   const submitForm: SubmitHandler<FormValues> = data => {
     if (data.saveInfo) {
-      localStorage.setItem('userInfo', JSON.stringify(data))
+      localStorage.setItem('lavidluxeUser', JSON.stringify(data))
     }
     delete data.saveInfo
     setInfo(data)
@@ -59,7 +59,9 @@ const Information = () => {
   }
 
   useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('userInfo') as string)
+    const userDetails = JSON.parse(
+      localStorage.getItem('lavidluxeUser') as string
+    )
     if (!userDetails) return
     setValue('address', userDetails.address)
     setValue('state', userDetails.state)
@@ -72,9 +74,7 @@ const Information = () => {
 
   return (
     <>
-      <Head>
-        <title>Checkout - Lavidluxe</title>
-      </Head>
+      <NextSeo title='Order Information' nofollow noindex />
 
       <CheckoutNav />
 

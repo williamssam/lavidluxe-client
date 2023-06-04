@@ -1,7 +1,7 @@
 import errorIlustration from 'assets/images/404-error.svg'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement } from 'react'
@@ -15,9 +15,8 @@ const NotFound = () => {
 
   return (
     <>
-      <Head>
-        <title>Page not found - Lavidluxe</title>
-      </Head>
+      <NextSeo title='404' />
+
       <main
         className={`flex min-h-screen flex-col items-center justify-center px-4 text-center text-sm transition-all md:flex-row md:px-16 lg:text-base xl:gap-20 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'

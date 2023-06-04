@@ -5,7 +5,7 @@ import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
 import { PaystackResponse } from 'models/paystackModel'
 import { nanoid } from 'nanoid'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -139,9 +139,8 @@ const OrderSuccessful = ({
 
   return (
     <>
-      <Head>
-        <title>Thank you for your purchase - Lavidluxe</title>
-      </Head>
+      <NextSeo title='Order Successful' nofollow noindex />
+
       <section className='flex h-screen w-full items-center justify-center bg-main'>
         <div className='h-[96%] max-w-[70ch] overflow-auto rounded bg-gray-100 p-6 shadow-xl'>
           <header className='mb-5 flex justify-center'>

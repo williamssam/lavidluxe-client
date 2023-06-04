@@ -10,7 +10,7 @@ import { Instagram } from 'assets/icon/Instagram'
 import { Spinner } from 'components/Spinner'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import { ReactElement, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -63,9 +63,7 @@ const Contact = () => {
 
   return (
     <>
-      <Head>
-        <title>Contact - Lavidluxe</title>
-      </Head>
+      <NextSeo title='Contact Us' />
 
       <main
         className={`min-h-screen px-5 pt-24 transition-all md:px-20 md:pt-28 ${

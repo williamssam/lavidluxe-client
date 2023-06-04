@@ -25,8 +25,6 @@ export const Cart = () => {
 
   const { parent } = useAnimate()
 
-  console.log(cart)
-
   return (
     <section
       className={`absolute right-0 top-0 h-screen w-80 overflow-auto border-l bg-gray-50 py-10 px-5 transition-all will-change-transform md:w-96 md:p-10 ${
@@ -129,7 +127,7 @@ export const Cart = () => {
         <button
           type='button'
           onClick={clearCart}
-          className='mt-5 flex w-full justify-center rounded text-xs font-bold uppercase tracking-[5px] text-[#333333] transition-all hover:text-main active:scale-95'>
+          className='mt-5 flex w-full justify-center rounded text-xs font-bold uppercase tracking-widest text-[#333333] transition-all hover:text-main active:scale-95'>
           Clear cart
         </button>
       ) : null}

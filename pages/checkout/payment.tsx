@@ -4,7 +4,7 @@ import { Spinner } from 'components/Spinner'
 import { useCart } from 'hooks/useCart'
 import { useIsomorphicLayoutEffect } from 'hooks/useIsomorphicLayoutEffect'
 import { CheckoutLayout } from 'layouts/CheckoutLayout'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ReactElement, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -46,7 +46,9 @@ const Payment = () => {
   }
 
   useIsomorphicLayoutEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem('userInfo') as string)
+    const userDetails = JSON.parse(
+      localStorage.getItem('lavidluxeUser') as string
+    )
     if (!userDetails) {
       router.push('/checkout/information')
     }
@@ -55,9 +57,7 @@ const Payment = () => {
 
   return (
     <>
-      <Head>
-        <title>Checkout - Lavidluxe</title>
-      </Head>
+      <NextSeo title='Checkout' nofollow noindex />
 
       <CheckoutNav />
 
