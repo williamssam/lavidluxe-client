@@ -8,6 +8,7 @@ import {
 import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
 import { Twitter } from 'assets/icon/Twitter'
+import { Whatsapp } from 'assets/icon/Whatsapp'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -104,7 +105,7 @@ export const NavBar = () => {
             <a
               target='_blank'
               rel='noopener noreferrer'
-              href='#'
+              href='https://web.facebook.com/boschicwardrobe'
               className='p-1 transition-all hover:text-main'>
               <Facebook />
             </a>
@@ -113,7 +114,7 @@ export const NavBar = () => {
             <a
               target='_blank'
               rel='noopener noreferrer'
-              href='#'
+              href='https://twitter.com/lavidluxe'
               className='p-1 transition-all hover:text-main'>
               <Twitter />
             </a>
@@ -122,9 +123,18 @@ export const NavBar = () => {
             <a
               target='_blank'
               rel='noopener noreferrer'
-              href='#'
+              href='https://www.instagram.com/lavidluxe_clothing'
               className='p-1 transition-all hover:text-main'>
               <Instagram />
+            </a>
+          </li>
+          <li>
+            <a
+              target='_blank'
+              rel='noopener noreferrer'
+              href='https://api.whatsapp.com/send?phone=2348162234838'
+              className='p-1 transition-all hover:text-main'>
+              <Whatsapp />
             </a>
           </li>
         </ul>
