@@ -51,7 +51,10 @@ export const Filter = ({
 
       <RadioGroup
         value={grid}
-        onChange={setGrid}
+        onChange={(value: SetStateAction<number | null>) => {
+          setGrid(value)
+          localStorage.setItem('lavidluxeGrid', JSON.stringify(value))
+        }}
         className='hidden lg:flex lg:items-center lg:gap-2'>
         {grids.map(grid => (
           <RadioGroup.Option

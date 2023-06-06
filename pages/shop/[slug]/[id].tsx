@@ -72,7 +72,7 @@ const ProductDetails = () => {
     sizes ? sizes[0] : ''
   )
   const [selectedColor, setSelectedColor] = useState<string>(
-    product?.productColors.length ? product.productColors[0] : ''
+    product?.productColors?.length ? product.productColors[0] : ''
   )
 
   const addProductToCart = (product: Product) => {

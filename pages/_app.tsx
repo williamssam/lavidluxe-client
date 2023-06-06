@@ -51,9 +51,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   )
 
   return getLayout(
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onReset={() => typeof window !== undefined && window.location.reload()}>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <DefaultSeo {...seoConfig} />
