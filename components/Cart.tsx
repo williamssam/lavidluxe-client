@@ -115,18 +115,20 @@ export const Cart = () => {
       </ul>
 
       {cart.length > 0 ? (
-        <div className='flex items-center justify-between pt-14'>
-          <h4 className='text-[0.85rem] font-bold uppercase tracking-[5px] text-gray-700'>
-            Subtotal
-          </h4>
-          <p className='text-base font-bold text-gray-800'>
-            {formatCurrency(subtotal)}
+        <>
+          <div className='flex items-center justify-between pt-14'>
+            <h4 className='text-[0.85rem] font-bold uppercase tracking-[5px] text-gray-700'>
+              Subtotal
+            </h4>
+            <p className='text-base font-bold text-gray-800'>
+              {formatCurrency(subtotal)}
+            </p>
+          </div>
+          <p className='pt-1 text-xs font-medium'>
+            <strong>Note:</strong> Taxes and shipping calculated at checkout
           </p>
-        </div>
+        </>
       ) : null}
-      <p className='pt-1 text-xs font-medium'>
-        <strong>Note:</strong> Taxes and shipping calculated at checkout
-      </p>
 
       {cart.length > 0 ? (
         <Link
