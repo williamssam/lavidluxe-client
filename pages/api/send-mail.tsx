@@ -1,6 +1,6 @@
-import handlebars from 'handlebars'
+import { generateMailTemplate } from 'lib/generateMailTemplate'
 import { getFile } from 'lib/getFile'
-import { transporter } from 'lib/transporter'
+import { sendMail } from 'lib/transporter'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
@@ -17,10 +17,9 @@ export default async function handler(
     order_id,
     year,
     items,
+    deliveryMethod,
   } = req.body
 
-  const fileContent = await getFile('mail', 'order-confirmed-mail.html')
-  const template = handlebars.compile(fileContent)
   const replacements = {
     recipient,
     name,
@@ -31,31 +30,48 @@ export default async function handler(
     order_id,
     year,
     items,
+    deliveryMethod,
   }
-  const htmlToSend = template(replacements)
+
+  const userMailContent = await getFile('mail', 'user-order-confirmtion.html')
+  const adminMailContent = await getFile('mail', 'admin-order-confirmtion.html')
+  const userMailToSend = generateMailTemplate(userMailContent, replacements)
+  const adminHtmlToSend = generateMailTemplate(adminMailContent, replacements)
 
   switch (req.method) {
     case 'POST':
       try {
-        let mailOptions = {
-          from: `LavidLuxe Clothings - <lavidluxe@gmail.com>`,
-          to: recipient,
+        sendMail({
+          recipient,
+          html: userMailToSend,
           subject: 'Thank you! Your order is confirmed.',
-          generateTextFromHTML: true,
-          html: htmlToSend,
-        }
+        })
+          .then(() => {})
+          .catch(err => console.log(err))
 
-        transporter.sendMail(mailOptions, (err: any, info: any) => {
-          if (err) {
-            return res.status(400).json({ message: 'Mail not sent', err })
-          }
-          //
+        // send order mail to admin after 3seconds
+        setTimeout(() => {
+          sendMail({
+            recipient:
+              process.env.NODE_ENV === 'development'
+                ? (process.env.ADMIN_TEST_EMAIL as string)
+                : (process.env.ADMIN_MAIL as string),
+            html: adminHtmlToSend,
+            subject: `Hi Stella, You have a new order from ${name}! 🎉👏`,
+          })
+            .then(() => {})
+            .catch(err => console.log(err))
+        }, 3000)
+        res.status(200).json({
+          message: 'Email sent successfully',
+          success: true,
         })
         res.end()
       } catch (err) {
         if (err instanceof Error) {
           return res.status(400).json({
             message: err.message,
+            success: false,
           })
         }
         res.end()

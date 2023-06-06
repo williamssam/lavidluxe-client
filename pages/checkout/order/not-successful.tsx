@@ -6,24 +6,29 @@ const OrderNotSuccesful = () => {
     <>
       <NextSeo title='Order Not Successful' nofollow noindex />
 
-      <section className='flex h-screen w-full items-center justify-center bg-main'>
+      <section className='flex h-screen w-full items-center justify-center bg-red-200'>
         <div className='max-w-[70ch] rounded bg-gray-100 p-6 shadow-xl'>
           <header className='flex flex-col items-center gap-5'>
             <p className='text-8xl'>😔</p>
             <div className='mt-3 text-center'>
-              {/* <p className='uppercase text-xs tracking-[5px]'>Order #1007</p> */}
               <h2 className='text-3xl font-bold text-red-600'>
-                Payment not confirmed
+                Payment could not be confirmed
               </h2>
             </div>
           </header>
           <div className='mt-10 flex flex-col gap-4 rounded-lg border border-gray-300 py-4 px-4 text-sm md:px-6'>
             <h3 className='text-xs font-bold uppercase tracking-[3px] text-gray-700'>
-              Your order is not confirmed yet
+              Your order was not confirmed!
             </h3>
             <p>
               Unfortunately, we could not verify your payment. Please try again
-              in a few minutes or contact us if you have been debited.
+              in a few minutes or{' '}
+              <a
+                href='https://api.whatsapp.com/send?phone=2348162234838'
+                className='text-main underline'>
+                contact us on whatsapp
+              </a>{' '}
+              if you have been debited.
             </p>
           </div>
 

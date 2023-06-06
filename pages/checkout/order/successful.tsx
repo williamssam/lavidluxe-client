@@ -7,8 +7,8 @@ import { nanoid } from 'nanoid'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import ReactCanvasConfetti from 'react-canvas-confetti'
 import { toast } from 'react-toastify'
 import { useCartStore } from 'store/cartStore'
@@ -57,6 +57,7 @@ const OrderSuccessful = ({
   const clearCart = useCartStore(state => state.clearCart)
   const { fire, getInstance } = useConfetti()
   const { total, subtotal } = useCart(cart)
+  const [loading, setLoading] = useState(false)
 
   const cartItems = cart?.map(cart => ({
     name: cart.name,
@@ -82,6 +83,7 @@ const OrderSuccessful = ({
         total: formatCurrency(total),
         year: new Date().getFullYear(),
         order_id: response.data.metadata.orderID,
+        deliveryMethod: response.data.metadata.deliveryMethod,
         items: cart?.map(cart => ({
           product_name: cart.name,
           quantity: cart.quantity,
@@ -93,11 +95,13 @@ const OrderSuccessful = ({
     })
 
     if (data.ok) {
+      setLoading(false)
       toast.success('Order mail sent successfully!')
     }
   }
 
   const createOrder = async () => {
+    setLoading(true)
     try {
       const order = {
         _type: 'order',
@@ -142,7 +146,7 @@ const OrderSuccessful = ({
     <>
       <NextSeo title='Order Successful' nofollow noindex />
 
-      <section className='flex h-screen w-full items-center justify-center bg-main'>
+      <section className='flex h-screen w-full items-center justify-center bg-main/30'>
         <div className='h-[96%] max-w-[70ch] overflow-auto rounded bg-gray-100 p-6 shadow-xl'>
           <header className='mb-5 flex justify-center'>
             <Image src={logo} alt='lavidluxe logo' className='w-20' />
@@ -207,12 +211,18 @@ const OrderSuccessful = ({
           </div>
 
           <footer className='mt-10 flex flex-col items-center justify-between'>
-            <Link
-              href='/shop/women-wears'
-              onClick={() => clearCart()}
-              className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-16 text-xs font-bold uppercase tracking-[3px] text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] md:mt-0 md:w-max md:px-5 lg:px-10 lg:tracking-[4px]'>
-              Continue shopping
-            </Link>
+            <button
+              type='button'
+              disabled={loading}
+              onClick={() => {
+                router.push('/shop/women-wears')
+                clearCart()
+              }}
+              className='mt-3 flex w-full justify-center rounded bg-[#333333] py-4 px-16 font-bold text-white transition-all hover:border-main hover:bg-main active:scale-[0.98] disabled:cursor-not-allowed md:mt-0 md:w-max md:px-5 lg:px-10'>
+              {loading
+                ? 'Confirming order, Please wait....'
+                : 'Continue Shipping'}
+            </button>
             <p className='mt-2 text-xs'>
               Need help?{' '}
               <a href='mailto:lavidluxe@gmail.com' className='text-main'>
