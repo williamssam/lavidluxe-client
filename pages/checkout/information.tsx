@@ -100,7 +100,7 @@ const Information = () => {
         {/* delivery information */}
         <div className='mt-12'>
           <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
-            Delivery information
+            Delivery method
           </h3>
 
           <DeliveryMethod control={control} name='deliveryMethod' />
@@ -111,6 +111,11 @@ const Information = () => {
           <h3 className='text-xs font-bold uppercase tracking-[4px] text-gray-700'>
             Customer Information
           </h3>
+          <p className='pt-1 text-xs'>
+            <span className='font-bold'>NOTE:</span> If you choose{' '}
+            <strong>ship</strong> as your delivery method, your package will be
+            sent to the address you entered below.
+          </p>
 
           <div className='flex w-full flex-col items-start justify-between md:gap-4 lg:flex-row lg:items-center'>
             <TextInput

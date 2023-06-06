@@ -16,7 +16,7 @@ export const useCartStore = create<CartState>()(
   immer(
     devtools(
       persist(
-        set => ({
+        (set, get) => ({
           cart: [],
           addToCart: (product, quantity) =>
             set(state => {
@@ -25,9 +25,12 @@ export const useCartStore = create<CartState>()(
                 ? state.cart.find(prod => {
                     if (prod.id === product.id) {
                       prod.quantity += quantity ?? 1
+                      prod.color = product.color
+                      prod.size = product.size
                     }
                   })
-                : state.cart.push({ ...product, quantity })
+                : (state.cart = [...state.cart, { ...product, quantity }])
+              console.log('product', product)
             }),
           removeFromCart: id =>
             set(state => ({

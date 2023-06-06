@@ -67,9 +67,9 @@ const ProductDetails = () => {
     { productQuantity: 1 }
   )
 
-  const size = product!.sizes?.split(',').map(num => +num)
+  const sizes = product!.sizes?.split(',').map(num => +num)
   const [selectedSize, setSelectedSize] = useState<number | string>(
-    size ? size[0] : ''
+    sizes ? sizes[0] : ''
   )
   const [selectedColor, setSelectedColor] = useState<string>(
     product?.productColors.length ? product.productColors[0] : ''
@@ -175,13 +175,13 @@ const ProductDetails = () => {
             ) : null}
 
             <div className='mt-10 flex items-center justify-between border-y border-y-gray-200 py-1 text-xs'>
-              {size ? (
+              {sizes ? (
                 <div className='flex items-center gap-3'>
                   <h3 className='font-bold uppercase tracking-[2px] text-gray-500'>
                     Size
                   </h3>
                   <Select
-                    data={size}
+                    data={sizes}
                     selected={selectedSize}
                     setSelected={setSelectedSize}
                     className='w-24'
