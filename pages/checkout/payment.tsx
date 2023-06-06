@@ -24,9 +24,6 @@ const Payment = () => {
   const initializePayment = async () => {
     setLoading(true)
     // remove user data from localstorage if save info is not checked
-    if (!info?.saveInfo) {
-      localStorage.removeItem('lavidluxeUser')
-    }
     const response = await fetch('/api/initialize-payment', {
       method: 'POST',
       body: JSON.stringify({
@@ -52,7 +49,7 @@ const Payment = () => {
 
   useIsomorphicLayoutEffect(() => {
     if (cart.length === 0) {
-      router.push('/checkout/information')
+      router.push('/shop/women-wears')
     }
 
     const userDetails = JSON.parse(
