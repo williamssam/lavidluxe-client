@@ -1,4 +1,7 @@
-import { ChevronLeftIcon } from '@heroicons/react/20/solid'
+import {
+  ChevronLeftIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/20/solid'
 import { CheckoutNav } from 'components/CheckoutNav'
 import { Spinner } from 'components/Spinner'
 import { useCart } from 'hooks/useCart'
@@ -127,6 +130,14 @@ const Payment = () => {
           {loading ? <Spinner /> : null}
         </button>
       </footer>
+
+      <p className='mx-auto mt-8 flex max-w-[60ch] flex-col items-center gap-1 rounded bg-gray-200 py-2 px-6 text-center text-xs font-medium'>
+        <InformationCircleIcon className='h-5 w-5 text-gray-800' />
+        <span>
+          NOTE: Please crosscheck your cart before paying as we won&apos;t be
+          able to change anything or refund your money. Thank you.
+        </span>
+      </p>
     </>
   )
 }

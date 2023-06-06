@@ -14,14 +14,9 @@ export const Footer = () => {
       className={`mt-auto flex w-full flex-wrap items-center justify-center gap-5 bg-[#333333] px-6 py-4 text-white md:justify-between md:px-10 ${
         openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
       }`}>
-      {/* <Image
-          alt='lavidluxe logo'
-          src={logo}
-          className='w-10 object-cover invert'
-        /> */}
       <p className='pt-1 text-xs'>
         All rights reserved. &copy; {new Date().getFullYear()}{' '}
-        <Link href='/'>Lavidluxe</Link>
+        <Link href='/'>Lavidluxe Clothings</Link>
       </p>
       <div className='flex flex-col items-center gap-1'>
         <div className='flex items-center gap-3'>

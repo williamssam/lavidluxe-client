@@ -35,7 +35,7 @@ export const CheckoutLayout = ({ children }: PropsWithChildren) => {
         <div className='mt-14 border-t border-t-gray-200'>
           <p className='pt-3 text-xs'>
             All rights reserved. &copy; {new Date().getFullYear()}{' '}
-            <Link href='/'>lavidluxe.com</Link>
+            <Link href='/'>Lavidluxe Clothings</Link>
           </p>
         </div>
       </section>

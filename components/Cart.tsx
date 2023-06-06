@@ -8,12 +8,14 @@ import { useCart } from 'hooks/useCart'
 import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { openCartDrawer } from 'store/atoms'
 import { useCartStore } from 'store/cartStore'
 import { formatCurrency } from 'utils/functions/formatCurrency'
 import { QuantityPicker } from './QuantityPicker'
 
 export const Cart = () => {
+  const router = useRouter()
   const [openCart, setOpenCart] = useAtom(openCartDrawer)
 
   const cart = useCartStore(state => state.cart)
@@ -23,7 +25,16 @@ export const Cart = () => {
   const clearCart = useCartStore(state => state.clearCart)
   const { subtotal } = useCart(cart)
 
+  console.log('cart', cart)
+
   const { parent } = useAnimate()
+
+  // useEffect(() => {
+  //   const closeCartOnRouteChange = () => setOpenCart(false)
+  //   router.events.on('routeChangeStart', closeCartOnRouteChange)
+
+  //   return () => router.events.off('routeChangeStart', closeCartOnRouteChange)
+  // }, [router.events, setOpenCart])
 
   return (
     <section
