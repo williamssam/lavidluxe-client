@@ -41,8 +41,8 @@ type SortObj = {
 }
 
 const sort = [
-  'Latest',
-  'Oldest',
+  'Latest to Oldest',
+  'Oldest to Latest',
   'Price, high to low',
   'Price, low to high',
   'Alphabetically, A-Z',
@@ -62,10 +62,12 @@ const Shop = () => {
   const { slug } = router.query
 
   const sortObj: SortObj = {
-    Latest: (a, b) => a._createdAt.localeCompare(b._createdAt),
-    Oldest: (a, b) => b._createdAt.localeCompare(a._createdAt),
-    'Price, high to low': (a, b) => a.price - b.price,
-    'Price, low to high': (a, b) => b.price - a.price,
+    'Latest to Oldest': (a, b) =>
+      Date.parse(b._createdAt) - Date.parse(a._createdAt),
+    'Oldest to Latest': (a, b) =>
+      Date.parse(a._createdAt) - Date.parse(b._createdAt),
+    'Price, high to low': (a, b) => b.price - a.price,
+    'Price, low to high': (a, b) => a.price - b.price,
     'Alphabetically, A-Z': (a, b) => a.name.localeCompare(b.name),
     'Alphabetically, Z-A': (a, b) => b.name.localeCompare(a.name),
   }
@@ -78,6 +80,10 @@ const Shop = () => {
     }
     setGrid(3)
   }, [])
+
+  useEffect(() => {
+    setCurrentSort(selected)
+  }, [currentSort, selected])
 
   if (isLoading) {
     return <Spinner />
@@ -106,7 +112,6 @@ const Shop = () => {
           products={categories}
           grid={grid}
           setGrid={setGrid}
-          setCurrentSort={setCurrentSort}
         />
 
         <section
@@ -114,9 +119,9 @@ const Shop = () => {
           className={`grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 ${
             grid === 4
               ? 'lg:grid-cols-4'
-              : grid === 3
-              ? 'lg:grid-cols-3'
-              : 'lg:grid-cols-2'
+              : grid === 2
+              ? 'lg:grid-cols-2'
+              : 'lg:grid-cols-3'
           }`}>
           {categories?.map(
             category =>

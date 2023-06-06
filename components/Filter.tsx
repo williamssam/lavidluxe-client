@@ -14,7 +14,6 @@ type FilterProps = {
   products: Category[] | undefined
   grid: number | null
   setGrid: Dispatch<SetStateAction<number | null>>
-  setCurrentSort: Dispatch<SetStateAction<string>>
 }
 const grids = [
   {
@@ -38,7 +37,6 @@ export const Filter = ({
   products,
   grid,
   setGrid,
-  setCurrentSort,
 }: FilterProps) => {
   const router = useRouter()
   const { slug } = router.query
@@ -53,10 +51,7 @@ export const Filter = ({
 
       <RadioGroup
         value={grid}
-        onChange={(value: SetStateAction<number | null>) => {
-          setGrid(value)
-          localStorage.setItem('lavidluxeGrid', JSON.stringify(value))
-        }}
+        onChange={setGrid}
         className='hidden lg:flex lg:items-center lg:gap-2'>
         {grids.map(grid => (
           <RadioGroup.Option
@@ -86,10 +81,7 @@ export const Filter = ({
         <Select
           data={sort}
           selected={selected}
-          setSelected={value => {
-            setCurrentSort(selected)
-            setSelected(value)
-          }}
+          setSelected={setSelected}
           className='w-44 rounded border !normal-case'
         />
       </div>
