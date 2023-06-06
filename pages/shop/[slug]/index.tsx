@@ -62,10 +62,10 @@ const Shop = () => {
   const { slug } = router.query
 
   const sortObj: SortObj = {
-    Latest: (a, b) => Date.parse(b._createdAt) - Date.parse(a._createdAt),
-    Oldest: (a, b) => Date.parse(a._createdAt) - Date.parse(b._createdAt),
-    'Price, high to low': (a, b) => b.price - a.price,
-    'Price, low to high': (a, b) => a.price - b.price,
+    Latest: (a, b) => a._createdAt.localeCompare(b._createdAt),
+    Oldest: (a, b) => b._createdAt.localeCompare(a._createdAt),
+    'Price, high to low': (a, b) => a.price - b.price,
+    'Price, low to high': (a, b) => b.price - a.price,
     'Alphabetically, A-Z': (a, b) => a.name.localeCompare(b.name),
     'Alphabetically, Z-A': (a, b) => b.name.localeCompare(a.name),
   }
