@@ -30,7 +30,6 @@ export const useCartStore = create<CartState>()(
                     }
                   })
                 : (state.cart = [...state.cart, { ...product, quantity }])
-              console.log('product', product)
             }),
           removeFromCart: id =>
             set(state => ({

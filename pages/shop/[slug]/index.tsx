@@ -78,7 +78,6 @@ const Shop = () => {
       setGrid(value)
       return
     }
-    setGrid(3)
   }, [])
 
   useEffect(() => {
