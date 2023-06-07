@@ -100,7 +100,7 @@ const Shop = () => {
       />
 
       <main
-        className={`min-h-screen px-4 py-10 transition-all md:px-16 md:pt-20 md:pb-10 ${
+        className={`min-h-screen px-4 py-10 transition-all md:px-12 md:pt-20 md:pb-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         {categories ? <Tabs categories={categories} /> : null}
