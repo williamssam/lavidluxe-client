@@ -30,7 +30,7 @@ const Wishlists = () => {
         </p>
 
         {wishlists.length ? (
-          <div className='my-14 grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'>
+          <div className='my-14 grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3'>
             {wishlists.map(wishlist => (
               <ProductDetail
                 product={wishlist}
