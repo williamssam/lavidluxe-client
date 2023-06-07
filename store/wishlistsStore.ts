@@ -31,7 +31,7 @@ export const useWishlistsStore = create<WishlistState>()(
           clearWishlist: () => set(state => ({ wishlists: [] })),
         }),
         {
-          name: 'wishlists-storage',
+          name: 'lavidluxe-wishlists',
         }
       )
     )
