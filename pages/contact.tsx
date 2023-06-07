@@ -7,6 +7,8 @@ import {
 } from '@heroicons/react/20/solid'
 import { Facebook } from 'assets/icon/Facebook'
 import { Instagram } from 'assets/icon/Instagram'
+import { Twitter } from 'assets/icon/Twitter'
+import { Whatsapp } from 'assets/icon/Whatsapp'
 import { Spinner } from 'components/Spinner'
 import { useAtom } from 'jotai'
 import { Layout } from 'layouts/Layout'
@@ -116,16 +118,16 @@ const Contact = () => {
                   +234 816 223 4838
                 </a>
               </li>
-              {/* <li>
+              <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
-                  Whatsapp <Whatsapp />
+                  <Whatsapp /> Whatsapp
                 </h4>
                 <a
                   href='https://api.whatsapp.com/send?phone=2348162234838'
                   className='flex pt-[0.15rem] transition-colors hover:text-main'>
-                  +234 701 012 6912
+                  08162234838
                 </a>
-              </li> */}
+              </li>
               <li>
                 <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
                   <Facebook /> Facebook
@@ -133,7 +135,7 @@ const Contact = () => {
                 <a
                   href='https://web.facebook.com/boschicwardrobe'
                   className='flex pt-[0.15rem] transition-colors hover:text-main'>
-                  @lavidluxe
+                  lavidluxe
                 </a>
               </li>
               <li>
@@ -142,6 +144,16 @@ const Contact = () => {
                 </h4>
                 <a
                   href='https://www.instagram.com/lavidluxe_clothing'
+                  className='flex pt-[0.15rem] transition-colors hover:text-main'>
+                  @lavidluxe_clothing
+                </a>
+              </li>
+              <li>
+                <h4 className='flex w-max items-center gap-2 rounded bg-gray-200 py-1 px-3 text-xs font-bold uppercase tracking-[3px]'>
+                  <Twitter /> Twitter
+                </h4>
+                <a
+                  href='https://twitter.com/lavidluxe'
                   className='flex pt-[0.15rem] transition-colors hover:text-main'>
                   @lavidluxe
                 </a>
