@@ -36,11 +36,11 @@ const AboutUs = () => {
             <p>
               To blend with current fashion trends, we are constantly improving
               our creativity and style. We work hard and meticulously to ensure
-              quality delivery and customer happiness.
+              quality delivery and customer satisfaction.
             </p>
             <p className='text-center text-sm font-black uppercase tracking-widest text-main md:text-left'>
-              Be elegant, be beautiful, and join the ageless adventure, geng!
-              🚀😍
+              Be Elegant, Be Beautiful, join us on an ageless
+              adventure of fashion 🚀😍
             </p>
           </div>
         </article>
