@@ -41,7 +41,7 @@ const Home = () => {
             <HomeScreenSwiper
               className='bg-[url("../public/lavidluxe-two.jpg")]'
               subtitle='Welcome to our website'
-              title='Modern & luxuries'
+              title='Modern & luxury'
               about='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
             />
           </SwiperSlide>
@@ -56,8 +56,8 @@ const Home = () => {
           <SwiperSlide>
             <HomeScreenSwiper
               className='bg-[url("../public/stella.jpg")]'
-              subtitle='Handmade luxuries wears'
-              title='Modern & edgy'
+              subtitle='Handmade luxury wears'
+              title='Timeless & edgy'
               about='We are a premium Bespoke/ready to wear clothing brand that also sells handmade luxury handbags, unisex slides, and other accessories.'
             />
           </SwiperSlide>
