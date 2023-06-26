@@ -30,10 +30,6 @@ class MyDocument extends Document {
             href='https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Vollkorn:wght@400;700&display=swap'
             rel='stylesheet'
           />
-          <meta
-            name='google-site-verification'
-            content='3QSYIHkXtYvPv_X_06NsIvwritXnQZkTkacT5w4rCo'
-          />
         </Head>
         <body className='mx-auto max-w-[115rem] bg-white font-lato text-gray-500'>
           <Main />

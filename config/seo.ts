@@ -61,5 +61,9 @@ export const seoConfig: DefaultSeoProps = {
       name: 'msapplication-TileColor',
       content: '#333333',
     },
+    {
+      name: 'google-site-verification',
+      content: '3QSYIHkXtYvPv_x_06NslvwrRitXnQZkTkacT5w4rCo',
+    },
   ],
 }
