@@ -1,9 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@animxyz/react':
-    specifier: ^0.6.7
-    version: 0.6.7(react-dom@18.2.0)(react@18.2.0)
   '@emailjs/browser':
     specifier: ^3.10.0
     version: 3.10.0
@@ -140,24 +137,6 @@ devDependencies:
     version: 3.2.4(postcss@8.4.20)
 
 packages:
-
-  /@animxyz/core@0.6.6:
-    resolution: {integrity: sha512-NtAA/G0Gq3hzAiL6yuE/4U8IgHMPUl3MxbWUbhO443T9UCsf9rBY94P5aK79Zd+/529FeoNdDphIOcOZLsI2sA==}
-    dev: false
-
-  /@animxyz/react@0.6.7(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-GugAEBnqlubnJOSl0U7bBwgLmEs2Yu3FRBAmyMLhA726pB7kyFj7gVAsUD4c+r0sFnO9OsZK923ixAjO1E+XaA==}
-    peerDependencies:
-      react: '>= 17'
-      react-dom: '>= 17'
-    dependencies:
-      '@animxyz/core': 0.6.6
-      clsx: 1.2.1
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
-    dev: false
 
   /@babel/runtime-corejs3@7.20.6:
     resolution: {integrity: sha512-tqeujPiuEfcH067mx+7otTQWROVMKHXEaOQcAeNV5dDdbPWvPcFA8/W9LXw2NfjNmOetqLl03dfnG2WALPlsRQ==}
@@ -1148,13 +1127,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
-    dev: false
-
-  /dom-helpers@5.2.1:
-    resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
-    dependencies:
-      '@babel/runtime': 7.20.6
-      csstype: 3.1.1
     dev: false
 
   /dom7@4.0.4:
@@ -3118,20 +3090,6 @@ packages:
       react-dom: '>=16'
     dependencies:
       clsx: 1.2.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
-    peerDependencies:
-      react: '>=16.6.0'
-      react-dom: '>=16.6.0'
-    dependencies:
-      '@babel/runtime': 7.20.6
-      dom-helpers: 5.2.1
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false

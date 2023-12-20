@@ -100,7 +100,7 @@ const Shop = () => {
       />
 
       <main
-        className={`min-h-screen px-4 py-10 transition-all md:px-16 md:pt-20 md:pb-10 ${
+        className={`min-h-screen px-4 py-10 transition-all md:px-12 md:pt-20 md:pb-10 ${
           openCart ? 'mr-96 -ml-96' : 'mr-0 -ml-0'
         }`}>
         {categories ? <Tabs categories={categories} /> : null}
@@ -117,10 +117,10 @@ const Shop = () => {
           ref={parent}
           className={`grid grid-cols-1 gap-x-6 gap-y-12 pt-5 transition-all sm:grid-cols-2 md:grid-cols-2 ${
             grid === 4
-              ? 'lg:grid-cols-4'
+              ? 'xl:grid-cols-4'
               : grid === 2
-              ? 'lg:grid-cols-2'
-              : 'lg:grid-cols-3'
+              ? 'xl:grid-cols-2'
+              : 'xl:grid-cols-3'
           }`}>
           {categories?.map(
             category =>

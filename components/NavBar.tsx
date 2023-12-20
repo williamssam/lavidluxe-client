@@ -1,6 +1,7 @@
 import {
   BuildingStorefrontIcon,
   DevicePhoneMobileIcon,
+  HeartIcon,
   HomeIcon,
   UserGroupIcon,
   XMarkIcon,
@@ -38,6 +39,12 @@ const navs = [
     route: '/contact',
     icon: <DevicePhoneMobileIcon className='h-4 w-4' />,
   },
+  {
+    id: 5,
+    name: 'Wishlists',
+    route: '/wishlists',
+    icon: <HeartIcon className='h-4 w-4' />,
+  },
 ]
 
 export const NavBar = () => {
@@ -56,7 +63,7 @@ export const NavBar = () => {
                 router.asPath === nav.route
                   ? 'bg-dark font-black text-white'
                   : 'text-gray-600 hover:bg-gray-100 hover:text-main'
-              }`}>
+              } ${nav.route === '/wishlists' ? 'lg:hidden' : ''}`}>
               {nav.icon}
               {nav.name}
             </Link>
@@ -82,13 +89,13 @@ export const NavBar = () => {
               key={nav.id}
               href={nav.route}
               onClick={() => setOpenMenu(false)}
-              className={`flex w-full items-center gap-4 rounded-md py-3 px-4 tracking-[3px] transition-all ${
+              className={`flex w-full items-center gap-3 rounded py-2 px-3 tracking-[3px] transition-all ${
                 router.asPath === nav.route
                   ? 'bg-main font-black text-white'
                   : 'text-gray-500'
               }`}>
               <span
-                className={`rounded bg-white py-1 px-4 ${
+                className={`rounded bg-white py-1 px-2 ${
                   router.asPath === nav.route
                     ? 'bg-white py-1 px-4 text-main'
                     : 'bg-transparent py-0 px-0 text-current'

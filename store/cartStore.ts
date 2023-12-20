@@ -55,7 +55,7 @@ export const useCartStore = create<CartState>()(
           clearCart: () => set(state => ({ cart: [] })),
         }),
         {
-          name: 'cart-storage',
+          name: 'lavidluxe-cart',
         }
       )
     )

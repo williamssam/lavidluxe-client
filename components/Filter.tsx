@@ -55,7 +55,7 @@ export const Filter = ({
           setGrid(value)
           localStorage.setItem('lavidluxeGrid', JSON.stringify(value))
         }}
-        className='hidden lg:flex lg:items-center lg:gap-2'>
+        className='hidden lg:items-center lg:gap-2 xl:flex'>
         {grids.map(grid => (
           <RadioGroup.Option
             value={grid.value}

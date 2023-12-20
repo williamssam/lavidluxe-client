@@ -13,7 +13,9 @@ A premium Bespoke/ready to wear clothing brand that also sells handmade luxuries
 - Paystack (to accept payment)
 - Nodemailer (to new order mail to customer)
 - Email js (to send contact mail)
-- Whatsapp API (to notify admin of new order on whatsapp)
+- Handlebars
+- Jotai and Zustand (for state management)
+- React hook form
 
 _and more_
 

@@ -30,7 +30,7 @@ export const HomeScreenSwiper = ({
         <Link
           href='/shop/women-wears'
           className='mt-2 flex items-center justify-center gap-5 rounded bg-white py-4 px-8 text-xs font-bold uppercase tracking-[3px] text-[#333333] transition-all hover:bg-main hover:text-white md:px-10 md:tracking-[5px] lg:mt-5 lg:bg-[#333333] lg:text-white'>
-          Start shopping now <ArrowLongRightIcon className='w-5' />
+          Start shopping <ArrowLongRightIcon className='w-5' />
         </Link>
       </div>
     </div>
